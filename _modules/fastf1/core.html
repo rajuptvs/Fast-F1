@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core &mdash; Fast F1 2.1.8 documentation</title>
+  <title>fastf1.core &mdash; Fast F1 2.1.11 documentation</title>
   
 
   
@@ -16,10 +16,10 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2.1.8
+                2.1.11
               </div>
             
           
@@ -175,6 +175,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-11-fixes-and-patches">v2.1.11 Fixes and Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
@@ -321,14 +324,14 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Using slow pure-python SequenceMatcher&quot;</span><span class="p">)</span>
     <span class="c1"># suppress that warning, it&#39;s confusing at best here, we don&#39;t need fast sequence matching</span>
     <span class="c1"># and the installation (on windows) some effort</span>
-    <span class="kn">from</span> <span class="nn">fuzzywuzzy</span> <span class="kn">import</span> <span class="n">fuzz</span>
+    <span class="kn">from</span> <span class="nn">thefuzz</span> <span class="kn">import</span> <span class="n">fuzz</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{module: &lt;8}</span><span class="s2"> </span><span class="si">{levelname: &gt;10}</span><span class="s2"> </span><span class="se">\t</span><span class="si">{message}</span><span class="s2">&quot;</span><span class="p">)</span>
-
 
 <span class="n">TESTING_LOOKUP</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;2020&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;2020-02-19&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-20&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-21&#39;</span><span class="p">],</span>
                            <span class="p">[</span><span class="s1">&#39;2020-02-26&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-27&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-28&#39;</span><span class="p">]],</span>
@@ -342,6 +345,9 @@
     <span class="mi">14</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Practice 1&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-10&#39;</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-10&#39;</span><span class="p">,</span>
          <span class="s1">&#39;Practice 2&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-11&#39;</span><span class="p">,</span> <span class="s1">&#39;Sprint Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-11&#39;</span><span class="p">,</span>
          <span class="s1">&#39;Race&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-09-12&#39;</span><span class="p">},</span>
+    <span class="mi">19</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Practice 1&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-11-12&#39;</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-11-12&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;Practice 2&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-11-13&#39;</span><span class="p">,</span> <span class="s1">&#39;Sprint Qualifying&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-11-13&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;Race&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-11-14&#39;</span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="n">D_LOOKUP</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">44</span><span class="p">,</span> <span class="s1">&#39;HAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;BOT&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">],</span>
@@ -449,7 +455,8 @@
 
     <span class="n">races</span> <span class="o">=</span> <span class="n">ergast</span><span class="o">.</span><span class="n">fetch_season</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
     <span class="n">to_match</span> <span class="o">=</span> <span class="p">[</span><span class="n">build_string</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">races</span><span class="p">]</span>
-    <span class="n">ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fuzz</span><span class="o">.</span><span class="n">partial_ratio</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">to_match</span><span class="p">])</span>
+    <span class="n">ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fuzz</span><span class="o">.</span><span class="n">partial_ratio</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">casefold</span><span class="p">(),</span> <span class="n">ref</span><span class="o">.</span><span class="n">casefold</span><span class="p">())</span>
+                       <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">to_match</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">races</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ratios</span><span class="p">)][</span><span class="s1">&#39;round&#39;</span><span class="p">])</span>
 
@@ -557,8 +564,8 @@
         <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;quadratic&#39;</span><span class="p">},</span>
         <span class="s1">&#39;Z&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;quadratic&#39;</span><span class="p">},</span>
         <span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;discrete&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;Speed&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">},</span>     <span class="c1"># linear is often required as quadratic overshoots</span>
-        <span class="s1">&#39;RPM&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">},</span>       <span class="c1"># on sudden changes like sudden pedal application,</span>
+        <span class="s1">&#39;Speed&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">},</span>  <span class="c1"># linear is often required as quadratic overshoots</span>
+        <span class="s1">&#39;RPM&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">},</span>  <span class="c1"># on sudden changes like sudden pedal application,</span>
         <span class="s1">&#39;Throttle&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">},</span>  <span class="c1"># braking, ...)</span>
         <span class="s1">&#39;Brake&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">},</span>
         <span class="s1">&#39;DRS&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;discrete&#39;</span><span class="p">},</span>
@@ -911,7 +918,7 @@
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Interpolation not possible for telemetry &quot;</span>
                                   <span class="s2">&quot;channel because dtype is &#39;object&#39;&quot;</span><span class="p">)</span>
                 <span class="n">missing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CHANNELS</span><span class="p">[</span><span class="n">ch</span><span class="p">][</span><span class="s1">&#39;missing&#39;</span><span class="p">]</span>
-                <span class="n">ret</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ch</span><span class="p">]</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ch</span><span class="p">]</span>\
+                <span class="n">ret</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ch</span><span class="p">]</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ch</span><span class="p">]</span> \
                     <span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">missing</span><span class="p">,</span> <span class="n">limit_direction</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
 
             <span class="k">elif</span> <span class="n">sig_type</span> <span class="o">==</span> <span class="s1">&#39;discrete&#39;</span><span class="p">:</span>
@@ -985,7 +992,7 @@
             <span class="p">{</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_differential_distance</span><span class="p">()}</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="s1">&#39;DifferentialDistance&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>\
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DifferentialDistance&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> \
                 <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_dif_dist</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_dif_dist</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span></div>
@@ -1069,7 +1076,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;DriverAhead&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">&#39;DistanceToDriverAhead&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">drop_existing</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>\
+                <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DriverAhead&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> \
                     <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s1">&#39;DistanceToDriverAhead&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span>
@@ -1171,7 +1178,7 @@
 
             <span class="c1"># first slice by lap and calculate distance, so that distance is zero at finish line</span>
             <span class="n">drv_tel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">car_data</span><span class="p">[</span><span class="n">drv</span><span class="p">]</span><span class="o">.</span><span class="n">slice_by_lap</span><span class="p">(</span><span class="n">relevant_laps</span><span class="p">)</span><span class="o">.</span><span class="n">add_distance</span><span class="p">()</span> \
-                <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">(</span><span class="s1">&#39;SessionTime&#39;</span><span class="p">,</span> <span class="s1">&#39;Distance&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Distance&#39;</span><span class="p">:</span> <span class="n">drv</span><span class="p">})</span>
+                          <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">(</span><span class="s1">&#39;SessionTime&#39;</span><span class="p">,</span> <span class="s1">&#39;Distance&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Distance&#39;</span><span class="p">:</span> <span class="n">drv</span><span class="p">})</span>
 
             <span class="c1"># now slice again by time to only get the relevant time frame</span>
             <span class="n">drv_tel</span> <span class="o">=</span> <span class="n">drv_tel</span><span class="o">.</span><span class="n">slice_by_time</span><span class="p">(</span><span class="n">t_start</span><span class="p">,</span> <span class="n">t_end</span><span class="p">)</span>
@@ -1221,6 +1228,7 @@
 <span class="sd">        race = weekend.get_race() # R Session</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gp</span> <span class="o">=</span> <span class="n">gp</span>
@@ -1300,6 +1308,7 @@
 
 <span class="sd">    .. note:: For full functionality lap and telemetry data need to be loaded.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weekend</span><span class="p">,</span> <span class="n">session_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span> <span class="o">=</span> <span class="n">weekend</span>
         <span class="sd">&quot;&quot;&quot;:class:`.Weekend`: Reference to the associated weekend object.&quot;&quot;&quot;</span>
@@ -1313,6 +1322,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;list: Race result with driver information.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;pd.Dataframe: Session status data as returned by</span>
+<span class="sd">        `fastf1.api.session_status_data()` as dataframe. Available after</span>
+<span class="sd">        calling `Session.load_laps()`&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">is_testing</span><span class="p">():</span>
             <span class="c1"># The Ergast API can provide some general information about weekends, drivers, ...</span>
@@ -1414,6 +1428,23 @@
 <span class="sd">        Downloading and parsing of the data takes a considerable amount of time. Therefore, it is highly recommended</span>
 <span class="sd">        to enable caching so that most of the data processing needs to be done only once.</span>
 
+<span class="sd">        .. note:: **Drivers crashing and retiring**</span>
+
+<span class="sd">            *During a session:*</span>
+<span class="sd">            An additional last lap is added for a driver if the last timed</span>
+<span class="sd">            lap of a driver is not an inlap and the session is aborted next.</span>
+<span class="sd">            The `Time` for when this lap was &quot;set&quot; will be set to the time at</span>
+<span class="sd">            which the session was aborted.</span>
+
+<span class="sd">            *First lap in a race:*</span>
+<span class="sd">            A single lap with minimal information will be added in race</span>
+<span class="sd">            sessions if a driver does not complete at least one timed lap.</span>
+<span class="sd">            The `LapStartTime` for this lap will be set to the start time</span>
+<span class="sd">            of the session as with all other laps in a race. The `Time` at</span>
+<span class="sd">            which this lap was &quot;set&quot; will be set to the time at which the</span>
+<span class="sd">            first driver completes their first lap.</span>
+
+
 <span class="sd">        .. note:: Absolute time is not super accurate. The moment a lap</span>
 <span class="sd">            is logged is not always the same and there will be some</span>
 <span class="sd">            jitter. At the moment lap time reference is synchronised</span>
@@ -1453,27 +1484,59 @@
         <span class="n">useful</span> <span class="o">=</span> <span class="n">app_data</span><span class="p">[[</span><span class="s1">&#39;Driver&#39;</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Compound&#39;</span><span class="p">,</span> <span class="s1">&#39;TotalLaps&#39;</span><span class="p">,</span> <span class="s1">&#39;New&#39;</span><span class="p">]]</span>
         <span class="n">useful</span> <span class="o">=</span> <span class="n">useful</span><span class="p">[</span><span class="o">~</span><span class="n">useful</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="c1"># get list of drivers</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">driver_info</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">driver_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failed to load driver list&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Exception while loading driver list&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="n">exc</span><span class="p">)</span>
+            <span class="n">driver_info</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">driver_info</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">driver_info</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># fallback, misses drivers who crashed on their first lap</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+            <span class="k">if</span> <span class="s2">&quot;&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">NoLapDataError</span>
 
-        <span class="c1"># check when a session was started; for a race this indicates the start of the race</span>
+        <span class="c1"># check when a session was started; for a race this indicates the</span>
+        <span class="c1"># start of the race</span>
         <span class="n">session_status</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">session_status_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span>
                                                  <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">])):</span>
             <span class="k">if</span> <span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Started&#39;</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="k">break</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">session_status</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">driver</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">):</span>
             <span class="n">d1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
             <span class="n">d2</span> <span class="o">=</span> <span class="n">useful</span><span class="p">[</span><span class="n">useful</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
+            <span class="n">only_one_lap</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">continue</span>  <span class="c1"># no data for this driver; skip</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">d1</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">d2</span><span class="p">)):</span>
+                <span class="c1"># add data for drivers who crashed on the very first lap</span>
+                <span class="c1"># as a downside, this potentially adds a nonexistent lap for</span>
+                <span class="c1"># drivers who could not start the race</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Race&#39;</span><span class="p">:</span>
+                    <span class="n">only_one_lap</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">driver</span><span class="p">,</span> <span class="p">]</span>
+                    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d2</span><span class="p">):</span>
+                        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2</span><span class="p">[</span><span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;New&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2</span><span class="p">[</span><span class="s1">&#39;New&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>  <span class="c1"># no data for this driver; skip</span>
 
-            <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;Driver&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;Driver&#39;</span><span class="p">)</span>
 
             <span class="c1"># calculate lap start time by setting it to the &#39;Time&#39; of the previous lap</span>
             <span class="n">laps_start_time</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1482,11 +1545,51 @@
                 <span class="n">laps_start_time</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">laps_start_time</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">)</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">laps_start_time</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;timedelta64[ns]&#39;</span><span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+                <span class="n">laps_start_time</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;timedelta64[ns]&#39;</span>
+            <span class="p">)</span>
 
+            <span class="c1"># set missing lap start times to pit out time where possible</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;PitOutTime&#39;</span><span class="p">]))</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s1">&#39;PitOutTime&#39;</span><span class="p">]</span>
+
+            <span class="c1"># create total laps counter</span>
             <span class="k">for</span> <span class="n">npit</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
                 <span class="n">sel</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">npit</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sel</span><span class="p">,</span> <span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sel</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="c1"># check if there is another lap during which the session was aborted</span>
+            <span class="c1"># if yes, add as much data as possible for it</span>
+            <span class="c1"># set the time of abort as lap end time given that there is no</span>
+            <span class="c1"># accurate time available</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_one_lap</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">next_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">next_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
+                        <span class="o">&gt;</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">next_status</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Aborted&#39;</span><span class="p">:</span>
+                    <span class="n">new_last</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+                        <span class="s1">&#39;LapStartTime&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+                        <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">next_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]],</span>
+                        <span class="s1">&#39;Driver&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+                        <span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                        <span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">:</span>
+                            <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;NumberOfPitStops&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+                        <span class="s1">&#39;Compound&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;Compound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+                        <span class="s1">&#39;TotalLaps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                        <span class="s1">&#39;New&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;New&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+                    <span class="p">})</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">only_one_lap</span><span class="p">:</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_last</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="n">new_last</span>
+
             <span class="c1"># check if df is defined already before concat (vars is a builtin function)</span>
             <span class="n">df</span> <span class="o">=</span> <span class="n">result</span> <span class="k">if</span> <span class="s1">&#39;df&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">()</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">result</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># noqa: F821</span>
 
@@ -1497,9 +1600,11 @@
                              <span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">:</span> <span class="s1">&#39;LapNumber&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;New&#39;</span><span class="p">:</span> <span class="s1">&#39;FreshTyre&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;Stint&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># counting stints from 1</span>
-        <span class="n">t_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Constructor&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
+        <span class="n">t_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">):</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Constructor&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
         <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">t_map</span><span class="p">)</span>
-        <span class="n">d_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
+        <span class="n">d_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">):</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Driver&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
         <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">laps</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">d_map</span><span class="p">)</span>
         <span class="c1"># add track status data</span>
         <span class="n">ts_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">track_status_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_path</span><span class="p">,</span> <span class="n">livedata</span><span class="o">=</span><span class="n">livedata</span><span class="p">)</span>
@@ -1677,7 +1782,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">][</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">identifier</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Driver&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">identifier</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">Driver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">None</span></div>
@@ -1930,17 +2035,29 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pandas.DataFrame</span>
 
+<span class="sd">        .. testsetup::</span>
+
+<span class="sd">                &gt;&gt;&gt; fastf1.Cache.enable_cache(&#39;doc_cache&#39;)</span>
+
 <span class="sd">        Example::</span>
 
+<span class="sd">            &gt;&gt;&gt; session = fastf1.get_session(2019, &#39;Monza&#39;, &#39;Q&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; laps = session.load_laps()</span>
 <span class="sd">            &gt;&gt;&gt; weather_data = laps.get_weather_data()</span>
 <span class="sd">            &gt;&gt;&gt; print(weather_data)</span>
 <span class="sd">                                 Time AirTemp Humidity  ... TrackTemp WindDirection WindSpeed</span>
-<span class="sd">            16 0 days 00:16:20.305000    21.9     55.8  ...      35.5           119       0.2</span>
-<span class="sd">            17 0 days 00:17:20.301000    22.0     54.6  ...      35.9           113       0.1</span>
+<span class="sd">            20 0 days 00:20:14.613000    22.5     52.0  ...      35.8           212       2.0</span>
+<span class="sd">            21 0 days 00:21:15.001000    22.5     52.2  ...      36.1           207       2.7</span>
+<span class="sd">            23 0 days 00:23:14.854000    22.7     52.5  ...      37.4           210       2.3</span>
+<span class="sd">            24 0 days 00:24:14.430000    23.2     51.5  ...      37.4           207       3.2</span>
+<span class="sd">            26 0 days 00:26:14.315000    23.6     50.2  ...      37.2           238       1.8</span>
 <span class="sd">            ..                    ...     ...      ...  ...       ...           ...       ...</span>
-<span class="sd">            75 0 days 01:15:20.525000    22.3     53.5  ...      36.9            76       0.6</span>
-<span class="sd">            76 0 days 01:16:20.534000    22.2     53.1  ...      37.1            81       0.6</span>
-<span class="sd">            [453 rows x 25 columns]</span>
+<span class="sd">            23 0 days 00:23:14.854000    22.7     52.5  ...      37.4           210       2.3</span>
+<span class="sd">            24 0 days 00:24:14.430000    23.2     51.5  ...      37.4           207       3.2</span>
+<span class="sd">            34 0 days 00:34:14.385000    23.0     51.7  ...      37.7           272       0.8</span>
+<span class="sd">            36 0 days 00:36:14.426000    23.0     51.1  ...      38.3           192       0.9</span>
+<span class="sd">            37 0 days 00:37:14.391000    23.3     50.0  ...      38.7           213       0.9</span>
+<span class="sd">            [269 rows x 8 columns]</span>
 
 <span class="sd">        Joining weather data with lap timing data::</span>
 
@@ -1949,15 +2066,21 @@
 <span class="sd">            &gt;&gt;&gt; weather_data = weather_data.reset_index(drop=True)</span>
 
 <span class="sd">            &gt;&gt;&gt; # exclude the &#39;Time&#39; column from weather data when joining</span>
-<span class="sd">            &gt;&gt;&gt; joined = pandas.concat([laps, weather_data.loc[:, ~(weather_data.columns == &#39;Time&#39;)]], axis=1)</span>
+<span class="sd">            &gt;&gt;&gt; joined = pd.concat([laps, weather_data.loc[:, ~(weather_data.columns == &#39;Time&#39;)]], axis=1)</span>
 <span class="sd">            &gt;&gt;&gt; print(joined)</span>
 <span class="sd">                                  Time DriverNumber  ... WindDirection  WindSpeed</span>
-<span class="sd">            0   0 days 00:16:58.221000            3  ...           119        0.2</span>
-<span class="sd">            1   0 days 00:19:32.354000            3  ...           113        0.1</span>
+<span class="sd">            0   0 days 00:20:55.333000            5  ...           212        2.0</span>
+<span class="sd">            1   0 days 00:22:16.210000            5  ...           207        2.7</span>
+<span class="sd">            2   0 days 00:24:01.233000            5  ...           210        2.3</span>
+<span class="sd">            3   0 days 00:25:21.611000            5  ...           207        3.2</span>
+<span class="sd">            4   0 days 00:27:12.045000            5  ...           238        1.8</span>
 <span class="sd">            ..                     ...          ...  ...           ...        ...</span>
-<span class="sd">            451 0 days 01:16:01.722000           99  ...            76        0.6</span>
-<span class="sd">            452 0 days 01:17:35.072000           99  ...            81        0.6</span>
-<span class="sd">            [453 rows x 32 columns]</span>
+<span class="sd">            264 0 days 00:24:02.127000           88  ...           210        2.3</span>
+<span class="sd">            265 0 days 00:33:31.080000           88  ...           207        3.2</span>
+<span class="sd">            266 0 days 00:35:15.794000           88  ...           272        0.8</span>
+<span class="sd">            267 0 days 00:36:38.150000           88  ...           192        0.9</span>
+<span class="sd">            268 0 days 00:38:37.508000           88  ...           213        0.9</span>
+<span class="sd">            [269 rows x 32 columns]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">wd</span> <span class="o">=</span> <span class="p">[</span><span class="n">lap</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">lap</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
         <span class="k">if</span> <span class="n">wd</span><span class="p">:</span>
@@ -2261,21 +2384,27 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pandas.Series</span>
 
+<span class="sd">        .. testsetup::</span>
+
+<span class="sd">            &gt;&gt;&gt; fastf1.Cache.enable_cache(&#39;doc_cache&#39;)</span>
+
 <span class="sd">        Example::</span>
 
+<span class="sd">            &gt;&gt;&gt; session = fastf1.get_session(2019, &#39;Monza&#39;, &#39;Q&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; laps = session.load_laps()</span>
 <span class="sd">            &gt;&gt;&gt; lap = laps.pick_fastest()</span>
 <span class="sd">            &gt;&gt;&gt; lap[&#39;LapStartTime&#39;]</span>
-<span class="sd">            Timedelta(&#39;0 days 01:10:29.730000&#39;)</span>
+<span class="sd">            Timedelta(&#39;0 days 01:09:55.561000&#39;)</span>
 <span class="sd">            &gt;&gt;&gt; lap.get_weather_data()</span>
-<span class="sd">            Time             0 days 01:11:20.525000</span>
-<span class="sd">            AirTemp                            22.1</span>
-<span class="sd">            Humidity                           53.5</span>
-<span class="sd">            Pressure                         1003.5</span>
+<span class="sd">            Time             0 days 01:10:15.292000</span>
+<span class="sd">            AirTemp                            23.0</span>
+<span class="sd">            Humidity                           51.9</span>
+<span class="sd">            Pressure                          992.4</span>
 <span class="sd">            Rainfall                           True</span>
-<span class="sd">            TrackTemp                          36.9</span>
-<span class="sd">            WindDirection                        76</span>
-<span class="sd">            WindSpeed                           0.6</span>
-<span class="sd">            Name: 71, dtype: object</span>
+<span class="sd">            TrackTemp                          37.8</span>
+<span class="sd">            WindDirection                       166</span>
+<span class="sd">            WindSpeed                           0.8</span>
+<span class="sd">            Name: 70, dtype: object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get first value within the duration of the lap</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">weather_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
@@ -2301,6 +2430,7 @@
 
 <span class="sd">    .. note:: Driver data is only available if the Ergast api lookup did not fail.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span>
@@ -2342,6 +2472,7 @@
 
 <div class="viewcode-block" id="NoLapDataError"><a class="viewcode-back" href="../../core.html#fastf1.NoLapDataError">[docs]</a><span class="k">class</span> <span class="nc">NoLapDataError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised if the API request does not fail but there is no usable data after processing the result.&quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">NoLapDataError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Failed to load session because the API did not provide any usable data.&quot;</span><span class="p">)</span></div>
 

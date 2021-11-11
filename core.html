@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core - Core module &mdash; Fast F1 2.1.10 documentation</title>
+  <title>fastf1.core - Core module &mdash; Fast F1 2.1.11 documentation</title>
   
 
   
@@ -16,10 +16,10 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.1.10
+                2.1.11
               </div>
             
           
@@ -177,6 +177,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-11-fixes-and-patches">v2.1.11 Fixes and Patches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
@@ -449,7 +450,7 @@ If gp is ‘testing’ event is the test day (1 to 6)</p></li>
 <td><p>Return the race session.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code>()</p></td>
-<td><p>Indicates whether this ‘weekend’ is a testing event.</p></td>
+<td><p>Indicates whether this 'weekend' is a testing event.</p></td>
 </tr>
 </tbody>
 </table>
@@ -554,7 +555,7 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the session�
 <td><p>Reference to the associated weekend object.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p>Name of this session, for example ‘Qualifying’, ‘Race’, ‘FP1’, …</p></td>
+<td><p>Name of this session, for example 'Qualifying', 'Race', 'FP1', ...</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></p></td>
 <td><p>Date at which this session took place.</p></td>
@@ -914,7 +915,7 @@ after it has ended)</p></li>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">QUICKLAP_THRESHOLD</span></code></p></td>
-<td><p>Used to determine ‘quick’ laps.</p></td>
+<td><p>Used to determine 'quick' laps.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></p></td>
 <td><p>For a nicer debugging experience; can now view as dataframe in various IDEs</p></td>
@@ -944,16 +945,16 @@ after it has ended)</p></li>
 <td><p>Return weather data for each lap in self.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_driver</span></code>(identifier)</p></td>
-<td><p>Return all laps of a specific driver in self based on the driver’s three letters identifier or based on the driver number .</p></td>
+<td><p>Return all laps of a specific driver in self based on the driver's three letters identifier or based on the driver number .</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_drivers</span></code>(identifiers)</p></td>
-<td><p>Return all laps of the specified drivers in self based on the drivers’ three letters identifier or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once. ::.</p></td>
+<td><p>Return all laps of the specified drivers in self based on the drivers' three letters identifier or based on the driver number. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_driver" title="fastf1.core.Laps.pick_driver"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_driver()</span></code></a> but for multiple drivers at once. ::.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_team</span></code>(name)</p></td>
-<td><p>Return all laps of a specific team in self based on the team’s name .</p></td>
+<td><p>Return all laps of a specific team in self based on the team's name .</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_teams</span></code>(names)</p></td>
-<td><p>Return all laps of the specified teams in self based on the teams’ name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once. ::.</p></td>
+<td><p>Return all laps of the specified teams in self based on the teams' name. This is the same as <a class="reference internal" href="#fastf1.core.Laps.pick_team" title="fastf1.core.Laps.pick_team"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Laps.pick_team()</span></code></a> but for multiple teams at once. ::.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_fastest</span></code>()</p></td>
 <td><p>Return the lap with the fastest lap time.</p></td>
@@ -971,7 +972,7 @@ after it has ended)</p></li>
 <td><p>Return all laps which are NOT in laps or out laps.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_accurate</span></code>()</p></td>
-<td><p>Return all laps which pass the accuracy validation check (lap[‘IsAccurate’] is True).</p></td>
+<td><p>Return all laps which pass the accuracy validation check (lap['IsAccurate'] is True).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterlaps</span></code>([require])</p></td>
 <td><p>Iterator for iterating over all laps in self.</p></td>
@@ -1634,10 +1635,10 @@ returned as <code class="xref py py-class docutils literal notranslate"><span cl
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_mask</span></code>(mask[, pad, pad_side])</p></td>
 <td><p>Slice self using a boolean array as a mask.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_lap</span></code>(ref_laps[, pad, pad_side, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_lap</span></code>(ref_laps[, pad, pad_side, ...])</p></td>
 <td><p>Slice self to only include data from the provided lap or laps.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_time</span></code>(start_time, end_time[, pad, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_by_time</span></code>(start_time, end_time[, pad, ...])</p></td>
 <td><p>Slice self to only include data in a specific time frame.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_channels</span></code>(other[, frequency])</p></td>
@@ -1649,23 +1650,23 @@ returned as <code class="xref py py-class docutils literal notranslate"><span cl
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_missing</span></code>()</p></td>
 <td><p>Calculate missing values in self.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_new_channel</span></code>(name, signal_type[, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_new_channel</span></code>(name, signal_type[, ...])</p></td>
 <td><p>Register a custom telemetry channel.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_first_non_zero_time_index</span></code>()</p></td>
-<td><p>Return the first index at which the ‘Time’ value is not zero or NA/NaT</p></td>
+<td><p>Return the first index at which the 'Time' value is not zero or NA/NaT</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_differential_distance</span></code>([drop_existing])</p></td>
-<td><p>Add column ‘DifferentialDistance’ to self.</p></td>
+<td><p>Add column 'DifferentialDistance' to self.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_distance</span></code>([drop_existing])</p></td>
-<td><p>Add column ‘Distance’ to self.</p></td>
+<td><p>Add column 'Distance' to self.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_relative_distance</span></code>([drop_existing])</p></td>
-<td><p>Add column ‘RelativeDistance’ to self.</p></td>
+<td><p>Add column 'RelativeDistance' to self.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_driver_ahead</span></code>([drop_existing])</p></td>
-<td><p>Add column ‘DriverAhead’ and ‘DistanceToDriverAhead’ to self.</p></td>
+<td><p>Add column 'DriverAhead' and 'DistanceToDriverAhead' to self.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_differential_distance</span></code>()</p></td>
 <td><p>Calculate the distance between subsequent samples of self.</p></td>

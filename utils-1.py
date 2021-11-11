@@ -17,9 +17,9 @@ fig, ax = plt.subplots()
 # use telemetry returned by .delta_time for best accuracy,
 # this ensure the same applied interpolation and resampling
 ax.plot(ref_tel['Distance'], ref_tel['Speed'],
-        color=plotting.TEAM_COLORS[ham['Team']])
+        color=plotting.team_color(ham['Team']))
 ax.plot(compare_tel['Distance'], compare_tel['Speed'],
-        color=plotting.TEAM_COLORS[lec['Team']])
+        color=plotting.team_color(lec['Team']))
 
 twin = ax.twinx()
 twin.plot(ref_tel['Distance'], delta_time, '--', color='white')
