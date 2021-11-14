@@ -16,10 +16,10 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -265,6 +265,44 @@
   <span class="target" id="module-fastf1.api"></span><div class="section" id="fastf1-api-api-module">
 <h1><a class="reference internal" href="#module-fastf1.api" title="fastf1.api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a> - Api module<a class="headerlink" href="#fastf1-api-api-module" title="Permalink to this headline">¶</a></h1>
 <p>A collection of functions to interface with the F1 web api.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.timing_data" title="fastf1.api.timing_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timing_data</span></code></a></p></td>
+<td><p>Fetch and parse timing data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.timing_app_data" title="fastf1.api.timing_app_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timing_app_data</span></code></a></p></td>
+<td><p>Fetch and parse ‘timing app data’.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.car_data" title="fastf1.api.car_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></a></p></td>
+<td><p>Fetch and parse car data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.position_data" title="fastf1.api.position_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position_data</span></code></a></p></td>
+<td><p>Fetch and parse position data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.track_status_data" title="fastf1.api.track_status_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_status_data</span></code></a></p></td>
+<td><p>Fetch and parse track status data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.session_status_data" title="fastf1.api.session_status_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_status_data</span></code></a></p></td>
+<td><p>Fetch and parse session status data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.driver_info" title="fastf1.api.driver_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">driver_info</span></code></a></p></td>
+<td><p>Fetch driver information.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.weather_data" title="fastf1.api.weather_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></a></p></td>
+<td><p>Fetch and parse weather data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetch_page</span></code></a></p></td>
+<td><p>Fetch data from the formula1 livetiming web api, given url base path and page name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.parse" title="fastf1.api.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a></p></td>
+<td><p>Parse json and jsonStream as returned by livetiming.formula1.com</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py data">
 <dt class="sig sig-object py" id="fastf1.api.requests_session">
 <span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">requests_session</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#fastf1.api.requests_session" title="Permalink to this definition">¶</a></dt>
@@ -502,8 +540,8 @@ frequently (for example ‘Compound’ only after tire changes).</p>
 <dt class="sig sig-object py" id="fastf1.api.car_data">
 <span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">car_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#car_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.car_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch and parse car data.</p>
-<dl class="simple">
-<dt>Car data provides the following data channels per sample:</dt><dd><ul class="simple">
+<dl>
+<dt>Car data provides the following data channels per sample:</dt><dd><ul>
 <li><p>Time (pandas.Timedelta): session timestamp (time only); inaccurate, has duplicate values; use Date instead</p></li>
 <li><p>Date (pandas.Timestamp): timestamp for this sample as Date + Time; more or less exact</p></li>
 <li><p>Speed (int): Km/h</p></li>
@@ -511,7 +549,20 @@ frequently (for example ‘Compound’ only after tire changes).</p>
 <li><p>Gear (int): [called ‘nGear’ in the data!]</p></li>
 <li><p>Throttle (int): 0-100%</p></li>
 <li><p>Brake (int): 0-100% (don’t trust brake too much)</p></li>
-<li><p>DRS (int): 0=Off, 8=Active; sometimes other values –&gt; to be researched</p></li>
+<li><dl>
+<dt>DRS (int): 0-14 (Odd DRS is Disabled, Even DRS is Enabled) (More Research Needed)</dt><dd><div class="line-block">
+<div class="line">0 =  Off</div>
+<div class="line">1 =  Off</div>
+<div class="line">2 =  (?)</div>
+<div class="line">3 =  (?)</div>
+<div class="line">8 =  Detected, Eligible once in Activation Zone (Noted Sometimes)</div>
+<div class="line">10 = On (Unknown Distinction)</div>
+<div class="line">12 = On (Unknown Distinction)</div>
+<div class="line">14 = On (Unknown Distinction)</div>
+</div>
+</dd>
+</dl>
+</li>
 <li><p>Source (str): Indicates the source of a sample; ‘car’ for all values here</p></li>
 </ul>
 </dd>
