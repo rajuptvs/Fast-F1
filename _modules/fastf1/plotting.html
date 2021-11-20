@@ -7,12 +7,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.plotting &mdash; Fast F1 2.1.5 documentation</title>
+  <title>fastf1.plotting &mdash; Fast F1 2.1.11 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -29,6 +36,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -61,7 +69,7 @@
             
             
               <div class="version">
-                2.1.5
+                2.1.11
               </div>
             
           
@@ -89,11 +97,24 @@
               <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/theOehrly/Fast-F1">← Back to Github</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#getting-started">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html#package-functions">Package functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/basics.html">Getting started with the basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#loading-a-session">Loading a session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html#example-plot">Example Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_qualifying_results.html">Qualifying results overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../core.html#functions">Functions</a></li>
@@ -134,7 +155,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Information:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Information:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../time_explanation.html">Time, Date and Timing - Explanation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../time_explanation.html#points-in-time">Points in Time</a></li>
@@ -154,6 +175,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-11-fixes-and-patches">v2.1.11 Fixes and Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-8-add-temporary-support-for-sprint-qualifying">v2.1.8 Add temporary support for sprint qualifying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-7-various-bug-fixes">v2.1.7 Various bug fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-6-added-weather-data-general-improvements-and-bug-fixes">v2.1.6 Added weather data, general improvements and bug fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-5-improved-robustness-and-minor-fixes">v2.1.5 Improved robustness and minor fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-4-bug-fixes-and-various-minor-improvements">v2.1.4 Bug fixes and various minor improvements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-3-improved-error-handling">v2.1.3 Improved error handling</a></li>
@@ -277,20 +304,56 @@
                   <span class="s2">&quot;Plotting of timedelta values will be restricted!&quot;</span><span class="p">,</span>
                   <span class="ne">UserWarning</span><span class="p">)</span>
 
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Using slow pure-python SequenceMatcher&quot;</span><span class="p">)</span>
+    <span class="c1"># suppress that warning, it&#39;s confusing at best here, we don&#39;t need fast sequence matching</span>
+    <span class="c1"># and the installation (on windows) some effort</span>
+    <span class="kn">from</span> <span class="nn">thefuzz</span> <span class="kn">import</span> <span class="n">fuzz</span>
 
-<span class="n">TEAM_COLORS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Mercedes&#39;</span><span class="p">:</span> <span class="s1">&#39;#00d2be&#39;</span><span class="p">,</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">:</span> <span class="s1">&#39;#dc0000&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Red Bull&#39;</span><span class="p">:</span> <span class="s1">&#39;#0600ef&#39;</span><span class="p">,</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">:</span> <span class="s1">&#39;#ff8700&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Alpine&#39;</span><span class="p">:</span> <span class="s1">&#39;#0090ff&#39;</span><span class="p">,</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">:</span> <span class="s1">&#39;#006f62&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">:</span> <span class="s1">&#39;#900000&#39;</span><span class="p">,</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">:</span> <span class="s1">&#39;#2b4562&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">:</span> <span class="s1">&#39;#005aff&#39;</span><span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">__TeamColorsWarnDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements userwarning on KeyError in :any:`TEAM_COLORS` after</span>
+<span class="sd">    changing team names.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warn_change</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warn_change</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">err</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">err</span>
+
+    <span class="k">def</span> <span class="nf">warn_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Team names in `TEAM_COLORS` are now lower-case and only contain &quot;</span>
+            <span class="s2">&quot;the most identifying part of the name. &quot;</span>
+            <span class="s2">&quot;Use function `.team_color` alternatively.&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span>
+        <span class="p">)</span>
+
+
+<span class="n">TEAM_COLORS</span> <span class="o">=</span> <span class="n">__TeamColorsWarnDict</span><span class="p">({</span>
+    <span class="s1">&#39;mercedes&#39;</span><span class="p">:</span> <span class="s1">&#39;#00d2be&#39;</span><span class="p">,</span> <span class="s1">&#39;ferrari&#39;</span><span class="p">:</span> <span class="s1">&#39;#dc0000&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;red bull&#39;</span><span class="p">:</span> <span class="s1">&#39;#0600ef&#39;</span><span class="p">,</span> <span class="s1">&#39;mclaren&#39;</span><span class="p">:</span> <span class="s1">&#39;#ff8700&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;alpine&#39;</span><span class="p">:</span> <span class="s1">&#39;#0090ff&#39;</span><span class="p">,</span> <span class="s1">&#39;aston martin&#39;</span><span class="p">:</span> <span class="s1">&#39;#006f62&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;alfa romeo&#39;</span><span class="p">:</span> <span class="s1">&#39;#900000&#39;</span><span class="p">,</span> <span class="s1">&#39;alphatauri&#39;</span><span class="p">:</span> <span class="s1">&#39;#2b4562&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;haas&#39;</span><span class="p">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="s1">&#39;williams&#39;</span><span class="p">:</span> <span class="s1">&#39;#005aff&#39;</span>
+<span class="p">})</span>
 <span class="sd">&quot;&quot;&quot;Mapping of team colors (hex color code) to team names.</span>
 <span class="sd">(current season only)&quot;&quot;&quot;</span>
 
-<span class="n">TEAM_TRANSLATE</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;MER&#39;</span><span class="p">:</span> <span class="s1">&#39;Mercedes&#39;</span><span class="p">,</span> <span class="s1">&#39;FER&#39;</span><span class="p">:</span> <span class="s1">&#39;Ferrari&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;RBR&#39;</span><span class="p">:</span> <span class="s1">&#39;Red Bull&#39;</span><span class="p">,</span> <span class="s1">&#39;MCL&#39;</span><span class="p">:</span> <span class="s1">&#39;McLaren&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;APN&#39;</span><span class="p">:</span> <span class="s1">&#39;Alpine&#39;</span><span class="p">,</span> <span class="s1">&#39;AMR&#39;</span><span class="p">:</span> <span class="s1">&#39;Aston Martin&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;ARR&#39;</span><span class="p">:</span> <span class="s1">&#39;Alfa Romeo&#39;</span><span class="p">,</span> <span class="s1">&#39;APT&#39;</span><span class="p">:</span> <span class="s1">&#39;AlphaTauri&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;HAA&#39;</span><span class="p">:</span> <span class="s1">&#39;Haas F1 Team&#39;</span><span class="p">,</span> <span class="s1">&#39;WIL&#39;</span><span class="p">:</span> <span class="s1">&#39;Williams&#39;</span><span class="p">}</span>
+
+<span class="n">TEAM_TRANSLATE</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;MER&#39;</span><span class="p">:</span> <span class="s1">&#39;mercedes&#39;</span><span class="p">,</span> <span class="s1">&#39;FER&#39;</span><span class="p">:</span> <span class="s1">&#39;ferrari&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;RBR&#39;</span><span class="p">:</span> <span class="s1">&#39;red bull&#39;</span><span class="p">,</span> <span class="s1">&#39;MCL&#39;</span><span class="p">:</span> <span class="s1">&#39;mclaren&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;APN&#39;</span><span class="p">:</span> <span class="s1">&#39;alpine&#39;</span><span class="p">,</span> <span class="s1">&#39;AMR&#39;</span><span class="p">:</span> <span class="s1">&#39;aston martin&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;ARR&#39;</span><span class="p">:</span> <span class="s1">&#39;alfa romeo&#39;</span><span class="p">,</span> <span class="s1">&#39;APT&#39;</span><span class="p">:</span> <span class="s1">&#39;alphatauri&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;HAA&#39;</span><span class="p">:</span> <span class="s1">&#39;haas&#39;</span><span class="p">,</span> <span class="s1">&#39;WIL&#39;</span><span class="p">:</span> <span class="s1">&#39;williams&#39;</span><span class="p">}</span>
 <span class="sd">&quot;&quot;&quot;Mapping of team names to theirs respective abbreviations.&quot;&quot;&quot;</span>
 
 <span class="n">COLOR_PALETTE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#FF79C6&#39;</span><span class="p">,</span> <span class="s1">&#39;#50FA7B&#39;</span><span class="p">,</span> <span class="s1">&#39;#8BE9FD&#39;</span><span class="p">,</span> <span class="s1">&#39;#BD93F9&#39;</span><span class="p">,</span>
@@ -338,21 +401,76 @@
 
 
 <div class="viewcode-block" id="team_color"><a class="viewcode-back" href="../../plotting.html#fastf1.plotting.team_color">[docs]</a><span class="k">def</span> <span class="nf">team_color</span><span class="p">(</span><span class="n">identifier</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get a teams color.</span>
+    <span class="sd">&quot;&quot;&quot;Get a team&#39;s color from a team name or abbreviation.</span>
+
+<span class="sd">    This function will try to find a matching team for any identifier string</span>
+<span class="sd">    that is passed to it. This involves case insensitive matching and partial</span>
+<span class="sd">    string matching.</span>
+
+<span class="sd">    If you want exact string matching, you should use the</span>
+<span class="sd">    :any:`TEAM_COLORS` dictionary directly, using :any:`TEAM_TRANSLATE` to</span>
+<span class="sd">    convert abbreviations to team names if necessary.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;Red Bull&#39;)</span>
+<span class="sd">        &#39;#0600ef&#39;</span>
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;redbull&#39;)</span>
+<span class="sd">        &#39;#0600ef&#39;</span>
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;Red&#39;)</span>
+<span class="sd">        &#39;#0600ef&#39;</span>
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;RBR&#39;)</span>
+<span class="sd">        &#39;#0600ef&#39;</span>
+
+<span class="sd">        shortened team names, included sponsors and typos can be dealt with</span>
+<span class="sd">        too (within reason)</span>
+
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;Mercedes&#39;)</span>
+<span class="sd">        &#39;#00d2be&#39;</span>
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;Merc&#39;)</span>
+<span class="sd">        &#39;#00d2be&#39;</span>
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;Merecds&#39;)</span>
+<span class="sd">        &#39;#00d2be&#39;</span>
+<span class="sd">        &gt;&gt;&gt; team_color(&#39;Mercedes-AMG Petronas F1 Team&#39;)</span>
+<span class="sd">        &#39;#00d2be&#39;</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        identifier (str): Abbreviation or full name of the team.</span>
-<span class="sd">            For example &quot;RBR&quot; or &quot;Red Bull&quot; would both return the same result.</span>
+<span class="sd">        identifier (str): Abbreviation or uniquely identifying name of the team.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: hex color code</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">TEAM_COLORS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">TEAM_TRANSLATE</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">TEAM_TRANSLATE</span><span class="p">[</span><span class="n">identifier</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">identifier</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TEAM_TRANSLATE</span><span class="p">:</span>
+        <span class="c1"># try short team abbreviations first</span>
+        <span class="k">return</span> <span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">TEAM_TRANSLATE</span><span class="p">[</span><span class="n">identifier</span><span class="o">.</span><span class="n">upper</span><span class="p">()]]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="c1"># remove common non-unique words</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;racing&#39;</span><span class="p">,</span> <span class="s1">&#39;team&#39;</span><span class="p">,</span> <span class="s1">&#39;f1&#39;</span><span class="p">,</span> <span class="s1">&#39;scuderia&#39;</span><span class="p">):</span>
+            <span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check for an exact team name match</span>
+        <span class="k">if</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">TEAM_COLORS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+
+        <span class="c1"># check for exact partial string match</span>
+        <span class="k">for</span> <span class="n">team_name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">TEAM_COLORS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">team_name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">color</span>
+
+        <span class="c1"># do fuzzy string matching</span>
+        <span class="n">key_ratios</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">existing_key</span> <span class="ow">in</span> <span class="n">TEAM_COLORS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">ratio</span> <span class="o">=</span> <span class="n">fuzz</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">existing_key</span><span class="p">)</span>
+            <span class="n">key_ratios</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ratio</span><span class="p">,</span> <span class="n">existing_key</span><span class="p">))</span>
+        <span class="n">key_ratios</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">key_ratios</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">35</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">key_ratios</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">key_ratios</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.2</span><span class="p">):</span>
+            <span class="c1"># ensure that the best match has a minimum accuracy (35 out of</span>
+            <span class="c1"># 100) and that it has a minimum confidence (at least 20% better</span>
+            <span class="c1"># than second best)</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span>
+        <span class="n">best_matched_key</span> <span class="o">=</span> <span class="n">key_ratios</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">TEAM_COLORS</span><span class="p">[</span><span class="n">best_matched_key</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="lapnumber_axis"><a class="viewcode-back" href="../../plotting.html#fastf1.plotting.lapnumber_axis">[docs]</a><span class="k">def</span> <span class="nf">lapnumber_axis</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;xaxis&#39;</span><span class="p">):</span>

@@ -16,10 +16,10 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
 
   
   
@@ -796,6 +796,10 @@
             <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
         <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;NumberOfLaps&#39;</span><span class="p">]))</span>  <span class="c1"># reduce each lap count by one</span>
 
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]:</span>
+        <span class="c1"># ensure that there is still data left after potentially removing a lap</span>
+        <span class="k">return</span> <span class="n">drv_data</span>
+
     <span class="c1"># lap time sync; check which sector time was triggered with the lowest latency</span>
     <span class="c1"># Sector3SessionTime == end of lap</span>
     <span class="c1"># Sector2SessionTime + Sector3Time == end of lap</span>
@@ -829,6 +833,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">drv_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">drv_data</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]:</span>
+        <span class="c1"># ensure that there is still data left after potentially removing a lap</span>
+        <span class="k">return</span> <span class="n">drv_data</span>
 
     <span class="c1"># more lap sync, this time check which lap triggered with the lowest latency</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">drv_data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
