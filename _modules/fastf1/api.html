@@ -175,6 +175,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-12-fixes-and-patches">v2.1.12 Fixes and Patches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-11-fixes-and-patches">v2.1.11 Fixes and Patches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
@@ -280,6 +281,7 @@
 <span class="sd">   parse</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">import</span> <span class="nn">zlib</span>
@@ -308,6 +310,7 @@
 <span class="p">}</span>
 
 <span class="n">pages</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;session_data&#39;</span><span class="p">:</span> <span class="s1">&#39;SessionData.json&#39;</span><span class="p">,</span>  <span class="c1"># track + session status + lap count</span>
   <span class="s1">&#39;session_info&#39;</span><span class="p">:</span> <span class="s1">&#39;SessionInfo.json&#39;</span><span class="p">,</span>  <span class="c1"># more rnd</span>
   <span class="s1">&#39;archive_status&#39;</span><span class="p">:</span> <span class="s1">&#39;ArchiveStatus.json&#39;</span><span class="p">,</span>  <span class="c1"># rnd=1880327548</span>
   <span class="s1">&#39;heartbeat&#39;</span><span class="p">:</span> <span class="s1">&#39;Heartbeat.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Probably time synchronization?</span>
@@ -326,7 +329,7 @@
   <span class="s1">&#39;content_streams&#39;</span><span class="p">:</span> <span class="s1">&#39;ContentStreams.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Lap by lap feeds</span>
   <span class="s1">&#39;timing_data&#39;</span><span class="p">:</span> <span class="s1">&#39;TimingData.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Gap to car ahead</span>
   <span class="s1">&#39;lap_count&#39;</span><span class="p">:</span> <span class="s1">&#39;LapCount.jsonStream&#39;</span><span class="p">,</span>  <span class="c1"># Lap counter</span>
-  <span class="s1">&#39;championship_predicion&#39;</span><span class="p">:</span> <span class="s1">&#39;ChampionshipPrediction.jsonStream&#39;</span>  <span class="c1"># Points</span>
+  <span class="s1">&#39;championship_prediction&#39;</span><span class="p">:</span> <span class="s1">&#39;ChampionshipPrediction.jsonStream&#39;</span>  <span class="c1"># Points</span>
 <span class="p">}</span>
 <span class="sd">&quot;&quot;&quot;Known API requests&quot;&quot;&quot;</span>
 
@@ -371,11 +374,17 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">_IGNORE_VERSION</span> <span class="o">=</span> <span class="n">ignore_version</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_FORCE_RENEW</span> <span class="o">=</span> <span class="n">force_renew</span>
         <span class="k">if</span> <span class="n">use_requests_cache</span><span class="p">:</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">_install_requests_cache</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span></div>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_install_requests_cache</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">force_renew</span><span class="o">=</span><span class="n">force_renew</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_install_requests_cache</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">):</span>
-        <span class="n">requests_cache</span><span class="o">.</span><span class="n">install_cache</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="s1">&#39;fastf1_http_cache&#39;</span><span class="p">),</span> <span class="n">allowable_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">_install_requests_cache</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force_renew</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">requests_cache</span><span class="o">.</span><span class="n">install_cache</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="s1">&#39;fastf1_http_cache&#39;</span><span class="p">),</span>
+            <span class="n">allowable_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">),</span>
+            <span class="n">expire_after</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">force_renew</span><span class="p">:</span>
+            <span class="n">requests_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Cache.clear_cache"><a class="viewcode-back" href="../../api.html#fastf1.api.Cache.clear_cache">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">clear_cache</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
