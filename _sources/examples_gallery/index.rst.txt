@@ -12,6 +12,27 @@ Examples Gallery
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Compare two fastest laps by overlaying their speed traces.">
+
+.. only:: html
+
+ .. figure:: /examples_gallery/images/thumb/sphx_glr_plot_speed_traces_thumb.png
+     :alt: Overlaying speed traces of two laps
+
+     :ref:`sphx_glr_examples_gallery_plot_speed_traces.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples_gallery/plot_speed_traces
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Plot which gear is being used at which point of the track">
 
 .. only:: html
@@ -51,6 +72,27 @@ Examples Gallery
    :hidden:
 
    /examples_gallery/plot_qualifying_results
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="(Example provided by @JSEHV on Github)">
+
+.. only:: html
+
+ .. figure:: /examples_gallery/images/thumb/sphx_glr_plot_speed_on_track_thumb.png
+     :alt: Speed visualization on track map
+
+     :ref:`sphx_glr_examples_gallery_plot_speed_on_track.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples_gallery/plot_speed_on_track
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
