@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.core &mdash; Fast F1 2.1.11 documentation</title>
+  <title>fastf1.core &mdash; Fast F1 2.1.13 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2.1.11
+                2.1.13
               </div>
             
           
@@ -110,8 +110,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples_gallery/index.html">Examples Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_speed_traces.html">Overlaying speed traces of two laps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_gear_shifts_on_track.html">Gear shifts on track</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_qualifying_results.html">Qualifying results overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples_gallery/plot_speed_on_track.html">Speed visualization on track map</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
@@ -175,6 +177,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-13-more-bug-fixes">v2.1.13 More Bug Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-12-fixes-and-patches">v2.1.12 Fixes and Patches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-11-fixes-and-patches">v2.1.11 Fixes and Patches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-10-ergast-compatibility">v2.1.10 Ergast compatibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v2-1-9-general-maintenance">v2.1.9 General maintenance</a></li>
@@ -420,16 +424,20 @@
     <span class="n">weekend</span> <span class="o">=</span> <span class="n">Weekend</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gp</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;Q&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;Q&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Qualifying&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;SQ&#39;</span><span class="p">:</span>  <span class="c1"># TODO: remove; temporary patch to support sprint qualifying</span>
+    <span class="k">elif</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;SQ&#39;</span><span class="p">:</span>  <span class="c1"># TODO: remove; temporary patch to support sprint qualifying</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Sprint Qualifying&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP3&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP3&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Practice 3&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP2&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP2&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Practice 2&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP1&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">&#39;FP1&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Session</span><span class="p">(</span><span class="n">weekend</span><span class="p">,</span> <span class="s1">&#39;Practice 1&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">event</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid name &#39;</span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&#39; given for argument &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;&#39;event&#39;. Valid options are: &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;[&#39;R&#39;, &#39;Q&#39;, &#39;SQ&#39;, &#39;FP1&#39;, &#39;FP2&#39;, &#39;FP3&#39;]&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">weekend</span></div>
 
 
@@ -1155,6 +1163,8 @@
         <span class="k">for</span> <span class="n">drv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">drivers</span><span class="p">:</span>
             <span class="c1"># find correct first relevant lap; very important for correct zero point in distance</span>
             <span class="n">drv_laps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;DriverNumber&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">drv</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">drv_laps</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>  <span class="c1"># Only include drivers who participated in this session</span>
+                <span class="k">continue</span>
             <span class="n">drv_laps_before</span> <span class="o">=</span> <span class="n">drv_laps</span><span class="p">[(</span><span class="n">drv_laps</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">t_start</span><span class="p">)]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">drv_laps_before</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
                 <span class="n">lap_n_before</span> <span class="o">=</span> <span class="n">drv_laps_before</span><span class="p">[</span><span class="s1">&#39;LapNumber&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1353,9 +1363,9 @@
         <span class="sd">&quot;&quot;&quot;Instance of :class:`Laps` containing all laps from all drivers</span>
 <span class="sd">        in this session.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t0_date</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="c1"># can only be set when/if telemetry has been downloaded</span>
         <span class="sd">&quot;&quot;&quot;pandas.Datetime: Date timestamp which marks the beginning of the</span>
-<span class="sd">        data stream.&quot;&quot;&quot;</span>
+<span class="sd">        data stream. This value needs to be calculated from telemetry data</span>
+<span class="sd">        and is therefore only available after telemetry data was loaded.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="sd">&quot;&quot;&quot;pandas.Timedelta: Session time at which the session was started.&quot;&quot;&quot;</span>
 
@@ -1370,7 +1380,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">weather_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;Dataframe containing weather data for this session as received</span>
 <span class="sd">        from the api. See :func:`fastf1.api.weather_data` for available data</span>
-<span class="sd">        channels. Each data channel is one row of the dataframe.&quot;&quot;&quot;</span>
+<span class="sd">        channels. Each data channel is one row of the dataframe.</span>
+<span class="sd">        Weather data is only loaded once :func:`Session.load_laps` has been</span>
+<span class="sd">        called.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;List of all drivers that took part in this session; contains driver numbers as string. Drivers for which</span>
@@ -1512,6 +1524,7 @@
                 <span class="k">break</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">session_status</span><span class="p">)</span>
 
+        <span class="n">df</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">driver</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">):</span>
             <span class="n">d1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
             <span class="n">d2</span> <span class="o">=</span> <span class="n">useful</span><span class="p">[</span><span class="n">useful</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">driver</span><span class="p">]</span>
@@ -1533,6 +1546,7 @@
                         <span class="n">result</span><span class="p">[</span><span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2</span><span class="p">[</span><span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                         <span class="n">result</span><span class="p">[</span><span class="s1">&#39;New&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2</span><span class="p">[</span><span class="s1">&#39;New&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No lap data for driver </span><span class="si">{</span><span class="n">driver</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="k">continue</span>  <span class="c1"># no data for this driver; skip</span>
 
             <span class="k">else</span><span class="p">:</span>
@@ -1559,21 +1573,30 @@
                 <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sel</span><span class="p">,</span> <span class="s1">&#39;TotalLaps&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sel</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span>
 
             <span class="c1"># check if there is another lap during which the session was aborted</span>
+            <span class="c1"># but which is not in the data</span>
             <span class="c1"># if yes, add as much data as possible for it</span>
             <span class="c1"># set the time of abort as lap end time given that there is no</span>
             <span class="c1"># accurate time available</span>
+            <span class="c1"># this block of code has no tests; testing would require to mock</span>
+            <span class="c1"># the data as the actual data may be updated on the server after</span>
+            <span class="c1"># some time and the problem no longer occurs</span>
             <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;PitInTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_one_lap</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
-                    <span class="n">next_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span>
+                    <span class="n">next_statuses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">next_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span>
+                    <span class="n">next_statuses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">session_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
                         <span class="o">&gt;</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;LapStartTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="p">]</span>
 
-                <span class="k">if</span> <span class="n">next_status</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Aborted&#39;</span><span class="p">:</span>
+                <span class="n">aborted</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">next_statuses</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                    <span class="n">next_status</span> <span class="o">=</span> <span class="n">next_statuses</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">aborted</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_status</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Aborted&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">aborted</span><span class="p">:</span>
                     <span class="n">new_last</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
                         <span class="s1">&#39;LapStartTime&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
                         <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">next_status</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]],</span>
@@ -1590,8 +1613,10 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">result</span> <span class="o">=</span> <span class="n">new_last</span>
 
-            <span class="c1"># check if df is defined already before concat (vars is a builtin function)</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">result</span> <span class="k">if</span> <span class="s1">&#39;df&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">()</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">result</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># noqa: F821</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">result</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoLapDataError</span>
 
         <span class="n">laps</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># noqa: F821</span>
         <span class="n">laps</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;TotalLaps&#39;</span><span class="p">:</span> <span class="s1">&#39;TyreLife&#39;</span><span class="p">,</span>
