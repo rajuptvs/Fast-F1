@@ -1329,6 +1329,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">api_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">make_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;str: API base path for this session&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;list: Race result with driver information.&quot;&quot;&quot;</span>
@@ -2082,7 +2083,7 @@
 <span class="sd">            34 0 days 00:34:14.385000    23.0     51.7  ...      37.7           272       0.8</span>
 <span class="sd">            36 0 days 00:36:14.426000    23.0     51.1  ...      38.3           192       0.9</span>
 <span class="sd">            37 0 days 00:37:14.391000    23.3     50.0  ...      38.7           213       0.9</span>
-<span class="sd">            [269 rows x 8 columns]</span>
+<span class="sd">            [275 rows x 8 columns]</span>
 
 <span class="sd">        Joining weather data with lap timing data::</span>
 
@@ -2100,12 +2101,12 @@
 <span class="sd">            3   0 days 00:25:21.611000            5  ...           207        3.2</span>
 <span class="sd">            4   0 days 00:27:12.045000            5  ...           238        1.8</span>
 <span class="sd">            ..                     ...          ...  ...           ...        ...</span>
-<span class="sd">            264 0 days 00:24:02.127000           88  ...           210        2.3</span>
-<span class="sd">            265 0 days 00:33:31.080000           88  ...           207        3.2</span>
-<span class="sd">            266 0 days 00:35:15.794000           88  ...           272        0.8</span>
-<span class="sd">            267 0 days 00:36:38.150000           88  ...           192        0.9</span>
-<span class="sd">            268 0 days 00:38:37.508000           88  ...           213        0.9</span>
-<span class="sd">            [269 rows x 32 columns]</span>
+<span class="sd">            270 0 days 00:24:02.127000           88  ...           210        2.3</span>
+<span class="sd">            271 0 days 00:33:31.080000           88  ...           207        3.2</span>
+<span class="sd">            272 0 days 00:35:15.794000           88  ...           272        0.8</span>
+<span class="sd">            273 0 days 00:36:38.150000           88  ...           192        0.9</span>
+<span class="sd">            274 0 days 00:38:37.508000           88  ...           213        0.9</span>
+<span class="sd">            [275 rows x 32 columns]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">wd</span> <span class="o">=</span> <span class="p">[</span><span class="n">lap</span><span class="o">.</span><span class="n">get_weather_data</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">lap</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
         <span class="k">if</span> <span class="n">wd</span><span class="p">:</span>
@@ -2425,7 +2426,7 @@
 <span class="sd">            AirTemp                            23.0</span>
 <span class="sd">            Humidity                           51.9</span>
 <span class="sd">            Pressure                          992.4</span>
-<span class="sd">            Rainfall                           True</span>
+<span class="sd">            Rainfall                          False</span>
 <span class="sd">            TrackTemp                          37.8</span>
 <span class="sd">            WindDirection                       166</span>
 <span class="sd">            WindSpeed                           0.8</span>
@@ -2521,7 +2522,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, theOehrly.
+        &#169; Copyright 2022, theOehrly.
 
     </p>
   </div>

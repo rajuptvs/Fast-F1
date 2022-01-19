@@ -440,9 +440,9 @@ absolute truth. If necessary, other values are adjusted to fit.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> – api path base string (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
+<li><p><strong>path</strong> – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
 <li><p><strong>response</strong> (<em>optional</em>) – api response can be passed if data was already downloaded</p></li>
-<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code>
+<li><p><strong>livedata</strong> – An instance of <a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a>
 to use as a source instead of the api</p></li>
 </ul>
 </dd>
@@ -526,9 +526,9 @@ frequently (for example ‘Compound’ only after tire changes).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
 <li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if it was downloaded already.</p></li>
-<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
+<li><p><strong>livedata</strong> – An instance of <a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -576,9 +576,9 @@ car data do not line up. Resampling/interpolation is required to merge them.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <a class="reference internal" href="#fastf1.api.make_path" title="fastf1.api.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a>)</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
 <li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if it was downloaded already.</p></li>
-<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
+<li><p><strong>livedata</strong> – An instance of <a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -614,9 +614,9 @@ car data do not line up. Resampling/interpolation is required to merge them.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
-<li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code> can be passed if it was downloaded already.</p></li>
-<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
+<li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -664,9 +664,9 @@ will mark the actual end)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
-<li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code> can be passed if it was downloaded already.</p></li>
-<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
+<li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -694,9 +694,9 @@ provides the following data channels per sample:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
-<li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code> can be passed if it was downloaded already.</p></li>
-<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code> to use as a source instead of the api</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
+<li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of <a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a> to use as a source instead of the api</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -721,10 +721,10 @@ provides the following data channels per sample:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
-<li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code>
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
+<li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a>
 can be passed if it was downloaded already.</p></li>
-<li><p><strong>livedata</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code>
+<li><p><strong>livedata</strong> – An instance of <a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a>
 to use as a source instead of the api</p></li>
 </ul>
 </dd>
@@ -759,11 +759,11 @@ with the drivers racing number as key</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
-<li><p><strong>response</strong> – Response as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">api.fetch_page()</span></code> can
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
+<li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can
 be passed if it was downloaded already.</p></li>
 <li><p><strong>livedata</strong> – An instance of
-<code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LivetimingData</span></code>
+<a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a>
 to use as a source instead of the api</p></li>
 </ul>
 </dd>
@@ -786,7 +786,7 @@ to parse json or decode known messages is made.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – api path base string (see <code class="xref py py-func docutils literal notranslate"><span class="pre">api.make_path()</span></code>)</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – page name (see <a class="reference internal" href="#fastf1.api.pages" title="fastf1.api.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a> for all known pages)</p></li>
 </ul>
 </dd>
@@ -851,7 +851,7 @@ A likely cause is that the session does not exist because it was cancelled.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, theOehrly.
+        &#169; Copyright 2022, theOehrly.
 
     </p>
   </div>

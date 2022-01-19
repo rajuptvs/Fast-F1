@@ -354,7 +354,7 @@
 <span class="sd">          data and the code don&#39;t match. Stage 2 is only used for some api functions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_CACHE_DIR</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">_API_CORE_VERSION</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># version of the api parser code (unrelated to release version number)</span>
+    <span class="n">_API_CORE_VERSION</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># version of the api parser code (unrelated to release version number)</span>
     <span class="n">_IGNORE_VERSION</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">_FORCE_RENEW</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -553,9 +553,9 @@
 
 
 <span class="sd">    Args:</span>
-<span class="sd">        path: api path base string (see :func:`make_path`)</span>
+<span class="sd">        path: api path base string (usually ``Session.api_path``)</span>
 <span class="sd">        response (optional): api response can be passed if data was already downloaded</span>
-<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData`</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData`</span>
 <span class="sd">            to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
@@ -954,9 +954,9 @@
 <span class="sd">    frequently (for example &#39;Compound&#39; only after tire changes).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`make_path`)</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
 <span class="sd">        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.</span>
-<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A DataFrame contianing one column for each data channel as listed above.</span>
@@ -1035,9 +1035,9 @@
 <span class="sd">    car data do not line up. Resampling/interpolation is required to merge them.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`make_path`)</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
 <span class="sd">        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.</span>
-<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        | A dictionary containing one pandas DataFrame per driver. Dictionary keys are the driver&#39;s numbers as</span>
@@ -1146,9 +1146,9 @@
 <span class="sd">    car data do not line up. Resampling/interpolation is required to merge them.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
-<span class="sd">        response: Response as returned by :func:`api.fetch_page` can be passed if it was downloaded already.</span>
-<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
+<span class="sd">        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        | A dictionary containing one pandas DataFrame per driver. Dictionary keys are the driver&#39;s numbers as</span>
@@ -1274,9 +1274,9 @@
 <span class="sd">          will mark the actual end)</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
-<span class="sd">        response: Response as returned by :func:`api.fetch_page` can be passed if it was downloaded already.</span>
-<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
+<span class="sd">        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A dictionary containing one key for each data channel and a list of values per key.</span>
@@ -1322,9 +1322,9 @@
 <span class="sd">    A new value is sent every time the session status changes.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
-<span class="sd">        response: Response as returned by :func:`api.fetch_page` can be passed if it was downloaded already.</span>
-<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData` to use as a source instead of the api</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
+<span class="sd">        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData` to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A dictionary containing one key for each data channel and a list of values per key.</span>
@@ -1368,10 +1368,10 @@
 <span class="sd">        &#39;HeadshotUrl&#39;]`</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
-<span class="sd">        response: Response as returned by :func:`api.fetch_page`</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
+<span class="sd">        response: Response as returned by :func:`fetch_page`</span>
 <span class="sd">            can be passed if it was downloaded already.</span>
-<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LivetimingData`</span>
+<span class="sd">        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData`</span>
 <span class="sd">            to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
@@ -1421,11 +1421,11 @@
 <span class="sd">    Weather data is updated once per minute.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
-<span class="sd">        response: Response as returned by :func:`api.fetch_page` can</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
+<span class="sd">        response: Response as returned by :func:`fetch_page` can</span>
 <span class="sd">            be passed if it was downloaded already.</span>
 <span class="sd">        livedata: An instance of</span>
-<span class="sd">            :class:`fastf1.livetiming.data.LivetimingData`</span>
+<span class="sd">            :class:`fastf1.livetiming.data.LiveTimingData`</span>
 <span class="sd">            to use as a source instead of the api</span>
 
 <span class="sd">    Returns:</span>
@@ -1453,7 +1453,9 @@
 
     <span class="n">data_keys</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;AirTemp&#39;</span><span class="p">,</span> <span class="s1">&#39;Humidity&#39;</span><span class="p">,</span> <span class="s1">&#39;Pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;Rainfall&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;TrackTemp&#39;</span><span class="p">,</span> <span class="s1">&#39;WindDirection&#39;</span><span class="p">,</span> <span class="s1">&#39;WindSpeed&#39;</span><span class="p">)</span>
-    <span class="n">data_dtypes</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">converters</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span>
+                  <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># rain: str -&gt; bool</span>
+                  <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -1463,12 +1465,12 @@
             <span class="k">continue</span>
 
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data_keys</span><span class="p">,</span> <span class="n">data_dtypes</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">conv</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data_keys</span><span class="p">,</span> <span class="n">converters</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dtype</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
                 <span class="c1"># type conversion failed or key is missing</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dtype</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">data</span></div>
 
@@ -1478,7 +1480,7 @@
 <span class="sd">    to parse json or decode known messages is made.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path (str): api path base string (see :func:`api.make_path`)</span>
+<span class="sd">        path (str): api path base string (usually ``Session.api_path``)</span>
 <span class="sd">        name (str): page name (see :attr:`pages` for all known pages)</span>
 
 <span class="sd">    Returns:</span>
@@ -1566,7 +1568,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, theOehrly.
+        &#169; Copyright 2022, theOehrly.
 
     </p>
   </div>

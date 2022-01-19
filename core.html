@@ -564,31 +564,34 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the sessionâ
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></p></td>
 <td><p>Date at which this session took place.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_status</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_path</span></code></p></td>
+<td><p>API base path for this session</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_status</span></code></p></td>
 <td><p>Session status data as returned by <cite>fastf1.api.session_status_data()</cite> as dataframe.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">results</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">results</span></code></p></td>
 <td><p>Race result with driver information.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">laps</span></code></p></td>
 <td><p>Instance of <a class="reference internal" href="#fastf1.core.Laps" title="fastf1.core.Laps"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laps</span></code></a> containing all laps from all drivers in this session.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></p></td>
 <td><p>Date timestamp which marks the beginning of the data stream.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></p></td>
 <td><p>Session time at which the session was started.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">car_data</span></code></p></td>
 <td><p>Dictionary of car telemetry (Speed, RPM, etc.) as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos_data</span></code></p></td>
 <td><p>Dictionary of car position data as received from the api by car number (where car number is a string and the telemetry is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" title="fastf1.core.Telemetry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telemetry</span></code></a>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></p></td>
 <td><p>Dataframe containing weather data for this session as received from the api.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">drivers</span></code></p></td>
 <td><p>List of all drivers that took part in this session; contains driver numbers as string.</p></td>
 </tr>
 </tbody>
@@ -640,6 +643,17 @@ the session such as <cite>name</cite> and <cite>date</cite>. To get the sessionâ
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pandas.Datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fastf1.core.Session.api_path">
+<span class="sig-name descname"><span class="pre">api_path</span></span><a class="headerlink" href="#fastf1.core.Session.api_path" title="Permalink to this definition">Â¶</a></dt>
+<dd><p>API base path for this session</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1126,7 +1140,7 @@ weather data directly in <a class="reference internal" href="#fastf1.core.Sessio
 <span class="go">34 0 days 00:34:14.385000    23.0     51.7  ...      37.7           272       0.8</span>
 <span class="go">36 0 days 00:36:14.426000    23.0     51.1  ...      38.3           192       0.9</span>
 <span class="go">37 0 days 00:37:14.391000    23.3     50.0  ...      38.7           213       0.9</span>
-<span class="go">[269 rows x 8 columns]</span>
+<span class="go">[275 rows x 8 columns]</span>
 </pre></div>
 </div>
 <p>Joining weather data with lap timing data:</p>
@@ -1144,12 +1158,12 @@ weather data directly in <a class="reference internal" href="#fastf1.core.Sessio
 <span class="go">3   0 days 00:25:21.611000            5  ...           207        3.2</span>
 <span class="go">4   0 days 00:27:12.045000            5  ...           238        1.8</span>
 <span class="go">..                     ...          ...  ...           ...        ...</span>
-<span class="go">264 0 days 00:24:02.127000           88  ...           210        2.3</span>
-<span class="go">265 0 days 00:33:31.080000           88  ...           207        3.2</span>
-<span class="go">266 0 days 00:35:15.794000           88  ...           272        0.8</span>
-<span class="go">267 0 days 00:36:38.150000           88  ...           192        0.9</span>
-<span class="go">268 0 days 00:38:37.508000           88  ...           213        0.9</span>
-<span class="go">[269 rows x 32 columns]</span>
+<span class="go">270 0 days 00:24:02.127000           88  ...           210        2.3</span>
+<span class="go">271 0 days 00:33:31.080000           88  ...           207        3.2</span>
+<span class="go">272 0 days 00:35:15.794000           88  ...           272        0.8</span>
+<span class="go">273 0 days 00:36:38.150000           88  ...           192        0.9</span>
+<span class="go">274 0 days 00:38:37.508000           88  ...           213        0.9</span>
+<span class="go">[275 rows x 32 columns]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1497,7 +1511,7 @@ weather data directly in <a class="reference internal" href="#fastf1.core.Sessio
 <span class="go">AirTemp                            23.0</span>
 <span class="go">Humidity                           51.9</span>
 <span class="go">Pressure                          992.4</span>
-<span class="go">Rainfall                           True</span>
+<span class="go">Rainfall                          False</span>
 <span class="go">TrackTemp                          37.8</span>
 <span class="go">WindDirection                       166</span>
 <span class="go">WindSpeed                           0.8</span>
@@ -2172,7 +2186,7 @@ can be found.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, theOehrly.
+        &#169; Copyright 2022, theOehrly.
 
     </p>
   </div>
