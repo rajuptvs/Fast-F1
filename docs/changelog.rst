@@ -3,6 +3,72 @@ Changelog
 =========
 
 
+v2.2 Major Update
+=================
+
+This update introduces a range of new features and bug fixes. While
+backwards compatibility has been kept in mind, some breaking changes
+were required.
+
+Changes and New Features:
+
+  - New :class:`fastf1.events.EventSchedule`: The event schedule provides
+    information about session start times, event format, name and location of
+    upcoming events as well as previous event.
+
+  - New :class:`fastf1.events.Event`: This object represents a single event
+    and holds the same information as the event schedule.
+
+  - The cache now implements better automatic cache control and is used for
+    all requests throughout FastF1.
+
+Breaking Changes:
+
+  - For testing events :class:`fastf1.core.Session` objects can no longer be
+    created through :func:`fastf1.get_session`. You need to use
+    :func:`fastf1.get_testing_session` instead.
+
+
+Potentially breaking changes:
+
+  - The signature ``fastf1.core.Session.__init__(weekend, session_name)``
+    has been changed to
+    ``fastf1.core.Session.__init__(event, session_name)`` to adhere to
+    new naming conventions. This is a breaking change if the arguments are
+    given as keyword arguments.
+
+
+Deprecations:
+
+  **Objects, methods and attributes deprecated in v2.2 will be removed
+  in v2.3.** Until then accessing them will still work but a UserWarning
+  is shown, reminding you of the deprecation.
+
+  - :class:`fastf1.core.Weekend` has been replaced with
+    :class:`fastf1.events.Event`. All previously available methods and
+    properties are implemented by the replacement object, although they have
+    been partially deprecated.
+
+  - The attributes ``name``, ``date`` and ``gp`` of
+    :class:`fastf1.core.Weekend` have been deprecated.
+    The replacement object :class:`fastf1.events.Event` subclasses
+    :class:`pandas.Series`. The standard ways for accessing pandas Series'
+    values should be used. The attributes have been additionally renamed in
+    their Series representation.
+    For example:
+
+      - ``Weekend.name`` --> ``Event.eventName`` or ``Event['eventName']``
+      - ``Weekend.date`` --> ``Event.eventDate`` or ``Event['eventDate']``
+      - ``Weekend.gp`` --> ``Event.roundNumber`` or ``Event['roundNumber']``
+
+  - The :attr:`fastf1.core.Session.weekend` has been replaced by
+    :attr:`fastf1.core.Session.event` to adhere to new naming conventions.
+
+  - The function :func:`fastf1.core.get_round` has been deprecated and will be
+    removed without replacement in v2.3. Use :func:`fastf1.events.get_session`
+    instead and
+
+
 v2.1.13 More Bug Fixes
 ======================
 

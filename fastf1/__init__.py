@@ -13,7 +13,7 @@ Available functions directly accessible from fastf1 package
     :noindex:
 
 """
-from fastf1.core import get_session  # noqa: F401
+from fastf1.events import get_session, get_testing_session, get_event_schedule  # noqa: F401
 from fastf1.api import Cache  # noqa: F401
 from fastf1 import legacy  # noqa: F401
 from fastf1.version import __version__   # noqa: F401
