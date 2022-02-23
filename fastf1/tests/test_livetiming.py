@@ -16,7 +16,7 @@ def test_file_loading():
     livedata.load()
 
     weekend = Weekend(2021, 1)
-    session = Session(weekend=weekend, session_name='test_session')
+    session = Session(event=weekend, session_name='Practice 3')
     session.load_laps(with_telemetry=True, livedata=livedata)
 
     assert session.laps.shape == (274, 26)

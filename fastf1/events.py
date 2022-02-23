@@ -45,6 +45,7 @@ def get_session(year, gp, identifier=None, *, event=None):
         **no grace period** for this change. This will stop working immediately
         with the release of v2.2!
 
+    To get a testing session, use :func:`get_testing_session`.
 
     Examples:
 
@@ -63,23 +64,25 @@ def get_session(year, gp, identifier=None, *, event=None):
             >>> get_session(2021, 5, 3)
 
     Args:
-        year (int or str): Championship year
+        year (int): Championship year
         gp (number or string): Name as str or round number as int. If gp is
-            a string, a fuzzy match will be performed on the season rounds
-            and the most likely will be selected.
-            Fuzzy matching is performed on the country, location, name
-            and officialName of each event.
+            a string, a fuzzy match will be performed on all events and the
+            closest match will be selected.
+            Fuzzy matching uses country, location, name and officialName of
+            each event as reference.
 
             Some examples that will be correctly interpreted: 'bahrain',
             'australia', 'abudabi', 'monza'.
 
-        event (str or int): may be one of
+        identifier (str or int): may be one of
 
             - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
               'SQ', 'R'``
             - full session name: ``'Practice 1', 'Practice 2', 'Practice 3',
               'Sprint Qualifying', 'Qualifying', 'Race'``
             - number of the session: ``1, 2, 3, 4, 5``
+
+        event: deprecated; use identifier instead
 
     Returns:
         :class:`~fastf1.core.Session`:
@@ -99,7 +102,7 @@ def get_session(year, gp, identifier=None, *, event=None):
                       "Use 'identifier' instead.")
         identifier = event
 
-    event = get_event(year, gp, include_testing=False)
+    event = get_event(year, gp)
 
     if identifier is None:
         warnings.warn("Getting `Event` objects (previously `Session`) through "
@@ -112,14 +115,62 @@ def get_session(year, gp, identifier=None, *, event=None):
 
 def get_testing_session(year, test_number, session_number):
     """Create a :class:`Session` object for testing sessions based on year,
-    test number and session number
-    identifier.
+    test  event number and session number.
 
     Args:
-        year (int or str): Championship year
+        year (int): Championship year
         test_number (int): Number of the testing event (usually at most two)
         session_number (int): Number of the session withing a specific testing
             event. Each testing event usually has three sessions.
+
+    Returns:
+        :class:`~fastf1.core.Session`
+
+    .. versionadded:: 2.2
+    """
+    event = get_testing_event(year, test_number)
+    return event.get_session(session_number)
+
+
+def get_event(year, gp):
+    """Create an :class:`Event` object for a specific season and gp.
+
+    To get a testing event, use :func:`get_testing_event`.
+
+    Args:
+        year (int): Championship year
+        gp (int or str): Name as str or round number as int. If gp is
+            a string, a fuzzy match will be performed on all events and the
+            closest match will be selected.
+            Fuzzy matching uses country, location, name and officialName of
+            each event as reference.
+            Note that the round number cannot be used to get a testing event,
+            as all testing event are round 0!
+
+    Returns:
+        :class:`Event`
+
+    .. versionadded:: 2.2
+    """
+    schedule = get_event_schedule(year=year, include_testing=False)
+
+    if type(gp) is str:
+        event = schedule.get_event_by_name(gp)
+    else:
+        if gp == 0:
+            raise ValueError("Cannot get testing event by round number!")
+        event = schedule.get_event_by_round(gp)
+
+    return event
+
+
+def get_testing_event(year, test_number):
+    """Create a :class:`Event` object for testing sessions based on year
+    and test event number.
+
+    Args:
+        year (int): Championship year
+        test_number (int): Number of the testing event (usually at most two)
 
     Returns:
         :class:`~fastf1.core.Session`
@@ -130,21 +181,17 @@ def get_testing_session(year, test_number, session_number):
     schedule = schedule[schedule.is_testing()]
 
     try:
-        event = schedule.iloc[test_number-1]
-    except IndexError:
+        assert test_number >= 1
+        return schedule.iloc[test_number-1]
+    except (IndexError, AssertionError):
         raise ValueError(f"Test event number {test_number} does not exist")
 
-    return event.get_session(session_number)
 
-
-def get_event_schedule(year='current', include_testing=True):
+def get_event_schedule(year, *, include_testing=True):
     """Create an :class:`EventSchedule` object for a specific season.
 
-    The event schedule currently supports the 2018 season and later.
-
     Args:
-        year (int or str): Year (YYYY) or the string 'current' to get
-            the event schedule for the current season.
+        year (int): Championship year
         include_testing (bool): Include or exclude testing sessions from the
             event schedule.
 
@@ -153,12 +200,8 @@ def get_event_schedule(year='current', include_testing=True):
 
     .. versionadded:: 2.2
     """
-    if year == 'current':
-        year = datetime.datetime.now().year
-    else:
-        year = int(year)
-        if year not in range(2018, datetime.datetime.now().year+1):
-            raise NotImplementedError
+    if year not in range(2018, datetime.datetime.now().year+1):
+        raise NotImplementedError
 
     response = Cache.requests_get(
         f"https://raw.githubusercontent.com/theOehrly/f1schedule/master/"
@@ -169,36 +212,6 @@ def get_event_schedule(year='current', include_testing=True):
     if not include_testing:
         schedule = schedule[~schedule.is_testing()]
     return schedule
-
-
-def get_event(year, gp, include_testing=True):
-    """Create an :class:`EventSchedule` object for a specific season and gp.
-
-    The event schedule currently supports the 2018 season and later.
-
-    Args:
-        year (int or str): Year (YYYY) or the string 'current' to get
-            the event schedule for the current season.
-        gp (int or str): Name as string or round number as int. If gp is a
-            string, a fuzzy match will be performed on the season rounds
-            and the most likely will be selected.
-        include_testing (bool): Include or exclude testing sessions from the
-            event schedule. (May change the result in case of fuzzy matching
-            the gp name)
-
-    Returns:
-        :class:`Event`
-
-    .. versionadded:: 2.2
-    """
-    schedule = get_event_schedule(year=year, include_testing=include_testing)
-
-    if type(gp) is str:
-        event = schedule.get_event_by_name(gp)
-    else:
-        event = schedule.get_event_by_round(gp)
-
-    return event
 
 
 class EventSchedule(pd.DataFrame):

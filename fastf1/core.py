@@ -106,6 +106,7 @@ def get_session(*args, **kwargs):
     .. deprecated:: 2.2
         replaced by :func:`fastf1.events.get_session`
     """
+    # TODO remove
     warnings.warn("`fastf1.core.get_session` has been deprecated and will be"
                   "removed in a future version.\n"
                   "Use `fastf1.events.get_session` instead.")
@@ -114,32 +115,22 @@ def get_session(*args, **kwargs):
 
 
 def get_round(year, match):
-    # TODO: replace and deprecate
-    """Get event number by year and (partial) event name
-
-    A fuzzy match is performed to find the most likely event for the provided name.
-
-    Args:
-        year (int): Year of the event
-        match (string): Name of the race or gp (e.g. 'Bahrain')
-
-    Returns:
-        The round number. (2019, 'Bahrain') -> 2
+    """    
+    .. deprecated:: 2.2
+        will be removed without replacement;
+        Use :func:`fastf1.events.get_event` instead to get an
+        :class:`~fastf1.events.Event` object which provides
+        information including the round number for the event.
     """
-
-    def build_string(d):
-        r = len('https://en.wikipedia.org/wiki/')  # TODO what the hell is this
-        c, l = d['Circuit'], d['Circuit']['Location']  # noqa: E741 (for now...)
-        return (f"{d['url'][r:]} {d['raceName']} {c['circuitId']} "
-                + f"{c['url'][r:]} {c['circuitName']} {l['locality']} "
-                + f"{l['country']}")
-
-    races = ergast.fetch_season(year)
-    to_match = [build_string(block) for block in races]
-    ratios = np.array([fuzz.partial_ratio(match.casefold(), ref.casefold())
-                       for ref in to_match])
-
-    return int(races[np.argmax(ratios)]['round'])
+    # TODO remove
+    warnings.warn("_func:`fastf1.core.get_round` has been deprecated and will "
+                  "be removed without replacement in a future version.\n"
+                  "Use :func:`fastf1.events.get_event` instead to get an "
+                  ":class:`~fastf1.events.Event` object which provides "
+                  "information including the round number for the event.")
+    from fastf1 import events
+    event = events.get_event(year, match)
+    return event.roundNumber
 
 
 class Telemetry(pd.DataFrame):
@@ -878,14 +869,14 @@ class Telemetry(pd.DataFrame):
 class Weekend:
     """
     .. deprecated:: 2.2
-        Use `fastf1.events.Event` instead
+        Use :class:`fastf1.events.Event` instead
     """
-    def __new__(cls, *args, **kwargs):
+    def __new__(cls, year, gp):
         warnings.warn("`fastf1.core.Weekend` has been deprecated and will be"
                       "removed in a future version.\n"
                       "Use `fastf1.events.Event` instead.")
         from fastf1 import events
-        return events.Event(*args, **kwargs)
+        return events.get_event(year, gp)
 
 
 class Session:

@@ -118,6 +118,7 @@ class Cache:
                 allowable_methods=('GET', 'POST'),
                 expire_after=datetime.timedelta(hours=12),
                 cache_control=True,
+                stale_if_error=True
             )
             if force_renew:
                 cls._requests_session.cache.clear()
