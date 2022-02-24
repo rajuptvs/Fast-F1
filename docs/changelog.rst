@@ -37,6 +37,9 @@ Potentially breaking changes:
     new naming conventions. This is a breaking change if the arguments are
     given as keyword arguments.
 
+  - :func:`fastf1.get_session` may return a different session now for some
+    edge cases, if you load sessions by name instead of by round number.
+
 
 Deprecations:
 

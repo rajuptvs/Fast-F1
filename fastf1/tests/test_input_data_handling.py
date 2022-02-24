@@ -87,7 +87,7 @@ def test_inlap_added():
     # !! API parser test - require running without cache !!
     # perez aborted his last q3 run and went straight into the pits
     # lap data needs to be added so that telemetry can be loaded
-    session = ff1.get_session(2021, 'Mexican Grand Prix', 'Q')
+    session = ff1.get_session(2021, 'Mexico City', 'Q')
 
     laps = session.load_laps(with_telemetry=False)
     last = laps.pick_driver('PER').iloc[-1]

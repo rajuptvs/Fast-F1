@@ -74,6 +74,9 @@ def get_session(year, gp, identifier=None, *, event=None):
             Some examples that will be correctly interpreted: 'bahrain',
             'australia', 'abudabi', 'monza'.
 
+            See :func:`get_event_by_name` for some further remarks on the
+            fuzzy matching.
+
         identifier (str or int): may be one of
 
             - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
@@ -309,7 +312,14 @@ class EventSchedule(pd.DataFrame):
 
         A fuzzy match is performed to find the event that best matches the
         given name. Fuzzy matching is performed using the country, location,
-        name and officialName of each event.
+        name and officialName of each event. This is not guaranteed to return
+        the correct result. You should therefore always check if the function
+        actually returns the event you had wanted.
+
+        .. warning:: You should avoid adding common words to ``name`` to avoid
+            false string matches.
+            For example, you should rather use "Belgium" instead of "Belgian
+            Grand Prix" as ``name``.
 
         Args:
             name (str): The name of the event. For example,
@@ -326,7 +336,8 @@ class EventSchedule(pd.DataFrame):
             strings.append(ev['eventName'].replace("Grand Prix", ""))
             strings.append(ev['officialEventName']
                            .replace("FORMULA 1", "")
-                           .replace(str(self.year), ""))
+                           .replace(str(self.year), "")
+                           .replace("GRAND PRIX", ""))
             return strings
 
         max_ratio = 0
