@@ -35,21 +35,21 @@ def _test_cache_used_and_clear(tmpdir):
                   'schedule_2020.json', 'rb') as fobj:
             content = fobj.read()
         mocker.get('https://raw.githubusercontent.com/theOehrly/'
-                          'f1schedule/master/schedule_2020.json',
-                          content=content, status_code=200)
+                   'f1schedule/master/schedule_2020.json',
+                   content=content, status_code=200)
 
         # create mock repsonses for general api requests
         with open('fastf1/testing/reference_data/2020_05_FP2/'
                   'ergast_race.raw', 'rb') as fobj:
             content = fobj.read()
         mocker.get('http://ergast.com/api/f1/2020/5.json',
-                          content=content, status_code=200)
+                   content=content, status_code=200)
 
         with open('fastf1/testing/reference_data/2020_05_FP2/'
                   'ergast_race_result.raw', 'rb') as fobj:
             content = fobj.read()
         mocker.get('http://ergast.com/api/f1/2020/5/results.json',
-                          content=content, status_code=200)
+                   content=content, status_code=200)
 
         with open('fastf1/testing/reference_data/2020_05_FP2/'
                   'map_data.raw', 'rb') as fobj:

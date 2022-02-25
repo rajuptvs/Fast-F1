@@ -56,3 +56,16 @@ def test_get_testing_session(test_n, session_n, pass_1, pass_2):
 def test_get_event(gp):
     event = fastf1.events.get_event(2021, gp)
     assert event.eventName == 'Bahrain Grand Prix'
+
+
+def test_get_testing_event():
+    # 0 is not a valid number for a testing event
+    with pytest.raises(ValueError):
+        fastf1.events.get_testing_event(2021, 0)
+
+    session = fastf1.events.get_testing_event(2021, 1)
+    assert isinstance(session, fastf1.events.Event)
+
+    # only one testing event in 2021
+    with pytest.raises(ValueError):
+        fastf1.events.get_testing_event(2021, 2)

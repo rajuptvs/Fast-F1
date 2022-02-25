@@ -64,11 +64,6 @@ from functools import cached_property
 
 import warnings
 
-with warnings.catch_warnings():
-    warnings.filterwarnings('ignore', message="Using slow pure-python SequenceMatcher")
-    # suppress that warning, it's confusing at best here, we don't need fast sequence matching
-    # and the installation (on windows) some effort
-    from thefuzz import fuzz
 
 logging.basicConfig(level=logging.INFO, style='{', format="{module: <8} {levelname: >10} \t{message}")
 
@@ -115,7 +110,7 @@ def get_session(*args, **kwargs):
 
 
 def get_round(year, match):
-    """    
+    """
     .. deprecated:: 2.2
         will be removed without replacement;
         Use :func:`fastf1.events.get_event` instead to get an
@@ -890,7 +885,7 @@ class Session:
 
     def __init__(self, event, session_name):
         self.event = event
-        """:class:`~fastf1.events.Event`: Reference to the associated event 
+        """:class:`~fastf1.events.Event`: Reference to the associated event
         object."""
         self.name = session_name
         """str: Name of this session, for example 'Qualifying', 'Race', 'FP1', ..."""
@@ -938,7 +933,7 @@ class Session:
         data stream. This value needs to be calculated from telemetry data
         and is therefore only available after telemetry data was loaded."""
         self.session_start_time = None
-        """pandas.Timedelta: Session time at which the session was started 
+        """pandas.Timedelta: Session time at which the session was started
         according to the session status data."""
 
         self.car_data = dict()
@@ -971,9 +966,9 @@ class Session:
 
     @property
     def weekend(self):
-        warnings.warn(f"The property `Session.weekend` has been renamed to "
-                      f"`Session.event`.\n The old property will be removed in"
-                      f"a future version.")
+        warnings.warn("The property `Session.weekend` has been renamed to "
+                      "`Session.event`.\n The old property will be removed in"
+                      "a future version.")
         return self.event
 
     def load_laps(self, with_telemetry=False, livedata=None):

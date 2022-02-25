@@ -383,8 +383,15 @@ class Event(pd.Series):
 
     @property
     def date(self):
-        """Weekend race date (YYYY-MM-DD)"""
-        # TODO: remove in v2.3
+        """Weekend race date (YYYY-MM-DD)
+
+        This wraps ``self['eventDate'].strftime('%Y-%m-%d')``
+
+        .. deprecated:: 2.2
+            use :attr:`Event.eventDate` or :attr:`Event['eventDate']` and
+            use :func:`datetime.datetime.strftime` to format the desired
+            string representation of the datetime object
+        """
         warnings.warn("The `Weekend.date` property is deprecated and will be"
                       "removed in a future version.\n"
                       "Use `Event['eventDate']` or `Event.eventDate` instead.")
@@ -392,8 +399,11 @@ class Event(pd.Series):
 
     @property
     def gp(self):
-        """Weekend round number"""
-        # TODO: remove in v2.3
+        """Weekend round number
+
+        .. deprecated:: 2.2
+            use :attr:`Event.eventNumber` or :attr:`Event['eventNumber']`
+        """
         warnings.warn("The `Weekend.gp` property is deprecated and will be"
                       "removed in a future version.\n"
                       "Use `Event['roundNumber']` or `Event.roundNumber` "
@@ -405,42 +415,124 @@ class Event(pd.Series):
         testing event."""
         return self['eventFormat'] == 'testing'
 
-    def _get_session_name(self, session_type):
-        if session_type in _SESSION_TYPE_ABBREVIATIONS.values():
-            return session_type
-        else:
-            try:
-                return _SESSION_TYPE_ABBREVIATIONS[session_type.upper()]
-            except KeyError:
-                raise ValueError(f"Invalid session type '{session_type}'")
+    def get_session_name(self, identifier):
+        """Return the full session name of a specific session from this event.
 
-    def get_session_date(self, session_type):
-        session_name = self._get_session_name(session_type)
+        Examples:
+
+            >>> event = get_event(2021, 1)
+            >>> event.get_session_name(3)
+            'Practice 3'
+            >>> event.get_session_name('Q')
+            'Qualifying'
+            >>> event.get_session_name('praCtice 1')
+            'Practice 1'
+
+        Args:
+            identifier (str or int): may be one of
+
+                - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
+                  'SQ', 'R'``
+                - full session name: ``'Practice 1', 'Practice 2',
+                  'Practice 3', 'Sprint Qualifying', 'Qualifying', 'Race'``,
+                  provided names will be normalized, so that the name is
+                  case-insensitive
+                - number of the session: ``1, 2, 3, 4, 5``
+
+        Returns:
+            :class:`datetime.datetime`
+
+        Raises:
+            ValueError: No matching session or invalid identifier
+        """
+        try:
+            num = float(identifier)
+        except ValueError:
+            # by name or abbreviation
+            for name in _SESSION_TYPE_ABBREVIATIONS.values():
+                if identifier.casefold() == name.casefold():
+                    session_name = name
+                    break
+            else:
+                try:
+                    session_name = \
+                        _SESSION_TYPE_ABBREVIATIONS[identifier.upper()]
+                except KeyError:
+                    raise ValueError(f"Invalid session type '{identifier}'")
+
+            if session_name not in self.values:
+                raise ValueError(f"No session of type '{identifier}' for "
+                                 f"this event")
+        else:
+            # by number
+            if (float(num).is_integer()
+                    and (num := int(num)) in (1, 2, 3, 4, 5)):
+                session_name = self[f'session{num}']
+            else:
+                raise ValueError(f"Invalid session type '{num}'")
+            if not session_name:
+                raise ValueError(f"Session number {num} does not "
+                                 f"exist for this event")
+
+        return session_name
+
+    def get_session_date(self, identifier):
+        """Return the date and time (if available) at which a specific session
+        of this event is or was held.
+
+        Args:
+            identifier (str or int): may be one of
+
+                - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
+                  'SQ', 'R'``
+                - full session name: ``'Practice 1', 'Practice 2',
+                  'Practice 3', 'Sprint Qualifying', 'Qualifying', 'Race'``
+                - number of the session: ``1, 2, 3, 4, 5``
+
+                see :func:`get_session_name` for more info
+
+        Returns:
+            :class:`datetime.datetime`
+
+        Raises:
+            ValueError: No matching session or invalid identifier
+        """
+        session_name = self.get_session_name(identifier)
         relevant_columns = self.loc[['session1', 'session2', 'session3',
                                      'session4', 'session5']]
         mask = (relevant_columns == session_name)
         if not mask.any():
-            raise ValueError(f"Session type '{session_type}' does not exist "
+            raise ValueError(f"Session type '{identifier}' does not exist "
                              f"for this event")
         else:
             _name = mask.idxmax()
             return self[f"{_name}Date"]
 
     def get_session(self, identifier):
-        """Return the a from this weekend.
+        """Return a session from this event.
 
         Args:
-            identifier (str, int): One of 'R', 'SQ', 'Q', 'FP3', 'FP2', 'FP1'
-                or an integer between 1 and 5
+            identifier (str or int): may be one of
+
+                - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
+                  'SQ', 'R'``
+                - full session name: ``'Practice 1', 'Practice 2', 'Practice 3',
+                  'Sprint Qualifying', 'Qualifying', 'Race'``
+                - number of the session: ``1, 2, 3, 4, 5``
+
+                see :func:`get_session_name` for more info
 
         Returns:
             :class:`Session` instance
+
+        Raises:
+            ValueError: No matching session or invalid identifier
         """
         try:
             num = float(identifier)
         except ValueError:
             # by name or abbreviation
-            session_name = self._get_session_name(identifier)
+            session_name = self.get_session_name(identifier)
             if session_name not in self.values:
                 raise ValueError(f"No session of type '{identifier}' for "
                                  f"this event")
