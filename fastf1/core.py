@@ -104,7 +104,7 @@ def get_session(*args, **kwargs):
     # TODO remove
     warnings.warn("`fastf1.core.get_session` has been deprecated and will be"
                   "removed in a future version.\n"
-                  "Use `fastf1.events.get_session` instead.")
+                  "Use `fastf1.events.get_session` instead.", FutureWarning)
     from fastf1 import events
     return events.get_session(*args, **kwargs)
 
@@ -122,7 +122,8 @@ def get_round(year, match):
                   "be removed without replacement in a future version.\n"
                   "Use :func:`fastf1.events.get_event` instead to get an "
                   ":class:`~fastf1.events.Event` object which provides "
-                  "information including the round number for the event.")
+                  "information including the round number for the event.",
+                  FutureWarning)
     from fastf1 import events
     event = events.get_event(year, match)
     return event.roundNumber
@@ -869,7 +870,7 @@ class Weekend:
     def __new__(cls, year, gp):
         warnings.warn("`fastf1.core.Weekend` has been deprecated and will be"
                       "removed in a future version.\n"
-                      "Use `fastf1.events.Event` instead.")
+                      "Use `fastf1.events.Event` instead.", FutureWarning)
         from fastf1 import events
         return events.get_event(year, gp)
 
@@ -968,7 +969,7 @@ class Session:
     def weekend(self):
         warnings.warn("The property `Session.weekend` has been renamed to "
                       "`Session.event`.\n The old property will be removed in"
-                      "a future version.")
+                      "a future version.", FutureWarning)
         return self.event
 
     def load_laps(self, with_telemetry=False, livedata=None):

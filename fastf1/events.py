@@ -2,18 +2,27 @@
 :mod:`fastf1.events` - Events module
 ====================================
 """
+import collections
 import datetime
-import pandas as pd
+import logging
 import warnings
 
+import dateutil.parser
+
 with warnings.catch_warnings():
-    warnings.filterwarnings('ignore', message="Using slow pure-python SequenceMatcher")
-    # suppress that warning, it's confusing at best here, we don't need fast sequence matching
-    # and the installation (on windows) some effort
+    warnings.filterwarnings(
+        'ignore', message="Using slow pure-python SequenceMatcher"
+    )
+    # suppress that warning, it's confusing at best here, we don't need fast
+    # sequence matching and the installation (on windows) requires some effort
     from thefuzz import fuzz
+
+import pandas as pd
 
 from fastf1.api import Cache
 from fastf1.core import Session
+import fastf1.ergast
+from fastf1.utils import recursive_dict_get
 
 
 _SESSION_TYPE_ABBREVIATIONS = {
@@ -25,8 +34,11 @@ _SESSION_TYPE_ABBREVIATIONS = {
     'FP3': 'Practice 3'
 }
 
+_SCHEDULE_BASE_URL = "https://raw.githubusercontent.com/" \
+                     "theOehrly/f1schedule/master/"
 
-def get_session(year, gp, identifier=None, *, event=None):
+
+def get_session(year, gp, identifier=None, *, force_ergast=False, event=None):
     """Create a :class:`Session` object based on year, event name and session
     identifier.
 
@@ -85,6 +97,9 @@ def get_session(year, gp, identifier=None, *, event=None):
               'Sprint Qualifying', 'Qualifying', 'Race'``
             - number of the session: ``1, 2, 3, 4, 5``
 
+        force_ergast (bool): Always use data from the ergast database to
+            create the event schedule
+
         event: deprecated; use identifier instead
 
     Returns:
@@ -102,15 +117,15 @@ def get_session(year, gp, identifier=None, *, event=None):
     if event is not None:
         warnings.warn("The keyword argument 'event' has been deprecated and "
                       "will be removed in a future version.\n"
-                      "Use 'identifier' instead.")
+                      "Use 'identifier' instead.", FutureWarning)
         identifier = event
 
-    event = get_event(year, gp)
+    event = get_event(year, gp, force_ergast=force_ergast)
 
     if identifier is None:
         warnings.warn("Getting `Event` objects (previously `Session`) through "
                       "`get_session` has been deprecated.\n"
-                      "Use `fastf1.events.get_event` instead.")
+                      "Use `fastf1.events.get_event` instead.", FutureWarning)
         return event  # TODO: remove in v2.3
 
     return event.get_session(identifier)
@@ -135,7 +150,7 @@ def get_testing_session(year, test_number, session_number):
     return event.get_session(session_number)
 
 
-def get_event(year, gp):
+def get_event(year, gp, *, force_ergast=False):
     """Create an :class:`Event` object for a specific season and gp.
 
     To get a testing event, use :func:`get_testing_event`.
@@ -149,13 +164,16 @@ def get_event(year, gp):
             each event as reference.
             Note that the round number cannot be used to get a testing event,
             as all testing event are round 0!
+        force_ergast (bool): Always use data from the ergast database to
+            create the event schedule
 
     Returns:
         :class:`Event`
 
     .. versionadded:: 2.2
     """
-    schedule = get_event_schedule(year=year, include_testing=False)
+    schedule = get_event_schedule(year=year, include_testing=False,
+                                  force_ergast=force_ergast)
 
     if type(gp) is str:
         event = schedule.get_event_by_name(gp)
@@ -190,30 +208,86 @@ def get_testing_event(year, test_number):
         raise ValueError(f"Test event number {test_number} does not exist")
 
 
-def get_event_schedule(year, *, include_testing=True):
+def get_event_schedule(year, *, include_testing=True, force_ergast=False):
     """Create an :class:`EventSchedule` object for a specific season.
 
     Args:
         year (int): Championship year
         include_testing (bool): Include or exclude testing sessions from the
             event schedule.
+        force_ergast (bool): Always use data from the ergast database to
+            create the event schedule
 
     Returns:
         :class:`EventSchedule`
 
     .. versionadded:: 2.2
     """
-    if year not in range(2018, datetime.datetime.now().year+1):
-        raise NotImplementedError
+    if ((year not in range(2018, datetime.datetime.now().year+1))
+            or force_ergast):
+        schedule = _get_schedule_from_ergast(year)
+    else:
+        try:
+            schedule = _get_schedule(year)
+        except Exception as exc:
+            logging.error(f"Failed to access primary schedule backend. "
+                          f"Falling back to Ergast! Reason: {exc})")
+            schedule = _get_schedule_from_ergast(year)
 
-    response = Cache.requests_get(
-        f"https://raw.githubusercontent.com/theOehrly/f1schedule/master/"
-        f"schedule_{year}.json")
-
-    df = pd.read_json(response.text)
-    schedule = EventSchedule(df, year=year)
     if not include_testing:
         schedule = schedule[~schedule.is_testing()]
+    return schedule
+
+
+def _get_schedule(year):
+    response = Cache.requests_get(
+        _SCHEDULE_BASE_URL + f"schedule_{year}.json"
+    )
+    df = pd.read_json(response.text)
+    schedule = EventSchedule(df, year=year, f1_api_support=True)
+    return schedule
+
+
+def _get_schedule_from_ergast(year):
+    # create an event schedule using data from the ergast database
+    season = fastf1.ergast.fetch_season(year)
+    data = collections.defaultdict(list)
+    for rnd in season:
+        data['roundNumber'].append(int(rnd.get('round')))
+        data['country'].append(
+            recursive_dict_get(rnd, 'Circuit', 'Location', 'country')
+        )
+        data['location'].append(
+            recursive_dict_get(rnd, 'Circuit', 'Location', 'locality')
+        )
+        data['eventName'].append(rnd.get('raceName'))
+        data['officialEventName'].append("")
+
+        try:
+            date = pd.to_datetime(
+                f"{rnd.get('date', '')}T{rnd.get('time', '')}",
+            ).tz_localize(None)
+        except dateutil.parser.ParserError:
+            date = pd.NaT
+        data['eventDate'].append(date)
+
+        # add sessions by assuming a 'conventional' and unchanged schedule
+        # only date but not time can be assumed for non race sessions,
+        #   therefore .floor to daily resolution
+        data['eventFormat'].append("conventional")
+        data['session1'].append('Practice 1')
+        data['session1Date'].append(date.floor('D') - pd.Timedelta(days=2))
+        data['session2'].append('Practice 2')
+        data['session2Date'].append(date.floor('D') - pd.Timedelta(days=2))
+        data['session3'].append('Practice 3')
+        data['session3Date'].append(date.floor('D') - pd.Timedelta(days=1))
+        data['session4'].append('Qualifying')
+        data['session4Date'].append(date.floor('D') - pd.Timedelta(days=1))
+        data['session5'].append('Race')
+        data['session5Date'].append(date)
+
+    df = pd.DataFrame(data)
+    schedule = EventSchedule(df, year=year)
     return schedule
 
 
@@ -228,40 +302,43 @@ class EventSchedule(pd.DataFrame):
         *args: passed on to :class:`pandas.DataFrame` superclass
         year (int): Championship year
         **kwargs: passed on to :class:`pandas.DataFrame` superclass
+            (except 'columns' which is unsupported for the event schedule)
 
     .. versionadded:: 2.2
     """
 
-    _TYPES = {
+    _COLS_TYPES = {
         'roundNumber': 'int64',
-        'country': 'object',
-        'location': 'object',
-        'officialEventName': 'object',
+        'country': 'str',
+        'location': 'str',
+        'officialEventName': 'str',
         'eventDate': 'datetime64[ns]',
-        'eventName': 'object',
-        'eventFormat': 'object',
-        'session1': 'object',
+        'eventName': 'str',
+        'eventFormat': 'str',
+        'session1': 'str',
         'session1Date': 'datetime64[ns]',
-        'session2': 'object',
+        'session2': 'str',
         'session2Date': 'datetime64[ns]',
-        'session3': 'object',
+        'session3': 'str',
         'session3Date': 'datetime64[ns]',
-        'session4': 'object',
+        'session4': 'str',
         'session4Date': 'datetime64[ns]',
-        'session5': 'object',
+        'session5': 'str',
         'session5Date': 'datetime64[ns]',
     }
 
-    _metadata = ['year']
+    _metadata = ['year', 'has_f1_api_support']
 
     _internal_names = ['base_class_view']
 
-    def __init__(self, *args, year=0, **kwargs):
+    def __init__(self, *args, year=0, f1_api_support=False, **kwargs):
+        kwargs['columns'] = list(self._COLS_TYPES)
         super().__init__(*args, **kwargs)
         self.year = year
+        self.has_f1_api_support = f1_api_support
 
         # apply column specific dtypes
-        for col, _type in self._TYPES.items():
+        for col, _type in self._COLS_TYPES.items():
             self[col] = self[col].astype(_type)
 
     def __repr__(self):
@@ -269,17 +346,17 @@ class EventSchedule(pd.DataFrame):
 
     @property
     def _constructor(self):
-        return EventSchedule
+        def _new(*args, **kwargs):
+            return EventSchedule(*args, **kwargs).__finalize__(self)
+
+        return _new
 
     @property
     def _constructor_sliced(self):
-        def new(*args, **kwargs):
-            # with warnings.catch_warnings():
-            #     warnings.simplefilter('ignore')
-            event = Event(*args, **kwargs)
-            event.__finalize__(self)
-            return event
-        return new
+        def _new(*args, **kwargs):
+            return Event(*args, **kwargs).__finalize__(self)
+
+        return _new
 
     @property
     def base_class_view(self):
@@ -355,18 +432,22 @@ class EventSchedule(pd.DataFrame):
 
 class Event(pd.Series):
 
-    _metadata = ['year']
+    _metadata = ['year', 'has_f1_api_support']
 
     _internal_names = ['date', 'gp']
 
-    def __init__(self, *args, year=None, **kwargs):
+    def __init__(self, *args, year=None, f1_api_support=False, **kwargs):
         super().__init__(*args, **kwargs)
         self.year = year
+        self.has_f1_api_support = f1_api_support
         self._getattr_override = True  # TODO: remove in v2.3
 
     @property
     def _constructor(self):
-        return Event
+        def _new(*args, **kwargs):
+            return Event(*args, **kwargs).__finalize__(self)
+
+        return _new
 
     def __getattribute__(self, name):
         # TODO: remove in v2.3
@@ -375,11 +456,21 @@ class Event(pd.Series):
                 warnings.warn(
                     "The `Weekend.name` property is deprecated and will be"
                     "removed in a future version.\n"
-                    "Use `Event['eventName']` or `Event.eventName` instead.")
+                    "Use `Event['eventName']` or `Event.eventName` instead.",
+                    FutureWarning
+                )
                 # name may be accessed by pandas internals to, when data
                 # does not exist yet
                 return self['eventName']
+
         return super().__getattribute__(name)
+
+    def __repr__(self):
+        # don't show .name deprecation message when .name is accessed internally
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore',
+                                    message=r".*property is deprecated.*")
+            return super().__repr__()
 
     @property
     def date(self):
@@ -394,7 +485,8 @@ class Event(pd.Series):
         """
         warnings.warn("The `Weekend.date` property is deprecated and will be"
                       "removed in a future version.\n"
-                      "Use `Event['eventDate']` or `Event.eventDate` instead.")
+                      "Use `Event['eventDate']` or `Event.eventDate` instead.",
+                      FutureWarning)
         return self['eventDate'].strftime('%Y-%m-%d')
 
     @property
@@ -407,7 +499,7 @@ class Event(pd.Series):
         warnings.warn("The `Weekend.gp` property is deprecated and will be"
                       "removed in a future version.\n"
                       "Use `Event['roundNumber']` or `Event.roundNumber` "
-                      "instead.")
+                      "instead.", FutureWarning)
         return self['roundNumber']
 
     def is_testing(self):
