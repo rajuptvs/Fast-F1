@@ -244,7 +244,7 @@ def _get_schedule(year):
         _SCHEDULE_BASE_URL + f"schedule_{year}.json"
     )
     df = pd.read_json(response.text)
-    schedule = EventSchedule(df, year=year, f1_api_support=True)
+    schedule = EventSchedule(df, year=year)
     return schedule
 
 
@@ -253,15 +253,15 @@ def _get_schedule_from_ergast(year):
     season = fastf1.ergast.fetch_season(year)
     data = collections.defaultdict(list)
     for rnd in season:
-        data['roundNumber'].append(int(rnd.get('round')))
+        data['round_number'].append(int(rnd.get('round')))
         data['country'].append(
             recursive_dict_get(rnd, 'Circuit', 'Location', 'country')
         )
         data['location'].append(
             recursive_dict_get(rnd, 'Circuit', 'Location', 'locality')
         )
-        data['eventName'].append(rnd.get('raceName'))
-        data['officialEventName'].append("")
+        data['event_name'].append(rnd.get('raceName'))
+        data['official_event_name'].append("")
 
         try:
             date = pd.to_datetime(
@@ -269,22 +269,22 @@ def _get_schedule_from_ergast(year):
             ).tz_localize(None)
         except dateutil.parser.ParserError:
             date = pd.NaT
-        data['eventDate'].append(date)
+        data['event_date'].append(date)
 
         # add sessions by assuming a 'conventional' and unchanged schedule
         # only date but not time can be assumed for non race sessions,
         #   therefore .floor to daily resolution
-        data['eventFormat'].append("conventional")
+        data['event_format'].append("conventional")
         data['session1'].append('Practice 1')
-        data['session1Date'].append(date.floor('D') - pd.Timedelta(days=2))
+        data['session1_date'].append(date.floor('D') - pd.Timedelta(days=2))
         data['session2'].append('Practice 2')
-        data['session2Date'].append(date.floor('D') - pd.Timedelta(days=2))
+        data['session2_date'].append(date.floor('D') - pd.Timedelta(days=2))
         data['session3'].append('Practice 3')
-        data['session3Date'].append(date.floor('D') - pd.Timedelta(days=1))
+        data['session3_date'].append(date.floor('D') - pd.Timedelta(days=1))
         data['session4'].append('Qualifying')
-        data['session4Date'].append(date.floor('D') - pd.Timedelta(days=1))
+        data['session4_date'].append(date.floor('D') - pd.Timedelta(days=1))
         data['session5'].append('Race')
-        data['session5Date'].append(date)
+        data['session5_date'].append(date)
 
     df = pd.DataFrame(data)
     schedule = EventSchedule(df, year=year)
@@ -308,34 +308,34 @@ class EventSchedule(pd.DataFrame):
     """
 
     _COLS_TYPES = {
-        'roundNumber': 'int64',
+        'round_number': 'int64',
         'country': 'str',
         'location': 'str',
-        'officialEventName': 'str',
-        'eventDate': 'datetime64[ns]',
-        'eventName': 'str',
-        'eventFormat': 'str',
+        'official_event_name': 'str',
+        'event_date': 'datetime64[ns]',
+        'event_name': 'str',
+        'event_format': 'str',
         'session1': 'str',
-        'session1Date': 'datetime64[ns]',
+        'session1_date': 'datetime64[ns]',
         'session2': 'str',
-        'session2Date': 'datetime64[ns]',
+        'session2_date': 'datetime64[ns]',
         'session3': 'str',
-        'session3Date': 'datetime64[ns]',
+        'session3_date': 'datetime64[ns]',
         'session4': 'str',
-        'session4Date': 'datetime64[ns]',
+        'session4_date': 'datetime64[ns]',
         'session5': 'str',
-        'session5Date': 'datetime64[ns]',
+        'session5_date': 'datetime64[ns]',
+        'f1_api_support': 'bool'
     }
 
-    _metadata = ['year', 'has_f1_api_support']
+    _metadata = ['year']
 
     _internal_names = ['base_class_view']
 
-    def __init__(self, *args, year=0, f1_api_support=False, **kwargs):
+    def __init__(self, *args, year=0, **kwargs):
         kwargs['columns'] = list(self._COLS_TYPES)
         super().__init__(*args, **kwargs)
         self.year = year
-        self.has_f1_api_support = f1_api_support
 
         # apply column specific dtypes
         for col, _type in self._COLS_TYPES.items():
@@ -367,7 +367,7 @@ class EventSchedule(pd.DataFrame):
     def is_testing(self):
         """Return `True` or `False`, depending on whether each event is a
         testing event."""
-        return self['eventFormat'] == 'testing'
+        return self['event_format'] == 'testing'
 
     def get_event_by_round(self, round):
         """Get an :class:`Event` by its round number.
@@ -379,7 +379,7 @@ class EventSchedule(pd.DataFrame):
         Raises:
             ValueError: The round does not exist in the event schedule
         """
-        mask = self['roundNumber'] == round
+        mask = self['round_number'] == round
         if not mask.any():
             raise ValueError(f"Invalid round: {round}")
         return self[mask].iloc[0]
@@ -410,8 +410,8 @@ class EventSchedule(pd.DataFrame):
             strings = list()
             strings.append(ev['location'])
             strings.append(ev['country'])
-            strings.append(ev['eventName'].replace("Grand Prix", ""))
-            strings.append(ev['officialEventName']
+            strings.append(ev['event_name'].replace("Grand Prix", ""))
+            strings.append(ev['official_event_name']
                            .replace("FORMULA 1", "")
                            .replace(str(self.year), "")
                            .replace("GRAND PRIX", ""))
@@ -431,15 +431,24 @@ class EventSchedule(pd.DataFrame):
 
 
 class Event(pd.Series):
+    """This class represents a single event (race weekend or testing event).
 
-    _metadata = ['year', 'has_f1_api_support']
+    Each event consists of one or multiple sessions, depending on the type
+    of event and depending on the event format.
+
+    This class is usually not instantiated directly. You should use
+    :func:`get_event` or similar to get a specific event.
+
+    Args:
+          year (int): Championship year
+    """
+    _metadata = ['year']
 
     _internal_names = ['date', 'gp']
 
-    def __init__(self, *args, year=None, f1_api_support=False, **kwargs):
+    def __init__(self, *args, year=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.year = year
-        self.has_f1_api_support = f1_api_support
         self._getattr_override = True  # TODO: remove in v2.3
 
     @property
@@ -452,16 +461,16 @@ class Event(pd.Series):
     def __getattribute__(self, name):
         # TODO: remove in v2.3
         if name == 'name' and getattr(self, '_getattr_override', False):
-            if 'eventName' in self:
+            if 'event_name' in self:
                 warnings.warn(
                     "The `Weekend.name` property is deprecated and will be"
                     "removed in a future version.\n"
-                    "Use `Event['eventName']` or `Event.eventName` instead.",
+                    "Use `Event['event_name']` or `Event.event_name` instead.",
                     FutureWarning
                 )
                 # name may be accessed by pandas internals to, when data
                 # does not exist yet
-                return self['eventName']
+                return self['event_name']
 
         return super().__getattribute__(name)
 
@@ -476,18 +485,18 @@ class Event(pd.Series):
     def date(self):
         """Weekend race date (YYYY-MM-DD)
 
-        This wraps ``self['eventDate'].strftime('%Y-%m-%d')``
+        This wraps ``self['event_date'].strftime('%Y-%m-%d')``
 
         .. deprecated:: 2.2
-            use :attr:`Event.eventDate` or :attr:`Event['eventDate']` and
+            use :attr:`Event.event_date` or :attr:`Event['event_date']` and
             use :func:`datetime.datetime.strftime` to format the desired
             string representation of the datetime object
         """
         warnings.warn("The `Weekend.date` property is deprecated and will be"
                       "removed in a future version.\n"
-                      "Use `Event['eventDate']` or `Event.eventDate` instead.",
+                      "Use `Event['event_date']` or `Event.event_date` instead.",
                       FutureWarning)
-        return self['eventDate'].strftime('%Y-%m-%d')
+        return self['event_date'].strftime('%Y-%m-%d')
 
     @property
     def gp(self):
@@ -498,14 +507,14 @@ class Event(pd.Series):
         """
         warnings.warn("The `Weekend.gp` property is deprecated and will be"
                       "removed in a future version.\n"
-                      "Use `Event['roundNumber']` or `Event.roundNumber` "
+                      "Use `Event['round_number']` or `Event.round_number` "
                       "instead.", FutureWarning)
-        return self['roundNumber']
+        return self['round_number']
 
     def is_testing(self):
         """Return `True` or `False`, depending on whether this event is a
         testing event."""
-        return self['eventFormat'] == 'testing'
+        return self['event_format'] == 'testing'
 
     def get_session_name(self, identifier):
         """Return the full session name of a specific session from this event.
@@ -598,7 +607,7 @@ class Event(pd.Series):
                              f"for this event")
         else:
             _name = mask.idxmax()
-            return self[f"{_name}Date"]
+            return self[f"{_name}_date"]
 
     def get_session(self, identifier):
         """Return a session from this event.

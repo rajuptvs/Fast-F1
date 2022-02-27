@@ -126,7 +126,7 @@ def get_round(year, match):
                   FutureWarning)
     from fastf1 import events
     event = events.get_event(year, match)
-    return event.roundNumber
+    return event.round_number
 
 
 class Telemetry(pd.DataFrame):
@@ -892,8 +892,8 @@ class Session:
         """str: Name of this session, for example 'Qualifying', 'Race', 'FP1', ..."""
         self.date = self.event.get_session_date(session_name)
         """pandas.Datetime: Date at which this session took place."""
-        self.api_path = api.make_path(self.event.eventName,
-                                      self.event.eventDate.strftime('%Y-%m-%d'),
+        self.api_path = api.make_path(self.event.event_name,
+                                      self.event.event_date.strftime('%Y-%m-%d'),
                                       self.name, self.date.strftime('%Y-%m-%d'))
         """str: API base path for this session"""
 
@@ -910,7 +910,7 @@ class Session:
             # See ergast.com
             try:
                 self.results = ergast.load(self.event.year,
-                                           self.event.roundNumber,
+                                           self.event.round_number,
                                            self.name)
             except IndexError:
                 # Ergast will take some time after a session until the data is available
@@ -1018,7 +1018,7 @@ class Session:
         Returns:
             instance of :class:`Laps`
         """
-        logging.info(f"Loading laps for {self.event.eventName} - {self.name}"
+        logging.info(f"Loading laps for {self.event.event_name} - {self.name}"
                      f" [v{fastf1.__version__}]")
 
         """From `timing_data` and `timing_app_data` a summary table is

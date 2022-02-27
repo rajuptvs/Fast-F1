@@ -33,7 +33,7 @@ def test_get_session_deprecations():
 @pytest.mark.parametrize("identifier", ['Q', 4, 'Qualifying'])
 def test_get_session(gp, identifier):
     session = fastf1.events.get_session(2021, gp, identifier)
-    assert session.event.eventName == 'Bahrain Grand Prix'
+    assert session.event.event_name == 'Bahrain Grand Prix'
     assert session.name == 'Qualifying'
 
 
@@ -55,7 +55,7 @@ def test_get_testing_session(test_n, session_n, pass_1, pass_2):
 @pytest.mark.parametrize("gp", ['Bahrain', 'Bharain', 'Sakhir', 1])
 def test_get_event(gp):
     event = fastf1.events.get_event(2021, gp)
-    assert event.eventName == 'Bahrain Grand Prix'
+    assert event.event_name == 'Bahrain Grand Prix'
 
 
 def test_get_testing_event():
