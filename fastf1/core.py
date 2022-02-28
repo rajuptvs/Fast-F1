@@ -1,6 +1,6 @@
 """
-:mod:`fastf1.core` - Core module
-================================
+Timing and Telemetry Data - :mod:`fastf1.core`
+==============================================
 
 The Fast-F1 core is a collection of functions and data objects for accessing
 and analyzing F1 timing and telemetry data.
@@ -99,12 +99,12 @@ D_LOOKUP = [[44, 'HAM', 'Mercedes'], [77, 'BOT', 'Mercedes'],
 def get_session(*args, **kwargs):
     """
     .. deprecated:: 2.2
-        replaced by :func:`fastf1.events.get_session`
+        replaced by :func:`fastf1.get_session`
     """
     # TODO remove
     warnings.warn("`fastf1.core.get_session` has been deprecated and will be"
                   "removed in a future version.\n"
-                  "Use `fastf1.events.get_session` instead.", FutureWarning)
+                  "Use `fastf1.get_session` instead.", FutureWarning)
     from fastf1 import events
     return events.get_session(*args, **kwargs)
 
@@ -113,14 +113,14 @@ def get_round(year, match):
     """
     .. deprecated:: 2.2
         will be removed without replacement;
-        Use :func:`fastf1.events.get_event` instead to get an
+        Use :func:`fastf1.get_event` instead to get an
         :class:`~fastf1.events.Event` object which provides
         information including the round number for the event.
     """
     # TODO remove
     warnings.warn("_func:`fastf1.core.get_round` has been deprecated and will "
                   "be removed without replacement in a future version.\n"
-                  "Use :func:`fastf1.events.get_event` instead to get an "
+                  "Use :func:`fastf1.get_event` instead to get an "
                   ":class:`~fastf1.events.Event` object which provides "
                   "information including the round number for the event.",
                   FutureWarning)
@@ -1604,11 +1604,7 @@ class Laps(pd.DataFrame):
         Returns:
             pandas.DataFrame
 
-        .. testsetup::
-
-                >>> fastf1.Cache.enable_cache('doc_cache')
-
-        Example::
+        .. doctest::
 
             >>> session = fastf1.get_session(2019, 'Monza', 'Q')
             >>> laps = session.load_laps()
@@ -1626,15 +1622,20 @@ class Laps(pd.DataFrame):
             34 0 days 00:34:14.385000    23.0     51.7  ...      37.7           272       0.8
             36 0 days 00:36:14.426000    23.0     51.1  ...      38.3           192       0.9
             37 0 days 00:37:14.391000    23.3     50.0  ...      38.7           213       0.9
+            <BLANKLINE>
             [275 rows x 8 columns]
 
-        Joining weather data with lap timing data::
+        Joining weather data with lap timing data:
 
-            >>> # prepare the data for joining
+        .. doctest::
+
+            >>> import pandas as pd  # needed additionally to fastf1
+
+            # prepare the data for joining
             >>> laps = laps.reset_index(drop=True)
             >>> weather_data = weather_data.reset_index(drop=True)
 
-            >>> # exclude the 'Time' column from weather data when joining
+            # exclude the 'Time' column from weather data when joining
             >>> joined = pd.concat([laps, weather_data.loc[:, ~(weather_data.columns == 'Time')]], axis=1)
             >>> print(joined)
                                   Time DriverNumber  ... WindDirection  WindSpeed
@@ -1649,6 +1650,7 @@ class Laps(pd.DataFrame):
             272 0 days 00:35:15.794000           88  ...           272        0.8
             273 0 days 00:36:38.150000           88  ...           192        0.9
             274 0 days 00:38:37.508000           88  ...           213        0.9
+            <BLANKLINE>
             [275 rows x 32 columns]
         """
         wd = [lap.get_weather_data() for _, lap in self.iterrows()]
@@ -1953,11 +1955,7 @@ class Lap(pd.Series):
         Returns:
             pandas.Series
 
-        .. testsetup::
-
-            >>> fastf1.Cache.enable_cache('doc_cache')
-
-        Example::
+        .. doctest::
 
             >>> session = fastf1.get_session(2019, 'Monza', 'Q')
             >>> laps = session.load_laps()

@@ -1,6 +1,6 @@
 """
-:mod:`fastf1.plotting` - Plotting module
-========================================
+Plotting - :mod:`fastf1.plotting`
+=================================
 
 Helper functions for creating data plots.
 

@@ -15,7 +15,7 @@ def test_file_loading():
     livedata = LiveTimingData('fastf1/testing/reference_data/livedata/2021_1_FP3.txt')
     livedata.load()
 
-    session = fastf1.events.get_session(2021, 1, 'Practice 3')
+    session = fastf1.get_session(2021, 1, 'Practice 3')
     session.load_laps(with_telemetry=True, livedata=livedata)
 
     assert session.laps.shape == (274, 26)

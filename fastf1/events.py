@@ -1,7 +1,136 @@
 """
-:mod:`fastf1.events` - Events module
-====================================
-"""
+Event Schedule - :mod:`fastf1.events`
+=====================================
+
+The :class:`EventSchedule` provides information about past and upcoming
+Formula 1 events.
+
+An :class:`Event` can be a race weekend or a testing event. Each event
+consists of multiple :class:`~fastf1.core.Session`\ s.
+
+The event schedule objects are built on top of pandas'
+:class:`pandas.DataFrame` (event schedule) and :class:`pandas.Series` (event).
+Therefore, the usual methods of these pandas objects can be used in addition
+to the special methods described here.
+
+Event Schedule Data
+-------------------
+
+The event schedule and each event provide the following information as
+DataFrame columns or Series values:
+
+  - ``round_number`` | :class:`int` |
+    The number of the championship round. This is unique for race
+    weekends, while testing events all share the round number zero.
+
+  - ``country`` | :class:`str` | The country in which the event is held.
+
+  - ``location`` | :class:`str` |
+    The event location; usually the city or region in which the track is
+    situated.
+
+  - ``official_event_name`` | :class:`str` |
+    The official event name as advertised, including sponsor names and stuff.
+
+  - ``event_name`` | :class:`str` |
+    A shorter event name usually containing the country or location but no
+    no sponsor names. This name is required internally for proper api access.
+
+  - ``event_date`` | :class:`datetime` |
+    The events reference date and time. This is used mainly internally.
+    Usually, this is the same as the date of the last session.
+
+  - ``event_format`` | :class:`str` |
+    The format of the event. One of 'convetional', 'sprint', 'testing'.
+
+  - ``session*`` | :class:`str` |
+    The name of the session. One of 'Practice 1', 'Practice 2', 'Practice 3',
+    'Qualifying', 'Sprint Qualifying' or 'Race'.
+    Testing sessions are considered practice.
+    ``*`` denotes the number of
+    the session (1, 2, 3, 4, 5).
+
+  - ``session*_date`` | :class:`datetime` |
+    The date and time at which the session is scheduled to start or was
+    scheduled to start.
+    ``*`` denotes the number of the session (1, 2, 3, 4, 5).
+
+  - ``f1_api_support`` | :class:`bool` |
+    Denotes whether this session is supported by the official F1 API.
+    Lap timing data and telemetry data can only be loaded if this is true.
+
+
+Supported Seasons
+.................
+
+The event schedule supports exact scheduled starting times for all sessions
+starting with the 2018 season.
+
+Testing events are supported for the 2020 season and later seasons.
+
+Starting dates for sessions before 2018 assume that each race weekend was held
+according to the 'conventional' schedule (Practice 1/2 on friday,
+Practice 3/Qualifying on Saturday, Race on Sunday). A starting date and time
+can only be provided for the race session. All other sessions are calculated
+from this and no starting times can be provided for these.
+
+
+.. _SessionIdentifier:
+
+Session identifiers
+-------------------
+
+Multiple event (schedule) related functions and methods make use of a session
+identifier to differentiate between the various sessions of one event.
+This identifier can currently be one of the following:
+
+    - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
+      'SQ', 'R'``
+    - full session name: ``'Practice 1', 'Practice 2',
+      'Practice 3', 'Sprint Qualifying', 'Qualifying', 'Race'``;
+      provided names will be normalized, so that the name is
+      case-insensitive
+    - number of the session: ``1, 2, 3, 4, 5``
+
+
+Functions for accessing schedule data
+-------------------------------------
+
+The functions for accessing event schedule data are documented in
+:ref:`GeneralFunctions`.
+
+
+Data Objects
+------------
+
+
+Overview
+........
+
+
+.. autosummary::
+    EventSchedule
+    Event
+
+
+API Reference
+.............
+
+
+.. autoclass:: EventSchedule
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :autosummary:
+
+
+.. autoclass:: Event
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :autosummary:
+
+"""  # noqa: W605 invalid escape sequence (escaped space)
 import collections
 import datetime
 import logging
@@ -89,13 +218,7 @@ def get_session(year, gp, identifier=None, *, force_ergast=False, event=None):
             See :func:`get_event_by_name` for some further remarks on the
             fuzzy matching.
 
-        identifier (str or int): may be one of
-
-            - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
-              'SQ', 'R'``
-            - full session name: ``'Practice 1', 'Practice 2', 'Practice 3',
-              'Sprint Qualifying', 'Qualifying', 'Race'``
-            - number of the session: ``1, 2, 3, 4, 5``
+        identifier (str or int): see :ref:`SessionIdentifier`
 
         force_ergast (bool): Always use data from the ergast database to
             create the event schedule
@@ -125,7 +248,7 @@ def get_session(year, gp, identifier=None, *, force_ergast=False, event=None):
     if identifier is None:
         warnings.warn("Getting `Event` objects (previously `Session`) through "
                       "`get_session` has been deprecated.\n"
-                      "Use `fastf1.events.get_event` instead.", FutureWarning)
+                      "Use `fastf1.get_event` instead.", FutureWarning)
         return event  # TODO: remove in v2.3
 
     return event.get_session(identifier)
@@ -521,7 +644,8 @@ class Event(pd.Series):
 
         Examples:
 
-            >>> event = get_event(2021, 1)
+            >>> import fastf1
+            >>> event = fastf1.get_event(2021, 1)
             >>> event.get_session_name(3)
             'Practice 3'
             >>> event.get_session_name('Q')
@@ -530,15 +654,7 @@ class Event(pd.Series):
             'Practice 1'
 
         Args:
-            identifier (str or int): may be one of
-
-                - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
-                  'SQ', 'R'``
-                - full session name: ``'Practice 1', 'Practice 2',
-                  'Practice 3', 'Sprint Qualifying', 'Qualifying', 'Race'``,
-                  provided names will be normalized, so that the name is
-                  case-insensitive
-                - number of the session: ``1, 2, 3, 4, 5``
+            identifier (str or int): see :ref:`SessionIdentifier`
 
         Returns:
             :class:`datetime.datetime`
@@ -582,15 +698,7 @@ class Event(pd.Series):
         of this event is or was held.
 
         Args:
-            identifier (str or int): may be one of
-
-                - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
-                  'SQ', 'R'``
-                - full session name: ``'Practice 1', 'Practice 2',
-                  'Practice 3', 'Sprint Qualifying', 'Qualifying', 'Race'``
-                - number of the session: ``1, 2, 3, 4, 5``
-
-                see :func:`get_session_name` for more info
+            identifier (str or int): see :ref:`SessionIdentifier`
 
         Returns:
             :class:`datetime.datetime`
@@ -613,15 +721,7 @@ class Event(pd.Series):
         """Return a session from this event.
 
         Args:
-            identifier (str or int): may be one of
-
-                - session name abbreviation: ``'FP1', 'FP2', 'FP3', 'Q',
-                  'SQ', 'R'``
-                - full session name: ``'Practice 1', 'Practice 2', 'Practice 3',
-                  'Sprint Qualifying', 'Qualifying', 'Race'``
-                - number of the session: ``1, 2, 3, 4, 5``
-
-                see :func:`get_session_name` for more info
+            identifier (str or int): see :ref:`SessionIdentifier`
 
         Returns:
             :class:`Session` instance

@@ -1,6 +1,11 @@
 """
-:mod:`fastf1.api` - Api module
-==============================
+Api Functions - :mod:`fastf1.api`
+=================================
+
+.. note:: The functions listed here are primarily for internal use within
+    FastF1. While you can use these functions directly, it is usually
+    better to use the functionality provided by the data objects
+    in :mod:`fastf1.core` instead.
 
 A collection of functions to interface with the F1 web api.
 
@@ -75,17 +80,33 @@ class Cache:
     """Pickle and requests based API cache.
 
     The parsed API data will be saved as a pickled object.
-    Raw GET and POST requests are cached by requests-cache in a sqlite db.
+    Raw GET requests are cached in a sqlite db using the 'requests-cache'
+    module.
+
+    Caching should almost always be enabled to speed up the runtime of your
+    scripts and to prevent exceeding the rate limit of api servers.
+    FastF1 will print an annoyingly obnoxious warning message if you do not
+    enable caching.
 
     The cache has two "stages".
 
-        - Stage 1: Caching of raw GET and POST requests. This works for all requests. The returned data is unlikely
-          to ever change.
-        - Stage 2: Caching of the parsed data. This saves a lot of time when running as parsing of the data is
-          computationally expensive. This data can change whenever the API parser code is updated.
-          Cache data is saved together with a version number. Updates of the code are automatically detected
-          (comparing version numbers). The cache is updated in case the version numbers of the cached
-          data and the code don't match. Stage 2 is only used for some api functions.
+        - Stage 1: Caching of raw GET requests. This works for all requests.
+          Cache control is employed to refresh the cached data periodically.
+        - Stage 2: Caching of the parsed data. This saves a lot of time when
+          running your scripts,  as parsing of the data is computationally
+          expensive. Stage 2 caching is only used for some api functions.
+
+    Most commonly, you will enable caching right at the beginning of your script:
+
+        >>> import fastf1
+        >>> fastf1.Cache.enable_cache('path/to/cache')  # doctest: +SKIP
+        # change cache directory to an exisitng empty directory on your machine
+        >>> session = fastf1.get_session(2021, 5, 'Q')
+        >>> # ...
+
+    Note that you should always enable caching except for very rare
+    circumstances which are usually limited to doing core developement
+    on FastF1.
     """
     _CACHE_DIR = ''
     _API_CORE_VERSION = 2  # version of the api parser code (unrelated to release version number)

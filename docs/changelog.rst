@@ -3,12 +3,12 @@ Changelog
 =========
 
 
-v2.2 Major Update
-=================
+v2.2.0-alpha-220228
+===================
 
 This update introduces a range of new features and bug fixes. While
 backwards compatibility has been kept in mind, some breaking changes
-were required.
+are required.
 
 Changes and New Features:
 
@@ -27,6 +27,8 @@ Breaking Changes:
   - For testing events :class:`fastf1.core.Session` objects can no longer be
     created through :func:`fastf1.get_session`. You need to use
     :func:`fastf1.get_testing_session` instead.
+  - :attr:`fastf1.core.Session.date` is not a :class:`pandas.Timestamp`
+    instead of a string.
 
 
 Potentially breaking changes:
@@ -68,7 +70,7 @@ Deprecations:
     :attr:`fastf1.core.Session.event` to adhere to new naming conventions.
 
   - The function :func:`fastf1.core.get_round` has been deprecated and will be
-    removed without replacement in v2.3. Use :func:`fastf1.events.get_session`
+    removed without replacement in v2.3. Use :func:`fastf1.get_session`
     instead and
 
 
