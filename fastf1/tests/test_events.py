@@ -1,6 +1,9 @@
+import pandas as pd
 import pytest
 
 import warnings
+
+import numpy as np
 
 import fastf1.core
 import fastf1.events
@@ -58,6 +61,11 @@ def test_get_event(gp):
     assert event.event_name == 'Bahrain Grand Prix'
 
 
+def test_get_event_round_zero():
+    with pytest.raises(ValueError, match="testing event by round number"):
+        fastf1.get_event(2021, 0)
+
+
 def test_get_testing_event():
     # 0 is not a valid number for a testing event
     with pytest.raises(ValueError):
@@ -69,3 +77,95 @@ def test_get_testing_event():
     # only one testing event in 2021
     with pytest.raises(ValueError):
         fastf1.get_testing_event(2021, 2)
+
+
+def test_event_schedule_partial_data_init():
+    schedule = fastf1.events.EventSchedule({'event_name': ['A', 'B', 'C']})
+    assert np.all([col in fastf1.events.EventSchedule._COL_TYPES.keys()
+                   for col in schedule.columns])
+    assert schedule.dtypes['session1'] == 'object'
+    assert schedule.dtypes['session1_date'] == '<M8[ns]'
+
+
+def test_event_schedule_constructor_sliced():
+    schedule = fastf1.events.EventSchedule({'event_name': ['A', 'B', 'C']},
+                                           year=2020)
+    event = schedule.iloc[0]
+    assert isinstance(event, fastf1.events.Event)
+    assert event.year == 2020
+
+
+def test_event_schedule_is_testing():
+    schedule = fastf1.events.EventSchedule(
+        {'event_format': ['conventional', 'testing']}
+    )
+    assert (schedule.is_testing() == [False, True]).all()
+
+
+def test_event_schedule_get_event_by_round_number():
+    schedule = fastf1.events.EventSchedule(
+        {'event_name': ['T1', 'A', 'B', 'C', 'D'],
+         'round_number': [0, 1, 2, 3, 4]}
+    )
+    assert schedule.get_event_by_round(2).event_name == 'B'
+
+    with pytest.raises(ValueError, match="testing event by round number"):
+        schedule.get_event_by_round(0)
+
+    with pytest.raises(ValueError, match="Invalid round"):
+        schedule.get_event_by_round(10)
+
+
+def test_event_schedule_get_by_name():
+    schedule = fastf1.events.EventSchedule(
+        {
+            'event_name': [
+                'testA',
+                'TESTB',
+                'test_test'
+            ]
+        }
+    )
+
+    assert schedule.get_event_by_name('testA').event_name == 'testA'
+    assert schedule.get_event_by_name('TESTA').event_name == 'testA'
+    assert schedule.get_event_by_name('testb').event_name == 'TESTB'
+    assert schedule.get_event_by_name('test-test').event_name == 'test_test'
+
+
+def test_event_is_testing():
+    assert fastf1.get_testing_event(2021, 1).is_testing()
+    assert not fastf1.get_event(2021, 1).is_testing()
+
+
+def test_event_get_session_name():
+    event = fastf1.get_event(2021, 1)
+    assert event.get_session_name(3) == 'Practice 3'
+    assert event.get_session_name('Q') == 'Qualifying'
+    assert event.get_session_name('praCtice 1') == 'Practice 1'
+
+
+def test_event_get_session_date():
+    event = fastf1.get_event(2021, 1)
+    sd = event.get_session_date('Q')
+    assert sd == event.session4_date
+    assert isinstance(sd, pd.Timestamp)
+
+
+@pytest.mark.parametrize(
+    "meth_name,args,expected_name",
+    [
+        ['get_session', ['qualifying'], 'Qualifying'],
+        ['get_session', ['R'], 'Race'],
+        ['get_session', [1], 'Practice 1'],
+        ['get_race', [], 'Race'],
+        ['get_qualifying', [], 'Qualifying'],
+        ['get_sprint', [], 'Sprint Qualifying'],
+        ['get_practice', [1], 'Practice 1'],
+        ['get_practice', [2], 'Practice 2'],
+    ]
+)
+def test_event_get_session(meth_name, args, expected_name):
+    event = fastf1.get_event(2021, 14)
+    session = getattr(event, meth_name)(*args)
+    assert session.name == expected_name

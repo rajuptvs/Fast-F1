@@ -21,22 +21,18 @@ All data is provided through the following data objects:
        Driver
 
 
-The :class:`Weekend` object holds some generic information about the race
-weekend. Furthermore, :class:`Session` objects for the various sessions of
-a weekend can be created from a :class:`Weekend` object.
-
 The :class:`Session` object is mainly used as an entry point for loading
 timing data and telemetry data. The :class:`Session` can create a
 :class:`Laps` object which contains all timing, track and session status
 data for a whole session.
 
-Usually you will be using :func:`get_session` to to get a :class:`Session`
-or :class:`Weekend` object.
+Usually you will be using :func:`get_session` to get a :class:`Session`
+object.
 
 The :class:`Laps` object holds detailed information about multiples laps.
 
 The :class:`Lap` object holds the same information as :class:`Laps` but only
-for one single lap. When selecting a singel lap from a :class:`Laps` object,
+for one single lap. When selecting a single lap from a :class:`Laps` object,
 an object of type :class:`Lap` will be returned.
 
 Apart from only providing data, the :class:`Laps`, :class:`Lap` and
@@ -65,24 +61,9 @@ from functools import cached_property
 import warnings
 
 
-logging.basicConfig(level=logging.INFO, style='{', format="{module: <8} {levelname: >10} \t{message}")
+logging.basicConfig(level=logging.INFO, style='{',
+                    format="{module: <8} {levelname: >10} \t{message}")
 
-TESTING_LOOKUP = {'2020': [['2020-02-19', '2020-02-20', '2020-02-21'],
-                           ['2020-02-26', '2020-02-27', '2020-02-28']],
-                  '2021': [['2021-03-12', '2021-03-13', '2021-03-14']]}
-
-# TODO: remove; temporary patch to support sprint qualifying
-SPRINT_QUALIFYING_LOOKUP = {
-    10: {'Practice 1': '2021-07-16', 'Qualifying': '2021-07-16',
-         'Practice 2': '2021-07-17', 'Sprint Qualifying': '2021-07-17',
-         'Race': '2021-07-18'},
-    14: {'Practice 1': '2021-09-10', 'Qualifying': '2021-09-10',
-         'Practice 2': '2021-09-11', 'Sprint Qualifying': '2021-09-11',
-         'Race': '2021-09-12'},
-    19: {'Practice 1': '2021-11-12', 'Qualifying': '2021-11-12',
-         'Practice 2': '2021-11-13', 'Sprint Qualifying': '2021-11-13',
-         'Race': '2021-11-14'}
-}
 
 D_LOOKUP = [[44, 'HAM', 'Mercedes'], [77, 'BOT', 'Mercedes'],
             [55, 'SAI', 'Ferrari'], [16, 'LEC', 'Ferrari'],

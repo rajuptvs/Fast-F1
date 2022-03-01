@@ -45,6 +45,7 @@ def test_ergast_lookup_fail():
 
 
 def _test_ergast_lookup_fail():
+    fastf1.Cache.enable_cache('test_cache')
     log_handle = fastf1.testing.capture_log()
 
     # ergast lookup fails if data is requested to soon after a session ends

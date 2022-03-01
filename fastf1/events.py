@@ -63,16 +63,32 @@ DataFrame columns or Series values:
 Supported Seasons
 .................
 
-The event schedule supports exact scheduled starting times for all sessions
-starting with the 2018 season.
+FastF1 provides its own event schedule for the 2018 season and all later
+seasons. The schedule for the all seasons before 2018 is built using data from
+the Ergast API. Only limited data is available for these seasons. Usage of the
+Ergast API can be enforced for all seasons, in which case the same limitations
+apply for the more recent seasons too.
 
-Testing events are supported for the 2020 season and later seasons.
+**Exact scheduled starting times for all sessions**:
+Supported starting with the 2018 season.
+Starting dates for sessions before 2018 (or when enforcing usage of the Ergast
+API) assume that each race weekend was held according to the 'conventional'
+schedule (Practice 1/2 on friday, Practice 3/Qualifying on Saturday, Race on
+Sunday). A starting date and time can only be provided for the race session.
+All other sessions are calculated from this and no starting times can be
+provided for these. These assumptions will be incorrect for certain events!
 
-Starting dates for sessions before 2018 assume that each race weekend was held
-according to the 'conventional' schedule (Practice 1/2 on friday,
-Practice 3/Qualifying on Saturday, Race on Sunday). A starting date and time
-can only be provided for the race session. All other sessions are calculated
-from this and no starting times can be provided for these.
+**Testing events**: Supported for the 2020 season and later seasons. Not
+supported if usage of the Ergast API is enforced.
+
+
+Event Schedule
+..............
+
+- 'conventional': Practice 1, Practice 2, Practice 3, Qualifying, Race
+- 'sprint': Practice 1, Qualifying, Practice 2, Sprint, Race
+- 'testing': no fixed session order; usually three practice sessions on
+  three separate days
 
 
 .. _SessionIdentifier:
@@ -168,11 +184,11 @@ _SCHEDULE_BASE_URL = "https://raw.githubusercontent.com/" \
 
 
 def get_session(year, gp, identifier=None, *, force_ergast=False, event=None):
-    """Create a :class:`Session` object based on year, event name and session
-    identifier.
+    """Create a :class:`~fastf1.core.Session` object based on year, event name
+    and session identifier.
 
     .. deprecated:: 2.2
-        Creating :class:`Event` objects (previously
+        Creating :class:`~fastf1.events.Event` objects (previously
         :class:`fastf1.core.Weekend`) by not specifying an ``identifier`` has
         been deprecated. Use :func:`get_event` instead.
 
@@ -255,8 +271,8 @@ def get_session(year, gp, identifier=None, *, force_ergast=False, event=None):
 
 
 def get_testing_session(year, test_number, session_number):
-    """Create a :class:`Session` object for testing sessions based on year,
-    test  event number and session number.
+    """Create a :class:`~fastf1.core.Session` object for testing sessions
+    based on year, test  event number and session number.
 
     Args:
         year (int): Championship year
@@ -274,7 +290,8 @@ def get_testing_session(year, test_number, session_number):
 
 
 def get_event(year, gp, *, force_ergast=False):
-    """Create an :class:`Event` object for a specific season and gp.
+    """Create an :class:`~fastf1.events.Event` object for a specific
+    season and gp.
 
     To get a testing event, use :func:`get_testing_event`.
 
@@ -291,7 +308,7 @@ def get_event(year, gp, *, force_ergast=False):
             create the event schedule
 
     Returns:
-        :class:`Event`
+        :class:`~fastf1.events.Event`
 
     .. versionadded:: 2.2
     """
@@ -301,23 +318,21 @@ def get_event(year, gp, *, force_ergast=False):
     if type(gp) is str:
         event = schedule.get_event_by_name(gp)
     else:
-        if gp == 0:
-            raise ValueError("Cannot get testing event by round number!")
         event = schedule.get_event_by_round(gp)
 
     return event
 
 
 def get_testing_event(year, test_number):
-    """Create a :class:`Event` object for testing sessions based on year
-    and test event number.
+    """Create a :class:`fastf1.events.Event` object for testing sessions
+    based on year and test event number.
 
     Args:
         year (int): Championship year
         test_number (int): Number of the testing event (usually at most two)
 
     Returns:
-        :class:`~fastf1.core.Session`
+        :class:`~fastf1.events.Event`
 
     .. versionadded:: 2.2
     """
@@ -332,7 +347,8 @@ def get_testing_event(year, test_number):
 
 
 def get_event_schedule(year, *, include_testing=True, force_ergast=False):
-    """Create an :class:`EventSchedule` object for a specific season.
+    """Create an :class:`~fastf1.events.EventSchedule` object for a specific
+    season.
 
     Args:
         year (int): Championship year
@@ -342,7 +358,7 @@ def get_event_schedule(year, *, include_testing=True, force_ergast=False):
             create the event schedule
 
     Returns:
-        :class:`EventSchedule`
+        :class:`~fastf1.events.EventSchedule`
 
     .. versionadded:: 2.2
     """
@@ -409,6 +425,9 @@ def _get_schedule_from_ergast(year):
         data['session5'].append('Race')
         data['session5_date'].append(date)
 
+        data['f1_api_support'].append(True if year >= 2018 else False)
+        # simplified; this is only true most of the time
+
     df = pd.DataFrame(data)
     schedule = EventSchedule(df, year=year)
     return schedule
@@ -430,25 +449,25 @@ class EventSchedule(pd.DataFrame):
     .. versionadded:: 2.2
     """
 
-    _COLS_TYPES = {
-        'round_number': 'int64',
-        'country': 'str',
-        'location': 'str',
-        'official_event_name': 'str',
+    _COL_TYPES = {
+        'round_number': int,
+        'country': str,
+        'location': str,
+        'official_event_name': str,
         'event_date': 'datetime64[ns]',
-        'event_name': 'str',
-        'event_format': 'str',
-        'session1': 'str',
+        'event_name': str,
+        'event_format': str,
+        'session1': str,
         'session1_date': 'datetime64[ns]',
-        'session2': 'str',
+        'session2': str,
         'session2_date': 'datetime64[ns]',
-        'session3': 'str',
+        'session3': str,
         'session3_date': 'datetime64[ns]',
-        'session4': 'str',
+        'session4': str,
         'session4_date': 'datetime64[ns]',
-        'session5': 'str',
+        'session5': str,
         'session5_date': 'datetime64[ns]',
-        'f1_api_support': 'bool'
+        'f1_api_support': bool
     }
 
     _metadata = ['year']
@@ -456,12 +475,17 @@ class EventSchedule(pd.DataFrame):
     _internal_names = ['base_class_view']
 
     def __init__(self, *args, year=0, **kwargs):
-        kwargs['columns'] = list(self._COLS_TYPES)
+        kwargs['columns'] = list(self._COL_TYPES)
         super().__init__(*args, **kwargs)
         self.year = year
 
         # apply column specific dtypes
-        for col, _type in self._COLS_TYPES.items():
+        for col, _type in self._COL_TYPES.items():
+            if self[col].isna().all():
+                if _type == 'datetime64[ns]':
+                    self[col] = pd.NaT
+                else:
+                    self[col] = _type()
             self[col] = self[col].astype(_type)
 
     def __repr__(self):
@@ -490,7 +514,7 @@ class EventSchedule(pd.DataFrame):
     def is_testing(self):
         """Return `True` or `False`, depending on whether each event is a
         testing event."""
-        return self['event_format'] == 'testing'
+        return pd.Series(self['event_format'] == 'testing')
 
     def get_event_by_round(self, round):
         """Get an :class:`Event` by its round number.
@@ -502,6 +526,8 @@ class EventSchedule(pd.DataFrame):
         Raises:
             ValueError: The round does not exist in the event schedule
         """
+        if round == 0:
+            raise ValueError("Cannot get testing event by round number!")
         mask = self['round_number'] == round
         if not mask.any():
             raise ValueError(f"Invalid round: {round}")
@@ -657,7 +683,7 @@ class Event(pd.Series):
             identifier (str or int): see :ref:`SessionIdentifier`
 
         Returns:
-            :class:`datetime.datetime`
+            :class:`str`
 
         Raises:
             ValueError: No matching session or invalid identifier
@@ -756,15 +782,15 @@ class Event(pd.Series):
         Returns:
             :class:`Session` instance
         """
-        return self.get_session('R')
+        return self.get_session('Race')
 
-    def get_quali(self):
+    def get_qualifying(self):
         """Return the qualifying session.
 
         Returns:
             :class:`Session` instance
         """
-        return self.get_session('Q')
+        return self.get_session('Qualifying')
 
     def get_sprint(self):
         """Return the sprint session.
@@ -772,7 +798,7 @@ class Event(pd.Series):
         Returns:
             :class:`Session` instance
         """
-        return self.get_session('SQ')
+        return self.get_session('Sprint Qualifying')
 
     def get_practice(self, number):
         """Return the specified practice session.
@@ -781,4 +807,4 @@ class Event(pd.Series):
         Returns:
             :class:`Session` instance
         """
-        return self.get_session(f'FP{number}')
+        return self.get_session(f'Practice {number}')

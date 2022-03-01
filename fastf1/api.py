@@ -149,7 +149,7 @@ class Cache:
     def requests_get(cls, *args, **kwargs):
         """Wraps `requests.Session().get()` with caching if enabled.
 
-        All api requests that require caching should be performed through this
+        All GET requests that require caching should be performed through this
         wrapper. Caching will be done if the module-wide cache has been
         enabled. Else, `requests.Session().get()` will be called without any
         caching.
@@ -158,6 +158,20 @@ class Cache:
         if (cls._requests_session is None) or cls._tmp_disabled:
             return requests.get(*args, **kwargs)
         return cls._requests_session.get(*args, **kwargs)
+
+    @classmethod
+    def requests_post(cls, *args, **kwargs):
+        """Wraps `requests.Session().post()` with caching if enabled.
+
+        All POST requests that require caching should be performed through this
+        wrapper. Caching will be done if the module-wide cache has been
+        enabled. Else, `requests.Session().get()` will be called without any
+        caching.
+        """
+        cls._show_not_enabled_warning()
+        if (cls._requests_session is None) or cls._tmp_disabled:
+            return requests.post(*args, **kwargs)
+        return cls._requests_session.post(*args, **kwargs)
 
     @classmethod
     def clear_cache(cls, cache_dir, deep=False):
