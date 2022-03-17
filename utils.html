@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>fastf1.utils - Utils module &mdash; Fast F1 2.1.13 documentation</title>
+  <title>Utils module - fastf1.utils &mdash; Fast F1 2.2.0 documentation</title>
   
 
   
@@ -46,8 +46,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="fastf1.plotting - Plotting module" href="plotting.html" />
-    <link rel="prev" title="fastf1.api - Api module" href="api.html" /> 
+    <link rel="next" title="Plotting - fastf1.plotting" href="plotting.html" />
+    <link rel="prev" title="Api Functions - fastf1.api" href="api.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.1.13
+                2.2.0
               </div>
             
           
@@ -103,8 +103,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/basics.html">Getting started with the basics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session">Loading a session</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-or-an-event">Loading a session or an event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#loading-a-session-or-and-event-by-name">Loading a session or and event by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#working-with-the-event-schedule">Working with the event schedule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/basics.html#displaying-driver-info-and-session-results">Displaying driver info and session results</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
 </ul>
 </li>
@@ -118,8 +120,17 @@
 <li class="toctree-l2"><a class="reference internal" href="examples_gallery/plot_speed_on_track.html">Speed visualization on track map</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="fastf1.html">General Functions - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fastf1.html#accessing-events-and-sessions">Accessing Events and Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastf1.html#caching">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastf1.html#general-functions-api-reference">General Functions - API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastf1.html#events-api">Events API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastf1.html#cache-api">Cache API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Timing and Telemetry Data - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#functions">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#api-reference">API Reference</a><ul>
@@ -134,7 +145,7 @@
 <li class="toctree-l4"><a class="reference internal" href="core.html#laps">Laps</a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#lap">Lap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#telemetry">Telemetry</a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#driver">Driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#results">Results</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="core.html#exceptions">Exceptions</a></li>
@@ -142,10 +153,25 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Event Schedule - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.events</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="events.html#event-schedule-data">Event Schedule Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="events.html#supported-seasons">Supported Seasons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="events.html#event-schedule">Event Schedule</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="events.html#session-identifiers">Session identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html#functions-for-accessing-schedule-data">Functions for accessing schedule data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html#data-objects">Data Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="events.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="events.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Api Functions - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utils module - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="livetiming.html">Live Timing Client - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="livetiming.html#usage-example">Usage Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="livetiming.html#important-notes">Important Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="livetiming.html#command-line-interface">Command Line Interface</a><ul>
@@ -157,7 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy.html">Legacy Functionality - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Information:</span></p>
 <ul>
@@ -179,6 +205,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-0">v2.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-13-more-bug-fixes">v2.1.13 More Bug Fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-12-fixes-and-patches">v2.1.12 Fixes and Patches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-11-fixes-and-patches">v2.1.11 Fixes and Patches</a></li>
@@ -247,7 +274,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</li>
+      <li>Utils module - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code></li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -266,8 +293,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-fastf1.utils"></span><div class="section" id="fastf1-utils-utils-module">
-<h1><a class="reference internal" href="#module-fastf1.utils" title="fastf1.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code></a> - Utils module<a class="headerlink" href="#fastf1-utils-utils-module" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="module-fastf1.utils"></span><div class="section" id="utils-module-fastf1-utils">
+<h1>Utils module - <a class="reference internal" href="#module-fastf1.utils" title="fastf1.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code></a><a class="headerlink" href="#utils-module-fastf1-utils" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="fastf1.utils.delta_time">
 <span class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></span><span class="sig-name descname"><span class="pre">delta_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_lap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare_lap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#delta_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.delta_time" title="Permalink to this definition">¶</a></dt>
@@ -292,9 +319,9 @@ Hamilton from Bahrain 2021 Qualifying:</p>
 <span class="n">plotting</span><span class="o">.</span><span class="n">setup_mpl</span><span class="p">()</span>
 
 <span class="n">quali</span> <span class="o">=</span> <span class="n">ff1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Emilia Romagna&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
-<span class="n">laps</span> <span class="o">=</span> <span class="n">quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">(</span><span class="n">with_telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">lec</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
-<span class="n">ham</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;HAM&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+<span class="n">quali</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">lec</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;LEC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+<span class="n">ham</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="s1">&#39;HAM&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
 
 <span class="n">delta_time</span><span class="p">,</span> <span class="n">ref_tel</span><span class="p">,</span> <span class="n">compare_tel</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">delta_time</span><span class="p">(</span><span class="n">ham</span><span class="p">,</span> <span class="n">lec</span><span class="p">)</span>
 <span class="c1"># ham is reference, lec is compared</span>
@@ -346,7 +373,7 @@ resampling options!</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fastf1.utils.recursive_dict_get">
-<span class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></span><span class="sig-name descname"><span class="pre">recursive_dict_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#recursive_dict_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.recursive_dict_get" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fastf1.utils.</span></span><span class="sig-name descname"><span class="pre">recursive_dict_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/utils.html#recursive_dict_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.utils.recursive_dict_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursive dict get. Can take an arbitrary number of keys and returns an empty
 dict if any key does not exist.
 <a class="reference external" href="https://stackoverflow.com/a/28225747">https://stackoverflow.com/a/28225747</a></p>
@@ -426,8 +453,8 @@ arbitrary precision (1 to 6 digits)</p></li>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="plotting.html" class="btn btn-neutral float-right" title="fastf1.plotting - Plotting module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="api.html" class="btn btn-neutral float-left" title="fastf1.api - Api module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plotting.html" class="btn btn-neutral float-right" title="Plotting - fastf1.plotting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api.html" class="btn btn-neutral float-left" title="Api Functions - fastf1.api" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

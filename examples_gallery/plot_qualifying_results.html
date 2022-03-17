@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Qualifying results overview &mdash; Fast F1 2.1.13 documentation</title>
+  <title>Qualifying results overview &mdash; Fast F1 2.2.0 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.1.13
+                2.2.0
               </div>
             
           
@@ -103,8 +103,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../examples/basics.html">Getting started with the basics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#loading-a-session">Loading a session</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#loading-a-session-by-name">Loading a session by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#loading-a-session-or-an-event">Loading a session or an event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#loading-a-session-or-and-event-by-name">Loading a session or and event by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#working-with-the-event-schedule">Working with the event schedule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#displaying-driver-info-and-session-results">Displaying driver info and session results</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/basics.html#working-with-laps-and-lap-times">Working with laps and lap times</a></li>
 </ul>
 </li>
@@ -118,8 +120,17 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_speed_on_track.html">Speed visualization on track map</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../fastf1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code> - Package functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code> - Core module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../fastf1.html">General Functions - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fastf1.html#accessing-events-and-sessions">Accessing Events and Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fastf1.html#caching">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fastf1.html#general-functions-api-reference">General Functions - API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fastf1.html#events-api">Events API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fastf1.html#cache-api">Cache API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html">Timing and Telemetry Data - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.core</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../core.html#data-objects">Data Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core.html#functions">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core.html#api-reference">API Reference</a><ul>
@@ -134,7 +145,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../core.html#laps">Laps</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#lap">Lap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#telemetry">Telemetry</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../core.html#driver">Driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#results">Results</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../core.html#exceptions">Exceptions</a></li>
@@ -142,10 +153,25 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code> - Api module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code> - Utils module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../plotting.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code> - Plotting module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../livetiming.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code> - Live Timing Client</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../events.html">Event Schedule - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.events</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../events.html#event-schedule-data">Event Schedule Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../events.html#supported-seasons">Supported Seasons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events.html#event-schedule">Event Schedule</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../events.html#session-identifiers">Session identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../events.html#functions-for-accessing-schedule-data">Functions for accessing schedule data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../events.html#data-objects">Data Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../events.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Api Functions - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.api</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utils module - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting.html">Plotting - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.plotting</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../livetiming.html">Live Timing Client - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.livetiming</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../livetiming.html#usage-example">Usage Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../livetiming.html#important-notes">Important Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../livetiming.html#command-line-interface">Command Line Interface</a><ul>
@@ -157,7 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../livetiming.html#module-fastf1.livetiming.data">Live Timing Data Object</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../legacy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code> - Provides access to legacy functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">Legacy Functionality - <code class="xref py py-mod docutils literal notranslate"><span class="pre">fastf1.legacy</span></code></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Information:</span></p>
 <ul>
@@ -179,6 +205,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-2-0">v2.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-13-more-bug-fixes">v2.1.13 More Bug Fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-12-fixes-and-patches">v2.1.12 Fixes and Patches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v2-1-11-fixes-and-patches">v2.1.11 Fixes and Patches</a></li>
@@ -289,18 +316,18 @@ to download the full example code</p>
 <span class="c1"># we only want support for timedelta plotting in this example</span>
 <span class="n">fastf1</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">setup_mpl</span><span class="p">(</span><span class="n">mpl_timedelta_support</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color_scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">misc_mpl_mods</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">quali</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Spanish Grand Prix&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
-<span class="n">laps</span> <span class="o">=</span> <span class="n">quali</span><span class="o">.</span><span class="n">load_laps</span><span class="p">()</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">fastf1</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="s1">&#39;Spanish Grand Prix&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>First, we need to get an array of all drivers.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">drivers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">drivers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">drivers</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;VER&#39; &#39;HAM&#39; &#39;LEC&#39; &#39;SAI&#39; &#39;BOT&#39; &#39;NOR&#39; &#39;GAS&#39; &#39;RIC&#39; &#39;RAI&#39; &#39;PER&#39; &#39;ALO&#39; &#39;TSU&#39;
- &#39;OCO&#39; &#39;STR&#39; &#39;RUS&#39; &#39;GIO&#39; &#39;VET&#39; &#39;LAT&#39; &#39;MSC&#39; &#39;MAZ&#39;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;HAM&#39; &#39;VER&#39; &#39;BOT&#39; &#39;LEC&#39; &#39;OCO&#39; &#39;SAI&#39; &#39;RIC&#39; &#39;PER&#39; &#39;NOR&#39; &#39;ALO&#39; &#39;STR&#39; &#39;GAS&#39;
+ &#39;VET&#39; &#39;GIO&#39; &#39;RUS&#39; &#39;TSU&#39; &#39;RAI&#39; &#39;MSC&#39; &#39;LAT&#39; &#39;MAZ&#39;]
 </pre></div>
 </div>
 <p>After that we’ll get each drivers fastest lap, create a new laps object
@@ -308,7 +335,7 @@ from these laps, sort them by lap time and have pandas reindex them to
 number them nicely by starting position.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">list_fastest_laps</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">drv</span> <span class="ow">in</span> <span class="n">drivers</span><span class="p">:</span>
-    <span class="n">drvs_fastest_lap</span> <span class="o">=</span> <span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="n">drv</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
+    <span class="n">drvs_fastest_lap</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">laps</span><span class="o">.</span><span class="n">pick_driver</span><span class="p">(</span><span class="n">drv</span><span class="p">)</span><span class="o">.</span><span class="n">pick_fastest</span><span class="p">()</span>
     <span class="n">list_fastest_laps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drvs_fastest_lap</span><span class="p">)</span>
 <span class="n">fastest_laps</span> <span class="o">=</span> <span class="n">Laps</span><span class="p">(</span><span class="n">list_fastest_laps</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;LapTime&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -375,13 +402,13 @@ and ‘LapTimeDelta’ columns.</p>
 <p>Finally, give the plot a meaningful title</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lap_time_string</span> <span class="o">=</span> <span class="n">strftimedelta</span><span class="p">(</span><span class="n">pole_lap</span><span class="p">[</span><span class="s1">&#39;LapTime&#39;</span><span class="p">],</span> <span class="s1">&#39;%m:</span><span class="si">%s</span><span class="s1">.%ms&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">quali</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">quali</span><span class="o">.</span><span class="n">weekend</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2"> Qualifying</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;EventName&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2"> Qualifying</span><span class="se">\n</span><span class="s2">&quot;</span>
              <span class="sa">f</span><span class="s2">&quot;Fastest Lap: </span><span class="si">{</span><span class="n">lap_time_string</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">pole_lap</span><span class="p">[</span><span class="s1">&#39;Driver&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_qualifying_results_001.png" srcset="../_images/sphx_glr_plot_qualifying_results_001.png" alt="Spanish Grand Prix 2021 Qualifying Fastest Lap: 01:16.741 (HAM)" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.404 seconds)</p>
+<img src="../_images/sphx_glr_plot_qualifying_results_001.png" srcset="../_images/sphx_glr_plot_qualifying_results_001.png" alt="Spanish Grand Prix 2021 Qualifying Fastest Lap: 01:16.741 (HAM)" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.579 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-gallery-plot-qualifying-results-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/daa8adf9c93a3442971d9f135c6d14b8/plot_qualifying_results.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_qualifying_results.py</span></code></a></p>

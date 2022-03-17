@@ -41,8 +41,8 @@ Plot the qualifying result with visualization the fastest times.
     # we only want support for timedelta plotting in this example
     fastf1.plotting.setup_mpl(mpl_timedelta_support=True, color_scheme=None, misc_mpl_mods=False)
 
-    quali = fastf1.get_session(2021, 'Spanish Grand Prix', 'Q')
-    laps = quali.load_laps()
+    session = fastf1.get_session(2021, 'Spanish Grand Prix', 'Q')
+    session.load()
 
 
 
@@ -61,7 +61,7 @@ First, we need to get an array of all drivers.
 .. code-block:: default
 
 
-    drivers = pd.unique(laps['Driver'])
+    drivers = pd.unique(session.laps['Driver'])
     print(drivers)
 
 
@@ -75,8 +75,8 @@ First, we need to get an array of all drivers.
 
  .. code-block:: none
 
-    ['VER' 'HAM' 'LEC' 'SAI' 'BOT' 'NOR' 'GAS' 'RIC' 'RAI' 'PER' 'ALO' 'TSU'
-     'OCO' 'STR' 'RUS' 'GIO' 'VET' 'LAT' 'MSC' 'MAZ']
+    ['HAM' 'VER' 'BOT' 'LEC' 'OCO' 'SAI' 'RIC' 'PER' 'NOR' 'ALO' 'STR' 'GAS'
+     'VET' 'GIO' 'RUS' 'TSU' 'RAI' 'MSC' 'LAT' 'MAZ']
 
 
 
@@ -94,7 +94,7 @@ number them nicely by starting position.
 
     list_fastest_laps = list()
     for drv in drivers:
-        drvs_fastest_lap = laps.pick_driver(drv).pick_fastest()
+        drvs_fastest_lap = session.laps.pick_driver(drv).pick_fastest()
         list_fastest_laps.append(drvs_fastest_lap)
     fastest_laps = Laps(list_fastest_laps).sort_values(by='LapTime').reset_index(drop=True)
 
@@ -238,7 +238,7 @@ Finally, give the plot a meaningful title
 
     lap_time_string = strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')
 
-    plt.suptitle(f"{quali.weekend.name} {quali.weekend.year} Qualifying\n"
+    plt.suptitle(f"{session.event['EventName']} {session.event.year} Qualifying\n"
                  f"Fastest Lap: {lap_time_string} ({pole_lap['Driver']})")
 
     plt.show()
@@ -257,7 +257,7 @@ Finally, give the plot a meaningful title
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.404 seconds)
+   **Total running time of the script:** ( 0 minutes  1.579 seconds)
 
 
 .. _sphx_glr_download_examples_gallery_plot_qualifying_results.py:
