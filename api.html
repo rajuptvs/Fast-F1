@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Api Functions - fastf1.api &mdash; Fast F1 2.2.1 documentation</title>
+  <title>Api Functions - fastf1.api &mdash; Fast F1 2.2.2 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.2.1
+                2.2.2
               </div>
             
           
@@ -205,6 +205,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-2">v2.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-1">v2.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-0">v2.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-13-more-bug-fixes">v2.1.13 More Bug Fixes</a></li>
@@ -344,13 +345,13 @@ in <a class="reference internal" href="core.html#module-fastf1.core" title="fast
 </table>
 <dl class="py data">
 <dt class="sig sig-object py" id="fastf1.api.pages">
-<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'archive_status':</span> <span class="pre">'ArchiveStatus.json',</span> <span class="pre">'audio_streams':</span> <span class="pre">'AudioStreams.jsonStream',</span> <span class="pre">'car_data':</span> <span class="pre">'CarData.z.jsonStream',</span> <span class="pre">'championship_prediction':</span> <span class="pre">'ChampionshipPrediction.jsonStream',</span> <span class="pre">'content_streams':</span> <span class="pre">'ContentStreams.jsonStream',</span> <span class="pre">'driver_list':</span> <span class="pre">'DriverList.jsonStream',</span> <span class="pre">'extrapolated_clock':</span> <span class="pre">'ExtrapolatedClock.jsonStream',</span> <span class="pre">'heartbeat':</span> <span class="pre">'Heartbeat.jsonStream',</span> <span class="pre">'lap_count':</span> <span class="pre">'LapCount.jsonStream',</span> <span class="pre">'position':</span> <span class="pre">'Position.z.jsonStream',</span> <span class="pre">'race_control_messages':</span> <span class="pre">'RaceControlMessages.json',</span> <span class="pre">'session_data':</span> <span class="pre">'SessionData.json',</span> <span class="pre">'session_info':</span> <span class="pre">'SessionInfo.json',</span> <span class="pre">'session_status':</span> <span class="pre">'SessionStatus.jsonStream',</span> <span class="pre">'team_radio':</span> <span class="pre">'TeamRadio.jsonStream',</span> <span class="pre">'timing_app_data':</span> <span class="pre">'TimingAppData.jsonStream',</span> <span class="pre">'timing_data':</span> <span class="pre">'TimingData.jsonStream',</span> <span class="pre">'timing_stats':</span> <span class="pre">'TimingStats.jsonStream',</span> <span class="pre">'track_status':</span> <span class="pre">'TrackStatus.jsonStream',</span> <span class="pre">'weather_data':</span> <span class="pre">'WeatherData.jsonStream'}</span></em><a class="headerlink" href="#fastf1.api.pages" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">pages</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_status':</span> <span class="pre">'ArchiveStatus.json',</span> <span class="pre">'audio_streams':</span> <span class="pre">'AudioStreams.jsonStream',</span> <span class="pre">'car_data':</span> <span class="pre">'CarData.z.jsonStream',</span> <span class="pre">'championship_prediction':</span> <span class="pre">'ChampionshipPrediction.jsonStream',</span> <span class="pre">'content_streams':</span> <span class="pre">'ContentStreams.jsonStream',</span> <span class="pre">'driver_list':</span> <span class="pre">'DriverList.jsonStream',</span> <span class="pre">'extrapolated_clock':</span> <span class="pre">'ExtrapolatedClock.jsonStream',</span> <span class="pre">'heartbeat':</span> <span class="pre">'Heartbeat.jsonStream',</span> <span class="pre">'lap_count':</span> <span class="pre">'LapCount.jsonStream',</span> <span class="pre">'position':</span> <span class="pre">'Position.z.jsonStream',</span> <span class="pre">'race_control_messages':</span> <span class="pre">'RaceControlMessages.json',</span> <span class="pre">'session_data':</span> <span class="pre">'SessionData.json',</span> <span class="pre">'session_info':</span> <span class="pre">'SessionInfo.json',</span> <span class="pre">'session_status':</span> <span class="pre">'SessionStatus.jsonStream',</span> <span class="pre">'team_radio':</span> <span class="pre">'TeamRadio.jsonStream',</span> <span class="pre">'timing_app_data':</span> <span class="pre">'TimingAppData.jsonStream',</span> <span class="pre">'timing_data':</span> <span class="pre">'TimingData.jsonStream',</span> <span class="pre">'timing_stats':</span> <span class="pre">'TimingStats.jsonStream',</span> <span class="pre">'track_status':</span> <span class="pre">'TrackStatus.jsonStream',</span> <span class="pre">'weather_data':</span> <span class="pre">'WeatherData.jsonStream'}</span></em><a class="headerlink" href="#fastf1.api.pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Known API requests</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fastf1.api.Cache">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">Cache</span></span><a class="reference internal" href="_modules/fastf1/api.html#Cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">Cache</span></span><a class="reference internal" href="_modules/fastf1/api.html#Cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pickle and requests based API cache.</p>
 <p>The parsed API data will be saved as a pickled object.
 Raw GET requests are cached in a sqlite db using the ‘requests-cache’
@@ -382,7 +383,7 @@ circumstances which are usually limited to doing core developement
 on FastF1.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.enable_cache">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enable_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_renew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_requests_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.enable_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.enable_cache" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">enable_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_renew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_requests_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.enable_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.enable_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables the API cache.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -399,7 +400,7 @@ on FastF1.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.requests_get">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">requests_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.requests_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.requests_get" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">requests_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.requests_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.requests_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps <cite>requests.Session().get()</cite> with caching if enabled.</p>
 <p>All GET requests that require caching should be performed through this
 wrapper. Caching will be done if the module-wide cache has been
@@ -409,7 +410,7 @@ caching.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.requests_post">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">requests_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.requests_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.requests_post" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">requests_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.requests_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.requests_post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps <cite>requests.Session().post()</cite> with caching if enabled.</p>
 <p>All POST requests that require caching should be performed through this
 wrapper. Caching will be done if the module-wide cache has been
@@ -419,7 +420,7 @@ caching.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.clear_cache">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.clear_cache" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.clear_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear all cached data.</p>
 <p>This deletes all cache files in the provided cache directory.
 Optionally, the requests cache is cleared too.</p>
@@ -441,7 +442,7 @@ delete the sqlite file in the root of the cache directory.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.api_request_wrapper">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">api_request_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.api_request_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.api_request_wrapper" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">api_request_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.api_request_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.api_request_wrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper function for adding stage 2 caching to api functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -455,7 +456,7 @@ delete the sqlite file in the root of the cache directory.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.disabled">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.disabled" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.disabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a context manager object that creates a context within
 which the cache is temporarily disabled.</p>
 <p>Example:</p>
@@ -472,7 +473,7 @@ which the cache is temporarily disabled.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.set_disabled">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.set_disabled" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">set_disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.set_disabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable the cache while keeping the configuration intact.</p>
 <p>This disables stage 1 and stage 2 caching!</p>
 <p>You can enable the cache at any time using <a class="reference internal" href="#fastf1.api.Cache.set_enabled" title="fastf1.api.Cache.set_enabled"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_enabled()</span></code></a></p>
@@ -490,7 +491,7 @@ context.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.api.Cache.set_enabled">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.set_enabled" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">set_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.Cache.set_enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable the cache after it has been disabled with
 <a class="reference internal" href="#fastf1.api.Cache.set_disabled" title="fastf1.api.Cache.set_disabled"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_disabled()</span></code></a>.</p>
 <div class="admonition warning">
@@ -946,7 +947,7 @@ Timestamps and data need to be separated before and only the data must be passed
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="fastf1.api.SessionNotAvailableError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">SessionNotAvailableError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#SessionNotAvailableError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.SessionNotAvailableError" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">SessionNotAvailableError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#SessionNotAvailableError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.SessionNotAvailableError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raised if an api request returned no data for the requested session.
 A likely cause is that the session does not exist because it was cancelled.</p>
 </dd></dl>

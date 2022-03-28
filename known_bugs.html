@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Known bugs and caveats &mdash; Fast F1 2.2.1 documentation</title>
+  <title>Known bugs and caveats &mdash; Fast F1 2.2.2 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.2.1
+                2.2.2
               </div>
             
           
@@ -205,6 +205,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-2">v2.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-1">v2.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-0">v2.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-1-13-more-bug-fixes">v2.1.13 More Bug Fixes</a></li>
@@ -299,11 +300,15 @@
 <ul>
 <li><p>Deleted Laps</p>
 <blockquote>
-<div><p>It is currently not possible to determine if a lap time was deleted
+<div><p>It is not possible to determine if a lap time was deleted
 (usually because track limits were violated).
-<a class="reference internal" href="core.html#fastf1.core.Laps.pick_fastest" title="fastf1.core.Laps.pick_fastest"><code class="xref py py-func docutils literal notranslate"><span class="pre">Laps.pick_fastest</span></code></a> may therefore
-return a lap that is not actually relevant for the final result of
-qualifying.</p>
+The official fastest lap of a driver is marked as personal best lap.
+If one or multiple laps of a driver are faster than their respective
+personal best lap, one can deduce that these faster laps must have
+been deleted. There may exist deleted laps that are slower than the
+personal best lap of any driver. These cannot be marked!
+<a class="reference internal" href="core.html#fastf1.core.Laps.pick_fastest" title="fastf1.core.Laps.pick_fastest"><code class="xref py py-func docutils literal notranslate"><span class="pre">Laps.pick_fastest</span></code></a> will by
+default return the fastest personal best lap.</p>
 </div></blockquote>
 </li>
 <li><p>Missing telemetry</p>
