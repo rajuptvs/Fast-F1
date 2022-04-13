@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Time, Date and Timing - Explanation &mdash; Fast F1 2.2.2 documentation</title>
+  <title>Time, Date and Timing - Explanation &mdash; Fast F1 2.2.3 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.2.2
+                2.2.3
               </div>
             
           
@@ -205,6 +205,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-2-3">v0.2.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-2">v2.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-1">v2.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-0">v2.2.0</a></li>
@@ -330,26 +331,31 @@ zero point for this set of data.</p>
 <cite>SessionTime</cite>. But its value for <cite>Time</cite> will change when the dataset is modified.</p>
 <p>Take the following set of example telemetry. Lets assume the variable <cite>tel</cite> holds previously loaded telemetry data
 for one driver an for a full session (only time data is shown for simplification).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">car_data</span><span class="p">[</span><span class="s1">&#39;33&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;SessionTime&#39;</span><span class="p">,</span> <span class="s1">&#39;Date&#39;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span>
 <span class="go">                        Time            SessionTime                    Date</span>
 <span class="go">0     0 days 00:00:02.984000 0 days 00:00:02.984000 2020-09-06 12:40:03.180</span>
 <span class="go">1     0 days 00:00:03.224000 0 days 00:00:03.224000 2020-09-06 12:40:03.420</span>
 <span class="go">2     0 days 00:00:03.464000 0 days 00:00:03.464000 2020-09-06 12:40:03.660</span>
 <span class="go">3     0 days 00:00:03.704000 0 days 00:00:03.704000 2020-09-06 12:40:03.900</span>
 <span class="go">4     0 days 00:00:03.944000 0 days 00:00:03.944000 2020-09-06 12:40:04.140</span>
-<span class="go">                      ...                    ...                     ...</span>
+<span class="gp">... </span>                     <span class="o">...</span>                    <span class="o">...</span>                     <span class="o">...</span>
 <span class="go">35533 0 days 02:23:27.764000 0 days 02:23:27.764000 2020-09-06 15:03:27.960</span>
 <span class="go">35534 0 days 02:23:28.004000 0 days 02:23:28.004000 2020-09-06 15:03:28.200</span>
 <span class="go">35535 0 days 02:23:28.244000 0 days 02:23:28.244000 2020-09-06 15:03:28.440</span>
 <span class="go">35536 0 days 02:23:28.484000 0 days 02:23:28.484000 2020-09-06 15:03:28.680</span>
 <span class="go">35537 0 days 02:23:28.724000 0 days 02:23:28.724000 2020-09-06 15:03:28.920</span>
+
 <span class="go">[35538 rows x 3 columns]</span>
 </pre></div>
 </div>
-<p>The session (a race in this case) lasted about 2 hours and 23 minutes. <cite>SessionTime</cite> and <cite>Time</cite> are exactly the same
-for this set of data. This is how the data looks as it is created by the api functions.
+<p>The telemetry comprises approximately 2 hours and 23 minutes of data.
+The session (a race in this case) did not last this long, but the data starts
+before the beginning of the session and ends after the end.
+<cite>SessionTime</cite> and <cite>Time</cite> are exactly the same for this set of data.
+This is how the data looks as it is created by the api functions.
 Next, the data is sliced to only include a subset of the full session.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span><span class="o">.</span><span class="n">slice_by_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
 <span class="go">                        Time            SessionTime                    Date</span>
@@ -358,12 +364,13 @@ Next, the data is sliced to only include a subset of the full session.</p>
 <span class="go">19813 0 days 00:00:00.676000 0 days 01:20:00.676000 2020-09-06 14:00:00.872</span>
 <span class="go">19814 0 days 00:00:00.916000 0 days 01:20:00.916000 2020-09-06 14:00:01.112</span>
 <span class="go">19815 0 days 00:00:01.156000 0 days 01:20:01.156000 2020-09-06 14:00:01.352</span>
-<span class="go">                      ...                    ...                     ...</span>
+<span class="gp">... </span>                     <span class="o">...</span>                    <span class="o">...</span>                     <span class="o">...</span>
 <span class="go">22288 0 days 00:09:59.076000 0 days 01:29:59.076000 2020-09-06 14:09:59.272</span>
 <span class="go">22289 0 days 00:09:59.277000 0 days 01:29:59.277000 2020-09-06 14:09:59.473</span>
 <span class="go">22290 0 days 00:09:59.517000 0 days 01:29:59.517000 2020-09-06 14:09:59.713</span>
 <span class="go">22291 0 days 00:09:59.757000 0 days 01:29:59.757000 2020-09-06 14:09:59.953</span>
 <span class="go">22292 0 days 00:09:59.997000 0 days 01:29:59.997000 2020-09-06 14:10:00.193</span>
+
 <span class="go">[2482 rows x 3 columns]</span>
 </pre></div>
 </div>
@@ -376,13 +383,13 @@ If this subset of data was sliced again, <cite>Time</cite> would change again so
 a common zero point.</p>
 <p><cite>Date</cite> is useful when checking out something in reference to commonly used human time.</p>
 <p>The relation between <cite>SessionTime</cite> and <cite>Date</cite> is a constant offset. This value is available through the session class.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">t0_date</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">t0_date</span>
 <span class="go">Timestamp(&#39;2020-09-06 12:40:00.196000&#39;)</span>
 </pre></div>
 </div>
 <p>As already mentioned above, the zero point of the session time is before the actual start of a session. The session
 itself officially starts at some later point in time. This value is also available through the session class.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">session_start_time</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span><span class="o">.</span><span class="n">session_start_time</span>
 <span class="go">datetime.timedelta(seconds=2008, microseconds=79000)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">session_start_time</span><span class="p">)</span>
 <span class="go">&#39;0:33:28.079000&#39;</span>
