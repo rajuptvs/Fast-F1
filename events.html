@@ -397,7 +397,7 @@ case-insensitive</p></li>
 <h2>Data Objects<a class="headerlink" href="#data-objects" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="overview">
 <h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -416,7 +416,7 @@ case-insensitive</p></li>
 <h3>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="fastf1.events.EventSchedule">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fastf1.events.</span></span><span class="sig-name descname"><span class="pre">EventSchedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_default_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/events.html#EventSchedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.events.EventSchedule" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fastf1.events.</span></span><span class="sig-name descname"><span class="pre">EventSchedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_default_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/events.html#EventSchedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.events.EventSchedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
 <p>This class implements a per-season event schedule.</p>
 <p>This class is usually not instantiated directly. You should use
@@ -438,38 +438,38 @@ the default columns exist</p></li>
 <p><span class="versionmodified added">New in version 2.2.</span></p>
 </div>
 <p><strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.EventSchedule.base_class_view" title="fastf1.events.EventSchedule.base_class_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_class_view</span></code></a></p></td>
 <td><p>For a nicer debugging experience; can view DataFrame through this property in various IDEs</p></td>
 </tr>
 </tbody>
 </table>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.EventSchedule.is_testing" title="fastf1.events.EventSchedule.is_testing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code></a>()</p></td>
 <td><p>Return <cite>True</cite> or <cite>False</cite>, depending on whether each event is a testing event.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_by_round</span></code>(round)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.events.EventSchedule.get_event_by_round" title="fastf1.events.EventSchedule.get_event_by_round"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_by_round</span></code></a>(round)</p></td>
 <td><p>Get an <a class="reference internal" href="#fastf1.events.Event" title="fastf1.events.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a> by its round number.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_by_name</span></code>(name)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.EventSchedule.get_event_by_name" title="fastf1.events.EventSchedule.get_event_by_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_by_name</span></code></a>(name)</p></td>
 <td><p>Get an <a class="reference internal" href="#fastf1.events.Event" title="fastf1.events.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a> by its name.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py property">
 <dt class="sig sig-object py" id="fastf1.events.EventSchedule.base_class_view">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">base_class_view</span></span><a class="headerlink" href="#fastf1.events.EventSchedule.base_class_view" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_class_view</span></span><a class="headerlink" href="#fastf1.events.EventSchedule.base_class_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>For a nicer debugging experience; can view DataFrame through
 this property in various IDEs</p>
 </dd></dl>
@@ -531,7 +531,7 @@ event for the British Grand Prix.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fastf1.events.Event">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fastf1.events.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/events.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.events.Event" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fastf1.events.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/events.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.events.Event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></p>
 <p>This class represents a single event (race weekend or testing event).</p>
 <p>Each event consists of one or multiple sessions, depending on the type
@@ -544,56 +544,56 @@ of event and depending on the event format.</p>
 </dd>
 </dl>
 <p><strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.Event.date" title="fastf1.events.Event.date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date</span></code></a></p></td>
 <td><p>Event race date (YYYY-MM-DD)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gp</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.events.Event.gp" title="fastf1.events.Event.gp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gp</span></code></a></p></td>
 <td><p>Event round number</p></td>
 </tr>
 </tbody>
 </table>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.Event.is_testing" title="fastf1.events.Event.is_testing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_testing</span></code></a>()</p></td>
 <td><p>Return <cite>True</cite> or <cite>False</cite>, depending on whether this event is a testing event.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_session_name</span></code>(identifier)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.events.Event.get_session_name" title="fastf1.events.Event.get_session_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_session_name</span></code></a>(identifier)</p></td>
 <td><p>Return the full session name of a specific session from this event.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_session_date</span></code>(identifier)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.Event.get_session_date" title="fastf1.events.Event.get_session_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_session_date</span></code></a>(identifier)</p></td>
 <td><p>Return the date and time (if available) at which a specific session of this event is or was held.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_session</span></code>(identifier)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.events.Event.get_session" title="fastf1.events.Event.get_session"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_session</span></code></a>(identifier)</p></td>
 <td><p>Return a session from this event.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_race</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.Event.get_race" title="fastf1.events.Event.get_race"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_race</span></code></a>()</p></td>
 <td><p>Return the race session.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_qualifying</span></code>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.events.Event.get_qualifying" title="fastf1.events.Event.get_qualifying"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_qualifying</span></code></a>()</p></td>
 <td><p>Return the qualifying session.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sprint</span></code>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.events.Event.get_sprint" title="fastf1.events.Event.get_sprint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sprint</span></code></a>()</p></td>
 <td><p>Return the sprint session.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_practice</span></code>(number)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.events.Event.get_practice" title="fastf1.events.Event.get_practice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_practice</span></code></a>(number)</p></td>
 <td><p>Return the specified practice session.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py property">
 <dt class="sig sig-object py" id="fastf1.events.Event.date">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#fastf1.events.Event.date" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#fastf1.events.Event.date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Event race date (YYYY-MM-DD)</p>
 <p>This wraps <code class="docutils literal notranslate"><span class="pre">self['EventDate'].strftime('%Y-%m-%d')</span></code></p>
 <div class="deprecated">
@@ -605,7 +605,7 @@ string representation of the datetime object</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="fastf1.events.Event.gp">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">gp</span></span><a class="headerlink" href="#fastf1.events.Event.gp" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gp</span></span><a class="headerlink" href="#fastf1.events.Event.gp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Event round number</p>
 <div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version 2.2: </span>use <code class="xref py py-attr docutils literal notranslate"><span class="pre">Event.eventNumber</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">Event['eventNumber']</span></code></p>

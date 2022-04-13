@@ -301,7 +301,7 @@
 <h2>Accessing Events and Sessions<a class="headerlink" href="#accessing-events-and-sessions" title="Permalink to this headline">¶</a></h2>
 <p>When using FastF1, you usually start by loading an event or a
 session. This can be done with one of the following functions:</p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -333,7 +333,7 @@ FastF1 will print an annoyingly obnoxious warning message if you do not
 enable caching.</p>
 <p>The following class-level functions are used to setup, enable and
 (temporarily) disable caching.</p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -424,11 +424,8 @@ create the event schedule</p></li>
 <li><p><strong>event</strong> – deprecated; use identifier instead</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="core.html#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="core.html#fastf1.core.Session" title="fastf1.core.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -536,7 +533,7 @@ create the event schedule</p></li>
 <h3>Cache API<a class="headerlink" href="#cache-api" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="fastf1.Cache">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fastf1.</span></span><span class="sig-name descname"><span class="pre">Cache</span></span><a class="reference internal" href="_modules/fastf1/api.html#Cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fastf1.</span></span><span class="sig-name descname"><span class="pre">Cache</span></span><a class="reference internal" href="_modules/fastf1/api.html#Cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pickle and requests based API cache.</p>
 <p>The parsed API data will be saved as a pickled object.
 Raw GET requests are cached in a sqlite db using the ‘requests-cache’
@@ -567,7 +564,7 @@ expensive. Stage 2 caching is only used for some api functions.</p></li>
 circumstances which are usually limited to doing core developement
 on FastF1.</p>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -592,7 +589,7 @@ on FastF1.</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.Cache.enable_cache">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">enable_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_renew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_requests_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.enable_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.enable_cache" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enable_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_renew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_requests_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.enable_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.enable_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables the API cache.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -609,7 +606,7 @@ on FastF1.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.Cache.clear_cache">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.clear_cache" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.clear_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear all cached data.</p>
 <p>This deletes all cache files in the provided cache directory.
 Optionally, the requests cache is cleared too.</p>
@@ -631,7 +628,7 @@ delete the sqlite file in the root of the cache directory.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.Cache.disabled">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.disabled" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.disabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a context manager object that creates a context within
 which the cache is temporarily disabled.</p>
 <p>Example:</p>
@@ -648,7 +645,7 @@ which the cache is temporarily disabled.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.Cache.set_disabled">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">set_disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.set_disabled" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_disabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_disabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.set_disabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable the cache while keeping the configuration intact.</p>
 <p>This disables stage 1 and stage 2 caching!</p>
 <p>You can enable the cache at any time using <a class="reference internal" href="#fastf1.Cache.set_enabled" title="fastf1.Cache.set_enabled"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_enabled()</span></code></a></p>
@@ -666,7 +663,7 @@ context.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.Cache.set_enabled">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">set_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.set_enabled" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#Cache.set_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.Cache.set_enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable the cache after it has been disabled with
 <a class="reference internal" href="#fastf1.Cache.set_disabled" title="fastf1.Cache.set_disabled"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_disabled()</span></code></a>.</p>
 <div class="admonition warning">
