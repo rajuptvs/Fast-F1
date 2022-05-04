@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Api Functions - fastf1.api &mdash; Fast F1 2.2.4 documentation</title>
+  <title>Api Functions - fastf1.api &mdash; Fast F1 2.2.5 documentation</title>
   
 
   
@@ -72,7 +72,7 @@
             
             
               <div class="version">
-                2.2.4
+                2.2.5
               </div>
             
           
@@ -261,8 +261,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-2-4">v0.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-2-3">v0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-5">v2.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-4">v2.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-3">v2.2.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-2">v2.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-1">v2.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-0">v2.2.0</a></li>
@@ -387,16 +388,19 @@ in <a class="reference internal" href="core.html#module-fastf1.core" title="fast
 <tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.session_status_data" title="fastf1.api.session_status_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_status_data</span></code></a></p></td>
 <td><p>Fetch and parse session status data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.driver_info" title="fastf1.api.driver_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">driver_info</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.race_control_messages" title="fastf1.api.race_control_messages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">race_control_messages</span></code></a></p></td>
+<td><p>Fetch and parse race control messages.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.driver_info" title="fastf1.api.driver_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">driver_info</span></code></a></p></td>
 <td><p>Fetch driver information.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.weather_data" title="fastf1.api.weather_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.weather_data" title="fastf1.api.weather_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weather_data</span></code></a></p></td>
 <td><p>Fetch and parse weather data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetch_page</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetch_page</span></code></a></p></td>
 <td><p>Fetch data from the formula1 livetiming web api, given url base path and page name.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.api.parse" title="fastf1.api.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.api.parse" title="fastf1.api.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a></p></td>
 <td><p>Parse json and jsonStream as returned by livetiming.formula1.com</p></td>
 </tr>
 </tbody>
@@ -876,6 +880,52 @@ provides the following data channels per sample:</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A dictionary containing one key for each data channel and a list of values per key.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fastf1.api.SessionNotAvailableError" title="fastf1.api.SessionNotAvailableError"><strong>SessionNotAvailableError</strong></a> – in case the F1 livetiming api returns no data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fastf1.api.race_control_messages">
+<span class="sig-prename descclassname"><span class="pre">fastf1.api.</span></span><span class="sig-name descname"><span class="pre">race_control_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/api.html#race_control_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.api.race_control_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch and parse race control messages.</p>
+<p>Race control messages are sent by race control to all teams to notify of
+decisions and statuses of the session.</p>
+<p>Every message has the following attributes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Utc: Message timestamp</p></li>
+<li><p>Category (str): Type of message, “Other”, “Flag”, “Drs”, “CarEvent”</p></li>
+<li><p>Message (str): Content of message</p></li>
+</ul>
+</div></blockquote>
+<p>Other possible attributes are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Status (str): Status of context, e.g. “DISABLED” for disabling DRS</p></li>
+<li><p>Flag (str): Type of flag being waved “GREEN”, “RED”, “YELLOW”,
+“CLEAR”, “CHEQUERED”</p></li>
+<li><p>Scope (str): Scope of message “Track”, “Sector”, “Driver”</p></li>
+<li><p>Sector (int): Affected track sector for sector-scoped messages</p></li>
+<li><p>RacingNumber (str): Affected driver for CarEvent messages</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – api path base string (usually <code class="docutils literal notranslate"><span class="pre">Session.api_path</span></code>)</p></li>
+<li><p><strong>response</strong> – Response as returned by <a class="reference internal" href="#fastf1.api.fetch_page" title="fastf1.api.fetch_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_page()</span></code></a> can be passed if
+it was downloaded already.</p></li>
+<li><p><strong>livedata</strong> – An instance of
+<a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a> to use as a source
+instead of the api</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary containing one key for each data channel and a list of
+values per key.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#fastf1.api.SessionNotAvailableError" title="fastf1.api.SessionNotAvailableError"><strong>SessionNotAvailableError</strong></a> – in case the F1 livetiming api returns no data</p>

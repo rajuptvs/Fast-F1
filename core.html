@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Timing and Telemetry Data - fastf1.core &mdash; Fast F1 2.2.4 documentation</title>
+  <title>Timing and Telemetry Data - fastf1.core &mdash; Fast F1 2.2.5 documentation</title>
   
 
   
@@ -72,7 +72,7 @@
             
             
               <div class="version">
-                2.2.4
+                2.2.5
               </div>
             
           
@@ -261,8 +261,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-2-4">v0.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-2-3">v0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-5">v2.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-4">v2.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-3">v2.2.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-2">v2.2.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-1">v2.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v2-2-0">v2.2.0</a></li>
@@ -542,10 +543,13 @@ have various information about the session.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.session_status" title="fastf1.core.Session.session_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_status</span></code></a></p></td>
 <td><p>Session status data as returned by <a class="reference internal" href="api.html#fastf1.api.session_status_data" title="fastf1.api.session_status_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.session_status_data()</span></code></a></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.session_start_time" title="fastf1.core.Session.session_start_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.race_control_messages" title="fastf1.core.Session.race_control_messages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">race_control_messages</span></code></a></p></td>
+<td><p>Race Control messages as returned by <a class="reference internal" href="api.html#fastf1.api.race_control_messages" title="fastf1.api.race_control_messages"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.race_control_messages()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.session_start_time" title="fastf1.core.Session.session_start_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_start_time</span></code></a></p></td>
 <td><p>Session time at which the session was started according to the session status data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.t0_date" title="fastf1.core.Session.t0_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.t0_date" title="fastf1.core.Session.t0_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t0_date</span></code></a></p></td>
 <td><p>Date timestamp which marks the beginning of the data stream (the moment at which the session time is zero).</p></td>
 </tr>
 </tbody>
@@ -557,7 +561,7 @@ have various information about the session.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.load" title="fastf1.core.Session.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a>(*[, laps, telemetry, weather, livedata])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fastf1.core.Session.load" title="fastf1.core.Session.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a>(*[, laps, telemetry, weather, ...])</p></td>
 <td><p>Load session data from the supported APIs.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#fastf1.core.Session.load_laps" title="fastf1.core.Session.load_laps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_laps</span></code></a>([with_telemetry, livedata])</p></td>
@@ -723,6 +727,19 @@ is an instance of <a class="reference internal" href="#fastf1.core.Telemetry" ti
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="fastf1.core.Session.race_control_messages">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">race_control_messages</span></span><a class="headerlink" href="#fastf1.core.Session.race_control_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Race Control messages as returned by
+<a class="reference internal" href="api.html#fastf1.api.race_control_messages" title="fastf1.api.race_control_messages"><code class="xref py py-func docutils literal notranslate"><span class="pre">fastf1.api.race_control_messages()</span></code></a></p>
+<p>Data is available after calling <cite>Session.load</cite> with <code class="docutils literal notranslate"><span class="pre">messages=True</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Dataframe</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="fastf1.core.Session.session_start_time">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">session_start_time</span></span><a class="headerlink" href="#fastf1.core.Session.session_start_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Session time at which the session was
@@ -751,7 +768,7 @@ of the data stream (the moment at which the session time is zero).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fastf1.core.Session.load">
-<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telemetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.load" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telemetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">messages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livedata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fastf1/core.html#Session.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fastf1.core.Session.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load session data from the supported APIs.</p>
 <p>This method allows to flexibly load some or all data that FastF1 can
 give you access to. Without specifying any further options, all data
@@ -790,6 +807,7 @@ data of different laps.</p>
 <li><p><strong>laps</strong> (<em>bool</em>) – Load laps and session status data.</p></li>
 <li><p><strong>telemetry</strong> (<em>bool</em>) – Load telemetry data.</p></li>
 <li><p><strong>weather</strong> (<em>bool</em>) – Load weather data.</p></li>
+<li><p><strong>messages</strong> (<em>bool</em>) – Load race control messages for the session</p></li>
 <li><p><strong>livedata</strong> (<a class="reference internal" href="livetiming.html#fastf1.livetiming.data.LiveTimingData" title="fastf1.livetiming.data.LiveTimingData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fastf1.livetiming.data.LiveTimingData</span></code></a>, optional) – instead of requesting the data from the api, locally saved
 livetiming data can be used as a data source</p></li>
 </ul>
