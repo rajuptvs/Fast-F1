@@ -231,6 +231,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#creating-a-dedicated-environment">Creating a dedicated environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#retrieving-the-latest-version-of-the-code">Retrieving the latest version of the code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#installing-fastf1-in-editable-mode">Installing FastF1 in editable mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-pre-commit-hooks">Installing pre-commit hooks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#installing-additional-dependencies-for-development">Installing additional dependencies for development</a></li>
 </ul>
 </li>
@@ -402,6 +403,17 @@ using the command</p>
 environment so that Python will be able to import FastF1 from your
 development source directory. This allows you to import your modified version
 of FastF1 without re-installing after every change.</p>
+</div>
+<div class="section" id="installing-pre-commit-hooks">
+<span id="install-pre-commit"></span><h2>Installing pre-commit hooks<a class="headerlink" href="#installing-pre-commit-hooks" title="Permalink to this headline">¶</a></h2>
+<p>You can optionally install <a class="reference external" href="https://pre-commit.com/">pre-commit</a> hooks.
+These will automatically check flake8 and other style issues when you run
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>. The hooks are defined in the top level
+<code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code> file. To install the hooks</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pre</span><span class="o">-</span><span class="n">commit</span>
+<span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">install</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="installing-additional-dependencies-for-development">
 <h2>Installing additional dependencies for development<a class="headerlink" href="#installing-additional-dependencies-for-development" title="Permalink to this headline">¶</a></h2>

@@ -231,6 +231,7 @@
 <li class="toctree-l3"><a class="reference internal" href="devenv_setup.html#creating-a-dedicated-environment">Creating a dedicated environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="devenv_setup.html#retrieving-the-latest-version-of-the-code">Retrieving the latest version of the code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="devenv_setup.html#installing-fastf1-in-editable-mode">Installing FastF1 in editable mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="devenv_setup.html#installing-pre-commit-hooks">Installing pre-commit hooks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="devenv_setup.html#installing-additional-dependencies-for-development">Installing additional dependencies for development</a></li>
 </ul>
 </li>
@@ -464,12 +465,17 @@ that a link is created to the original issue.</p></li>
 <li><p>All public methods should have informative docstrings with sample usage when
 appropriate. Use the <a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">google docstring standard</a>.</p></li>
 <li><p>Formatting should follow the recommendations of <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, as enforced by
-<a class="reference external" href="https://flake8.pycqa.org/">flake8</a>.  You can check flake8 compliance from the command line with</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span> <span class="n">pytest</span><span class="o">-</span><span class="n">flake8</span>
-<span class="n">pytest</span> <span class="o">--</span><span class="n">flake8</span> <span class="o">--</span><span class="n">lint</span><span class="o">-</span><span class="n">only</span>
+<a class="reference external" href="https://flake8.pycqa.org/">flake8</a>. The maximum line length for all changed lines is 79 characters.
+You can check flake8 compliance from the command line with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">flake8</span>
+<span class="n">flake8</span> <span class="n">fastf1</span> <span class="n">examples</span>
 </pre></div>
 </div>
-<p>or your editor may provide integration with it.</p>
+<p>or your editor may provide integration with it. The above command will not
+flag lines that are too long!</p>
+<p>Flake8 will also be run before each commit if you have the pre-commit hooks
+installed (see <a class="reference internal" href="devenv_setup.html#install-pre-commit"><span class="std std-ref">Installing pre-commit hooks</span></a>). Contrary to the manual invocation of flake8, this will also flag
+lines which are too long!</p>
 </li>
 <li><p>Changes (both new features and bugfixes) should have good test coverage. See
 <a class="reference internal" href="testing.html#testing"><span class="std std-ref">Testing</span></a> for more details.</p></li>
