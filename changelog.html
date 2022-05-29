@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Changelog &mdash; Fast F1 2.2.7 documentation</title>
+  <title>Changelog &mdash; Fast F1 2.2.8 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                2.2.7
+                2.2.8
               </div>
             
           
@@ -261,6 +261,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v2-2-8">v2.2.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-2-7">v2.2.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-2-6">v2.2.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v2-2-5">v2.2.5</a></li>
@@ -358,6 +359,18 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="v2-2-8">
+<h2>v2.2.8<a class="headerlink" href="#v2-2-8" title="Permalink to this headline">¶</a></h2>
+<p>Bug Fixes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Ensure that <a class="reference internal" href="core.html#fastf1.core.Session.drivers" title="fastf1.core.Session.drivers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fastf1.core.Session.drivers</span></code></a> returns a list of
+unique values. This prevents problems that result from drivers being
+incorrectly listed multiple times in the session result information.
+(see #182 for example)</p></li>
+</ul>
+</div></blockquote>
+</div>
 <div class="section" id="v2-2-7">
 <h2>v2.2.7<a class="headerlink" href="#v2-2-7" title="Permalink to this headline">¶</a></h2>
 <p>Bug Fixes:</p>
