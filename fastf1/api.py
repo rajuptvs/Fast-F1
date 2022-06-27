@@ -527,6 +527,7 @@ def timing_data(path, response=None, livedata=None):
     return laps_data, stream_data
 
 
+
 def _laps_data_driver(driver_raw, empty_vals, drv):
     """
     Data is on a per-lap basis.
@@ -919,6 +920,39 @@ def timing_app_data(path, response=None, livedata=None):
                     data['Stint'][-1] = stint_number
 
     return pd.DataFrame(data)
+
+@Cache.api_request_wrapper
+def total_laps(path, response=None, livedata=None):
+    """Fetch and parse  Total Lap count of an Event.
+    Args:
+        path (str): api path base string (usually ``Session.api_path``)
+        response: Response as returned by :func:`fetch_page` can be passed if it was downloaded already.
+        livedata: An instance of :class:`fastf1.livetiming.data.LiveTimingData` to use as a source instead of the api
+    Returns:
+        | The total no of Laps of the event
+        """
+
+    if livedata is not None and livedata.has('lap_count'):
+        # does not need any further processing
+        logging.info("Loading total laps data...")
+        response = livedata.get('WeatherData')
+    elif response is None:
+        logging.info("Fetching Total Laps data...")
+        response = fetch_page(path, 'lap_count')
+        if response is None:  # no response received
+            raise SessionNotAvailableError(
+                "No data for this session! If this session only finished "
+                "recently, please try again in a few minutes."
+            )
+
+    for i, entry in enumerate(response):
+        if 'TotalLaps' in str(entry):
+            index_val=i
+
+    lap_count=response[index_val][1]
+    lap_count=lap_count.get('TotalLaps')
+    
+    return lap_count
 
 
 @Cache.api_request_wrapper
